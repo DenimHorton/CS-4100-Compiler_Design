@@ -1,3 +1,5 @@
+package Animal;
+
 public class Animal {
     int x = 5;
     String name = "Cat";
