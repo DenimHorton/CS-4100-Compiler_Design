@@ -31,10 +31,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-              cd ./code
-              javac helloworld.java
-              java helloworld
-              cd ./playground
+              cd ./code/playground
               javac playground.java
               java playground              
 
