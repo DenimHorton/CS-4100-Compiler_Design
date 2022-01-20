@@ -1,3 +1,5 @@
+import Animal;
+
 class palyground {
     public static void main(String[] args) {
         Animal myObj = new Animal();
