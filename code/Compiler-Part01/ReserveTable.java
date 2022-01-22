@@ -1,35 +1,40 @@
+import ADT.Stack;
 import ADT.*;
+import java.util.*;
 
 public class ReserveTable {
     
-    public int[][] internal_storage;
-
+    private Stack stack;
+    private ReservedWord new_word;
+    
     ReserveTable(int maxSize){
         // Constructor, initializes the internal storage to contain up to maxSize rows of data. The maximum size of
         // the structure will not change, and the ADT should operate correctly with fewer than maxSize entries; it
         // should not be required to add all the entries to fill the structure.
         System.out.println("\n-----------------------------------------\n"
-        +"Calling ReserveTable constructor . . .\n-----------------------------------------\n");
+        +"Calling ReserveTable constructor . . .\n-----------------------------------------");
 
-        this.internal_storage = new int[maxSize][3];
-        Stack stack = new Stack(maxSize); 
-    }
+        this.stack = new Stack(maxSize);
+        new_word = new ReservedWord("", 0);
+    } 
 
     public int Add(String name, int code){
+        int word_index = 0;
         // Adds a new row to the storage with name and code as the values.  Returns the index of the row where the
         // data was placed; just adds to end of list, and does not check for duplicates, and does not sort entries.
-        System.out.println("\n-----------------------------------------\n"
-        +"Calling ReserveTable Add . . .\n-----------------------------------------\n");
-
-        int indexed_row = 0;
-        return indexed_row;
-    }
+        System.out.println("\n-----------------------------------------\nCalling ReserveTable Add . . ."
+        +"\n-----------------------------------------");
+        new_word.set_code(code);
+        new_word.set_name(name);
+        word_index = this.stack.push(new_word);
+        return word_index;
+        }
 
     public int LookupName(String name){
         // Returns the integer code associated with name if name is in the table, else returns -1 to indicate a failed
         // search.  This must be a case insensitive search.
         System.out.println("\n-----------------------------------------\n"
-        +"Calling ReserveTable LookupName . . .\n-----------------------------------------\n");
+        +"Calling ReserveTable LookupName . . .\n-----------------------------------------");
 
         int int_name_code = 0;
         return int_name_code;
@@ -56,7 +61,7 @@ public class ReserveTable {
         System.out.println(filename);
     }
 
-    public static void reservedWordExsists(String wrd){
+    public void reservedWordExsists(String wrd){
         for(int tbl_wrd_indx=0; tbl_wrd_indx<stack.stack_array.length; tbl_wrd_indx++){
             System.out.println(stack.stack_array[tbl_wrd_indx]);
             if(stack.stack_array[tbl_wrd_indx].CompareToIgnoreCase(wrd) == 0){ 

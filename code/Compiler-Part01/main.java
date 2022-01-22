@@ -39,14 +39,9 @@ public class main {
         System.out.println("The Name for 5 is "+reserve.LookupCode(5));
         System.out.println("The Name for 8 is "+reserve.LookupCode(8));
         System.out.println("The Name for 28 is "+reserve.LookupCode(28));
-        
-        for(int i = 0; i < reserve.internal_storage.length; i++){
-            System.out.print(i+1 + ":\t[" );        
-            for(int j = 0; j < 3; j++){
-                System.out.print(reserve.internal_storage[i][j]);
-                System.out.print("], [");
-            }
-            System.out.println();
+
+        for(int i=0; i<stack.stack_array.length; i++){
+            System.out.print(stack.stack_array[i]);
         }
         
         // Print table to file
