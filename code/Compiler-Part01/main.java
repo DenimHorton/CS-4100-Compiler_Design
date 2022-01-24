@@ -43,8 +43,8 @@ public class main {
         for (int i = 0; i < reserve.stack.stack_array.length; i++) {
             System.out.print(i + ")\t" + reserve.stack.stack_array[i]);
             if (reserve.stack.stack_array[i] != null) {
-                System.out.print(":" + reserve.stack.stack_array[i].reserved_word);
-                System.out.println(":" + reserve.stack.stack_array[i].reserved_word_code);
+                System.out.println("\n\tReserved Word:" + reserve.stack.stack_array[i].reserved_word);
+                System.out.println("\tReserved Code:" + reserve.stack.stack_array[i].reserved_word_code);
             } else {
                 System.out.println();
             }
