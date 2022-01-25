@@ -1,11 +1,13 @@
 import ADT.Stack;
 import ADT.*;
-import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ReserveTable {
 
-    public Stack stack;
+    public static Stack stack;
     public ReservedWord new_word;
+    public static String path = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part01\\Reserve.txt";
 
     ReserveTable(int maxSize) {
         // Constructor, initializes the internal storage to contain up to maxSize rows
@@ -13,51 +15,49 @@ public class ReserveTable {
         // the structure will not change, and the ADT should operate correctly with
         // fewer than maxSize entries; it
         // should not be required to add all the entries to fill the structure.
-        System.out.println("\n-----------------------------------------\n"
-                + "Calling ReserveTable constructor . . .\n-----------------------------------------");
-
         stack = new Stack(maxSize);
     }
 
     public int Add(String name, int code) {
-        int word_index = 0;
+        int word_index;
         // Adds a new row to the storage with name and code as the values. Returns the
         // index of the row where the
         // data was placed; just adds to end of list, and does not check for duplicates,
         // and does not sort entries.
-        System.out.println("\n-----------------------------------------\nCalling ReserveTable Add . . ."
-                + "\n-----------------------------------------");
-        new_word = new ReservedWord();
-        System.out.println(new_word.reserved_word);
-        System.out.println(new_word.reserved_word_code);
+         new_word = new ReservedWord();
 
         new_word.set_code(code);
         new_word.set_name(name);
-        System.out.println(new_word.reserved_word);
-        System.out.println(new_word.reserved_word_code);
-        word_index = this.stack.push(new_word);
+        word_index = stack.push(new_word);
         return word_index;
     }
 
     public int LookupName(String name) {
         // Returns the integer code associated with name if name is in the table, else
-        // returns -1 to indicate a failed
-        // search. This must be a case insensitive search.
-        System.out.println("\n-----------------------------------------\n"
-                + "Calling ReserveTable LookupName . . .\n-----------------------------------------");
+        // returns -1 to indicate a failed search. This must be a case insensitive search.
+        int name_op_code = -1;
 
-        int int_name_code = 0;
-        return int_name_code;
+        for(int name_indx_iter = 0; name_indx_iter <= stack.stack_top; name_indx_iter++){
+            if(stack.stack_array[name_indx_iter].reserved_word.compareToIgnoreCase(name) == 0){
+                name_op_code = stack.stack_array[name_indx_iter].reserved_word_code; 
+                return name_op_code;
+            }
+        }
+        return name_op_code;
     }
 
     public String LookupCode(int code) {
         // Returns the associated name contained in the list if code is there, else an
         // empty string to indicate a failed
         // search for code.
-        System.out.println("\n-----------------------------------------\n"
-                + "Calling ReserveTable LookupCode . . .\n-----------------------------------------\n");
+        String str_name_code = "";
 
-        String str_name_code = " ";
+        for(int name_indx_iter = 0; name_indx_iter <= stack.stack_top; name_indx_iter++){
+            if(stack.stack_array[name_indx_iter].reserved_word_code == code){
+                str_name_code = stack.stack_array[name_indx_iter].reserved_word; 
+                return str_name_code;
+            }
+        }
         return str_name_code;
     }
 
@@ -69,20 +69,22 @@ public class ReserveTable {
         // empty lines must be omitted from the list. (If the list was initialized to a
         // maxSize of 100, but only 5 rows
         // were added, only 5 rows will be printed out.)
-        System.out.println("\n-----------------------------------------\n"
-                + "Calling ReserveTable PrintReserveTable . . .\n-----------------------------------------\n");
-
-        System.out.println(filename);
-    }
-
-    public void reservedWordExsists(String wrd) {
-        for (int tbl_wrd_indx = 0; tbl_wrd_indx < stack.stack_array.length; tbl_wrd_indx++) {
-            System.out.println(stack.stack_array[tbl_wrd_indx]);
-            if (stack.stack_array[tbl_wrd_indx].CompareToIgnoreCase(wrd) == 0) {
-                System.out.print("Found word . . .");
-                return True;
+        try {
+            FileWriter rs_tbl_writer = new FileWriter(path, false);
+            rs_tbl_writer.write("||Index||Name\t   ||Code ||\n");
+            rs_tbl_writer.write("----------------------------\n");
+            for (int i = 0; i < stack.stack_array.length; i++) {
+                if(stack.stack_array[i] == null){
+                    break;
+                } else { 
+                    String entry = String.format("||%-5s||%-10s||%-5s||\n", i, stack.stack_array[i].reserved_word, stack.stack_array[i].reserved_word_code);
+                    rs_tbl_writer.write(entry);
+                }
             }
+            rs_tbl_writer.close();
+        } catch (IOException e){
+            e.printStackTrace();
         }
-        return False;
+        System.out.println(filename);
     }
 }

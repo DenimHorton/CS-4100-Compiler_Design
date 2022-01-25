@@ -23,24 +23,14 @@ public class Stack {
     }
 
     public int push(ReservedWord rsrvd_wrd) {
-        System.out.println("\tCalling Stack method push . . .\n-----------------------------------------\n");
-        System.out.println("\tPushing " + rsrvd_wrd.reserved_word + " = " + rsrvd_wrd.reserved_word_code + " . . .");
         stack_top++;
         stack_array[stack_top] = new ReservedWord();
-        System.out.println("\t" + this.stack_array[stack_top]);
-        System.out.println("\t" + this.stack_array[stack_top].reserved_word);
-        System.out.println("\t" + this.stack_array[stack_top].reserved_word_code);
         stack_array[stack_top].set_name(rsrvd_wrd.reserved_word);
         stack_array[stack_top].set_code(rsrvd_wrd.reserved_word_code);
-        System.out.println("\t" + this.stack_array[stack_top]);
-        System.out.println("\t" + this.stack_array[stack_top].reserved_word);
-        System.out.println("\t" + this.stack_array[stack_top].reserved_word_code);
-
         return stack_top;
     }
 
     public ReservedWord pop() {
-        System.out.println("\tCalling Stack method pop . . .\n-----------------------------------------\n");
         return stack_array[stack_top];
     }
 }

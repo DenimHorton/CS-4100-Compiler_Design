@@ -19,12 +19,11 @@ public class main {
     public static void main(String[] args) {
         // Create the table
         ReserveTable reserve = new ReserveTable(25);
-        System.out.println("Capcity:\t" + reserve.stack.capacity);
-        System.out.println("Stack top:\t" + reserve.stack.stack_top);
-        System.out.println("Stack array:\t" + reserve.stack.stack_array);
+        // System.out.println("Capcity:\t" + reserve.stack.capacity);
+        // System.out.println("Stack top:\t" + reserve.stack.stack_top);
+        // System.out.println("Stack array:\t" + reserve.stack.stack_array);
         // Add to the table
         reserve.Add("cat", 15);
-        System.out.println(reserve.stack);
         reserve.Add("APPLE", 11);
         reserve.Add("Dog", 5);
         reserve.Add("DOnE", 21);
@@ -40,19 +39,9 @@ public class main {
         System.out.println("The Name for 8 is " + reserve.LookupCode(8));
         System.out.println("The Name for 28 is " + reserve.LookupCode(28));
 
-        for (int i = 0; i < reserve.stack.stack_array.length; i++) {
-            System.out.print(i + ")\t" + reserve.stack.stack_array[i]);
-            if (reserve.stack.stack_array[i] != null) {
-                System.out.println("\n\tReserved Word:" + reserve.stack.stack_array[i].reserved_word);
-                System.out.println("\tReserved Code:" + reserve.stack.stack_array[i].reserved_word_code);
-            } else {
-                System.out.println();
-            }
-        }
-
         // Print table to file
         System.out.println("Saving Printed Table to d:\\res.txt");
-        // reserve.PrintReserveTable("d:\\res.txt");
+        reserve.PrintReserveTable(reserve.path);
 
     }
 
