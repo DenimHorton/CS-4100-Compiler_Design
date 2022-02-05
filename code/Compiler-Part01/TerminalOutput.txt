@@ -1,0 +1,24 @@
+/usr/bin/env C:\\Users\\denim\\AppData\\Local\\Programs\\java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64\\bin\\java.exe -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:58412 -cp C:\\Users\\denim\\AppData\\Roaming\\Code\\User\\workspaceStorage\\a97f1c4110b326e451451bd8bb5c45ff\\redhat.java\\jdt_ws\\Compiler-Part01_dbcbfc4b\\bin fa21hw1.mainhw1 
+The Code for 'over' is 8
+The Code for 'DOG' is 5  
+The Code for 'Cat' is 15
+The Code for 'gone' is -1
+
+The Name for 11 is APPLE
+The Name for 5 is Dog
+The Name for 8 is Over
+The Name for 28 is
+Saving Printed Table to d:\res.txt
+
+denim@DESKTOP-1DBPUOT MINGW64 ~/Documents/School/CS-4100-Compiler_Design/Code/Compiler-Part01 (main)
+$  cd c:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part01 ; /usr/bin/env C:\\Users\\denim\\AppData\\Local\\Programs\\java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64\\bin\\java.exe -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:58527 -cp C:\\Users\\denim\\AppData\\Roaming\\Code\\User\\workspaceStorage\\a97f1c4110b326e451451bd8bb5c45ff\\redhat.java\\jdt_ws\\Compiler-Part01_dbcbfc4b\\bin fa21hw1.mainhw1
+The Code for 'over' is 8
+The Code for 'DOG' is 5
+The Code for 'Cat' is 15
+The Code for 'gone' is -1
+
+The Name for 11 is APPLE
+The Name for 5 is Dog
+The Name for 8 is Over
+The Name for 28 is
+Saving Printed Table toC:\Users\denim\Documents\School\CS-4100-Compiler_Design\Code\Compiler-Part01\fa21hw1\Reserve.txt

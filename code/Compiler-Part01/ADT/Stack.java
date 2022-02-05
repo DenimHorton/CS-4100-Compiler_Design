@@ -1,4 +1,12 @@
 package ADT;
+/**
+ * @author Robert Denim Horton
+ * @version 0.1
+ * This is PART ONE of the orverall compiler project.  
+ * 
+ * This File represents the data structure that will represent where the table
+ * values will be stored which part one is reserved words with op code values.
+ */
 
 public class Stack {
     /*
@@ -23,14 +31,18 @@ public class Stack {
     }
 
     public int push(ReservedWord rsrvd_wrd) {
+        /**
+         * This method will add and instance of a reserved word onto 
+         * the top of the objectArray.
+         * @param rsrvd_wrd This parameter is an object that is passed
+         * into this method to be pushed ontop of an objectArray that 
+         * is implemented as a stack.
+         * 
+         */
         stack_top++;
-        stack_array[stack_top] = new ReservedWord();
+        stack_array[stack_top] = rsrvd_wrd;
         stack_array[stack_top].set_name(rsrvd_wrd.reserved_word);
         stack_array[stack_top].set_code(rsrvd_wrd.reserved_word_code);
         return stack_top;
-    }
-
-    public ReservedWord pop() {
-        return stack_array[stack_top];
     }
 }
