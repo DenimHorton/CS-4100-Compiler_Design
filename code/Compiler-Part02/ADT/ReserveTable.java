@@ -22,7 +22,7 @@ public class ReserveTable {
     // public static Stack stack;
     public ReservedWordEntry rsrv_word;
     public static ReservedWordEntry[] rsrv_table;
-    public String path = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part01\\fa21hw1\\Reserve.txt";
+    public String path = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part02\\FA21HW1\\";
     private static int rsrv_table_index = -1;
 
     public ReserveTable(int maxSize) {
@@ -105,7 +105,7 @@ public class ReserveTable {
         return str_name;
     }
 
-    public static void PrintReserveTable(String filename) {
+    public void PrintReserveTable(String filename) {
         /**
          * Prints to the named plain ASCII text file the currently used contents of the 
          * Reserve table in neat tabular format, containing the index of the row, the
@@ -116,7 +116,7 @@ public class ReserveTable {
         try {
             // Build a tabulated representation of the reserve table and write it to 
             // a file.
-            FileWriter rs_tbl_writer = new FileWriter(filename, false);
+            FileWriter rs_tbl_writer = new FileWriter(path += filename, false);
             rs_tbl_writer.write("||Index||Name\t   ||Code ||\n");
             rs_tbl_writer.write("----------------------------\n");
             for (int i = 0; i <= rsrv_table_index; i++) {

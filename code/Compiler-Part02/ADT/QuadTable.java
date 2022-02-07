@@ -8,9 +8,9 @@ import java.io.IOException;
  * 
  */
 public class QuadTable {
-    public static int[][] quad_table;
-    private static int quad_table_index = -1;
-
+    public int[][] quad_table;
+    public int quad_table_index = -1;
+    public String quad_path = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part02\\FA21HW1\\";
     public QuadTable(int maxSize){
         /**
          * Constructor creates a new, empty QuadTable ready for data to
@@ -19,7 +19,7 @@ public class QuadTable {
          * along with a private int nextAvailable counter to keep track 
          * of which rows have been used so far.
          */
-        int[][] quad_table = new int[maxSize][4];
+        quad_table = new int[maxSize][4];
     }
 
     public int NextQuad(){
@@ -60,9 +60,9 @@ public class QuadTable {
          * important.
          */
         quad_table[index][0] = opcode;
-        quad_table[index][2] = op1;
-        quad_table[index][3] = op2;
-        quad_table[index][4] = op3;
+        quad_table[index][1] = op1;
+        quad_table[index][2] = op2;
+        quad_table[index][3] = op3;
     }
 
     public void PrintQuadTable(String filename){
@@ -73,18 +73,18 @@ public class QuadTable {
         try {
             // Build a tabulated representation of the reserve table and write it to 
             // a file.
-            FileWriter rs_tbl_writer = new FileWriter(filename, false);
-            rs_tbl_writer.write("||Index||operan||op1||op2||op3||\n");
-            rs_tbl_writer.write("----------------------------\n");
+            FileWriter quad_tbl_writer = new FileWriter(quad_path += filename, false);
+            quad_tbl_writer.write("||Index||Operand||Op1||Op2||Op3||\n");
+            quad_tbl_writer.write("----------------------------\n");
             for (int i = 0; i <= quad_table_index; i++) {
                 if(quad_table[i] == null){
                     break;
                 } else { 
                     String entry = String.format("||%-5s||%-10s||%-5s||%-5s||\n", i, quad_table[i][0], quad_table[i][1], quad_table[i][2], quad_table[i][3]);
-                    rs_tbl_writer.write(entry);
+                    quad_tbl_writer.write(entry);
                 }
             }
-            rs_tbl_writer.close();
+            quad_tbl_writer.close();
         } catch (IOException e){
             e.printStackTrace();
         }
