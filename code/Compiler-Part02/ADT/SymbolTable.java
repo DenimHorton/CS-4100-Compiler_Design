@@ -53,7 +53,8 @@ public class SymbolTable {
         // If we look the symbol in the table and get a -1 then we know the symbol
         // does not yet exsist in the table and as long at the next index is under 
         // the length of the table.
-        if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length){
+        System.out.print(smbol_table.length);
+        if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length-1){
             // Iterate to next open space.
             smbol_table_index ++;           
             // Add symbol entry to smbol table.
@@ -62,7 +63,7 @@ public class SymbolTable {
             return smbol_table_index;
         // If the symbol does exsist in the symbol table already we return the index
         // of that already exsisting symbol entry. 
-        } else if (LookupSymbol(symbol) != -1 && smbol_table_index < smbol_table.length){
+        } else if (LookupSymbol(symbol) != -1 && smbol_table_index < smbol_table.length-1){
             return LookupSymbol(symbol);
         // The only possible option know it that the next entry would be out of 
         // bounds for the length of the symbol table.
@@ -78,11 +79,20 @@ public class SymbolTable {
          */
 
         smbol_val_type_entry = new SymbolEntryType<Double>(symbol, kind, value);
-        if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length){
+        if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length-1){
+            // Iterate to next open space.
             smbol_table_index ++;           
-            smbol_table[smbol_table_index] = smbol_val_type_entry;        
+            // Add symbol entry to smbol table.
+            smbol_table[smbol_table_index] = smbol_val_type_entry; 
+            // Returns the index where the symbol was located.        
             return smbol_table_index;
-        } else {
+        // If the symbol does exsist in the symbol table already we return the index
+        // of that already exsisting symbol entry. 
+        } else if (LookupSymbol(symbol) != -1 && smbol_table_index < smbol_table.length-1){
+            return LookupSymbol(symbol);
+        // The only possible option know it that the next entry would be out of 
+        // bounds for the length of the symbol table.
+        } else{
             return -1;
         }
     }
@@ -94,11 +104,20 @@ public class SymbolTable {
          */
 
         smbol_val_type_entry = new SymbolEntryType<String>(symbol, kind, value);
-        if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length){
+        if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length-1){
+            // Iterate to next open space.
             smbol_table_index ++;           
-            smbol_table[smbol_table_index] = smbol_val_type_entry;        
+            // Add symbol entry to smbol table.
+            smbol_table[smbol_table_index] = smbol_val_type_entry; 
+            // Returns the index where the symbol was located.        
             return smbol_table_index;
-        } else {
+        // If the symbol does exsist in the symbol table already we return the index
+        // of that already exsisting symbol entry. 
+        } else if (LookupSymbol(symbol) != -1 && smbol_table_index < smbol_table.length-1){
+            return LookupSymbol(symbol);
+        // The only possible option know it that the next entry would be out of 
+        // bounds for the length of the symbol table.
+        } else{
             return -1;
         }
     }
@@ -109,7 +128,8 @@ public class SymbolTable {
          * Uses a non-case-sensitive comparison.
          * @param symbol Entry name to look up in the symbol table.
          */
-        // We iterate through the exsisting entry values in the table.
+        // We iterate through the exsisting entry values in the table based on our 
+        // top ointer for symbol table.
         for(int symbl_indx = 0; symbl_indx <= smbol_table_index; symbl_indx++){
             // Check if each netry matches untill all of been checked and returns
             // -1 of the index of where that symbol entry is.

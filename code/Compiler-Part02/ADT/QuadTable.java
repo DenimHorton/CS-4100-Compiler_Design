@@ -1,5 +1,4 @@
-// Robert Denim horton
-// CS 4100.001
+// Robert Denim horton CS2022
 package ADT;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -76,10 +76,11 @@ public class PlayGround {
         symbols.AddSymbol("23",'C', 2);
         symbols.AddSymbol("24",'C', 3);        
         symbols.AddSymbol("25",'C', 1);
+        symbols.AddSymbol("26",'C', 1);
 
 
 
-        for (int entry_indx=0; entry_indx < symbols.smbol_table_index; entry_indx++){
+        for (int entry_indx=0; entry_indx < symbols.smbol_table_index+1; entry_indx++){
             System.out.println(symbols.smbol_table[entry_indx].getClass().getSimpleName()+":");
             System.out.println("\t"+symbols.smbol_table[entry_indx].entry_kind);
             System.out.println("\t"+symbols.smbol_table[entry_indx].entry_name);
