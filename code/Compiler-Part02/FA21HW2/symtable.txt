@@ -1,0 +1,6 @@
+|TestInt|V|i|27|
+|TestDouble|V|f|42.25|
+|TestString|V|s|These are the times...|
+|135|C|i|135|
+|3.1415|C|f|3.1415|
+|Please Enter A Value|C|s|Please Enter A Value|

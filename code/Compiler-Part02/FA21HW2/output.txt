@@ -1,0 +1,18 @@
+Robert Denim horton
+CS 4100.001
+
+Testing the Symbol Table
+
+testint is located at 0
+PI is located at 4
+  the KIND for PI is C
+The KIND for slot 5 is C, data type is s and the value: Please Enter A Value
+BadVal search returned -1
+
+Testing the Quad Table
+
+At the start, NextQuad is: 0
+After one add, NextQuad is: 1
+Quad value at (4,3) is: 9
+Quad value at (4,3) is: 17
+Finally NextQuad is: 5

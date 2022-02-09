@@ -29,7 +29,7 @@ public class mainhw2 {
        +symbols.GetDataType(5)+" and the value: "+symbols.GetString(5));
        index = symbols.LookupSymbol("BadVal");
        System.out.println("BadVal search returned "+index+'\n');
-       symbols.PrintSymbolTable("symtable.txt");
+       symbols.PrintSymbolTable("C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part02\\FA21HW2\\symtable.txt");
        System.out.println("Testing the Quad Table\n");
        
        System.out.println("At the start, NextQuad is: "+ quads.NextQuad());
@@ -46,7 +46,7 @@ public class mainhw2 {
        quads.UpdateQuad(4,11,13,15,17);
        System.out.println("Quad value at (4,3) is: "+ quads.GetQuad(4,3));
        
-       quads.PrintQuadTable("quadtable.txt");
+       quads.PrintQuadTable("C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part02\\FA21HW2\\quadtable.txt");
        System.out.println("Finally NextQuad is: "+ quads.NextQuad());
        
        

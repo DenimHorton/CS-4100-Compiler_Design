@@ -1,16 +1,16 @@
+// Robert Denim horton
+// CS 4100.001
 package ADT;
 import java.io.FileWriter;
 import java.io.IOException;
 /**
  * @author Robert Denim Horton
- * Class CS 4100.001 'Compiler Design 1'
  * @version 2.0
  * 
  */
 public class QuadTable {
     public int[][] quad_table;
     public int quad_table_index = -1;
-    public String quad_path = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part02\\FA21HW1\\";
     public QuadTable(int maxSize){
         /**
          * Constructor creates a new, empty QuadTable ready for data to
@@ -39,11 +39,13 @@ public class QuadTable {
          * and increments the NextQuad counter to the next available (empty)
          * index when done.
          */
-        quad_table_index ++;
-        quad_table[quad_table_index][0] = opcode;
-        quad_table[quad_table_index][1] = op1;
-        quad_table[quad_table_index][2] = op2;
-        quad_table[quad_table_index][3] = op3;
+        if (quad_table_index < quad_table.length){
+            quad_table_index ++;
+            quad_table[quad_table_index][0] = opcode;
+            quad_table[quad_table_index][1] = op1;
+            quad_table[quad_table_index][2] = op2;
+            quad_table[quad_table_index][3] = op3;
+        }
     }
 
     public int GetQuad(int index, int column){
@@ -73,14 +75,12 @@ public class QuadTable {
         try {
             // Build a tabulated representation of the reserve table and write it to 
             // a file.
-            FileWriter quad_tbl_writer = new FileWriter(quad_path += filename, false);
-            quad_tbl_writer.write("||Index||Operand||Op1||Op2||Op3||\n");
-            quad_tbl_writer.write("----------------------------\n");
+            FileWriter quad_tbl_writer = new FileWriter(filename, false);
             for (int i = 0; i <= quad_table_index; i++) {
                 if(quad_table[i] == null){
                     break;
                 } else { 
-                    String entry = String.format("||%-5s||%-10s||%-5s||%-5s||\n", i, quad_table[i][0], quad_table[i][1], quad_table[i][2], quad_table[i][3]);
+                    String entry = String.format("%s|%s|%s|%s|\n", quad_table[i][0], quad_table[i][1], quad_table[i][2], quad_table[i][3]);
                     quad_tbl_writer.write(entry);
                 }
             }

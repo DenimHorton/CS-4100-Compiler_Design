@@ -1,7 +1,7 @@
+// Robert Denim horton CS2022
 package ADT;
 /**
  * @author Robert Denim Horton
- * Class CS 4100.001 'Compiler Design 1'
  * @version 2.0
  * 
  * This File represents the data structure that will store the objects 
@@ -22,7 +22,6 @@ public class ReserveTable {
     // public static Stack stack;
     public ReservedWordEntry rsrv_word;
     public static ReservedWordEntry[] rsrv_table;
-    public String path = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\Code\\Compiler-Part02\\FA21HW1\\";
     private static int rsrv_table_index = -1;
 
     public ReserveTable(int maxSize) {
@@ -116,7 +115,7 @@ public class ReserveTable {
         try {
             // Build a tabulated representation of the reserve table and write it to 
             // a file.
-            FileWriter rs_tbl_writer = new FileWriter(path += filename, false);
+            FileWriter rs_tbl_writer = new FileWriter(filename, false);
             rs_tbl_writer.write("||Index||Name\t   ||Code ||\n");
             rs_tbl_writer.write("----------------------------\n");
             for (int i = 0; i <= rsrv_table_index; i++) {
