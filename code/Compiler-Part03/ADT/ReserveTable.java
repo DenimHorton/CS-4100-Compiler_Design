@@ -21,8 +21,8 @@ public class ReserveTable {
 
     // public static Stack stack;
     public ReservedWordEntry rsrv_word;
-    public static ReservedWordEntry[] rsrv_table;
-    static int rsrv_table_index = -1;
+    public ReservedWordEntry[] rsrv_table;
+    public int rsrv_table_index = -1;
 
     public ReserveTable(int maxSize) {
         /**
@@ -124,6 +124,8 @@ public class ReserveTable {
          * name, and the code, one row per output text line. Any empty lines must be
          * omitted from the list. (If the list was initialized to a maxSize of 100, but
          * only 5 rows were added, only 5 rows will be printed out).
+         * @param filename The file name of .txt file where the 'ReserveTable' 
+         * 'rsrv_table' will be outputted to.
          */
         try {
             // Build a tabulated representation of the reserve table and write it to

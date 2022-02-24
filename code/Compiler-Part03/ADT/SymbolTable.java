@@ -56,7 +56,6 @@ public class SymbolTable {
         // If we look the symbol in the table and get a -1 then we know the symbol
         // does not yet exsist in the table and as long at the next index is under
         // the length of the table.
-        System.out.print(smbol_table.length);
         if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length - 1) {
             // Iterate to next open space.
             smbol_table_index++;

@@ -41,7 +41,7 @@ import ADT.*;
  */
 public class mainhw3 {
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\Admin\\Documents\\School\\CS-4100-Compiler_Design\\code\\Compiler-Part03\\FA21HW3";
+        String filePath = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\code\\Compiler-Part03\\FA21HW3\\";
         Interpreter interp = new Interpreter();
         SymbolTable st;
         QuadTable qt;

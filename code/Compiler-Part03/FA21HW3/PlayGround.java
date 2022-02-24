@@ -8,7 +8,7 @@ import ADT.*;
  */
 public class PlayGround {
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\Admin\\Documents\\School\\CS-4100-Compiler_Design\\code\\Compiler-Part03\\FA21HW3";
+        String filePath = "C:\\Users\\denim\\Documents\\School\\CS-4100-Compiler_Design\\code\\Compiler-Part03\\FA21HW3\\";
         Interpreter interp = new Interpreter();
         SymbolTable st;
         QuadTable qt;
@@ -16,6 +16,7 @@ public class PlayGround {
         // interpretation FACTORIAL
         st = new SymbolTable(20); // Create an empty SymbolTable
         qt = new QuadTable(20); // Create an empty QuadTable
+
         interp.initializeFactorialTest(st, qt); // Set up for FACTORIAL
         interp.InterpretQuads(qt, st, true, filePath + "traceFact.txt");
         st.PrintSymbolTable(filePath + "symbolTableFact.txt");
