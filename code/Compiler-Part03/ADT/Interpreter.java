@@ -178,22 +178,25 @@ public class Interpreter {
         // Integer value to represent where the specific sysmbol is 
         // stored.
         int retrived_symbol;
-        // Integer value for user input
+        // Integer value for user input.
         int input_value;
-        // Integer values for the opperands values
+        // Integer values for the opperands values.
         int retrived_op1;
         int retrived_op2;
         int retrived_op3;
 
+        // Overwrite new file by deleting it if it already exsits.
         File file = new File(filename);
         if (file.exists()){
             file.delete();
         } 
-
+        
+        // Prints log once so you know it ran and replaced new info.
         if(TraceOn){                
-            System.out.println("logging info . . .");
+            System.out.println("\nlogging info to:\n\t"+filename);
         }
 
+        this.logger("run:", filename);
         while (program_counter < MAXQUAD){
             // Retrive all the opcodes located as the indexing
             // program counter, 'program_counter'.
