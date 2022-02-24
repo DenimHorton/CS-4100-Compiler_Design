@@ -125,6 +125,8 @@ public class Interpreter {
         qtable.AddQuad(8, 0, 0, 2);     // JMP
         qtable.AddQuad(6, 2, 0, 0);     // PRINT
         qtable.AddQuad(0, 0, 0, 0);     // STOP
+
+        // Professor said no need for checking, simple return of true works. 
         return true;
     }
 
@@ -149,6 +151,8 @@ public class Interpreter {
         qtable.AddQuad(4, 1, 3, 1);    // ADD
         qtable.AddQuad(8, 0, 0, 2);    // JMP
         qtable.AddQuad(6, 2, 0, 0);    // PRINT
+
+        // Professor said no need for checking, simple return of true works. 
         return true;
     }
 
