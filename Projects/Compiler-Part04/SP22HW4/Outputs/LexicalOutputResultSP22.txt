@@ -1,0 +1,205 @@
+ant -f D:\\JavaProj\\Project2_SP22 -Dnb.internal.action.name=run run
+init:
+Deleting: D:\JavaProj\Project2_SP22\build\built-jar.properties
+deps-jar:
+Updating property file: D:\JavaProj\Project2_SP22\build\built-jar.properties
+Compiling 1 source file to D:\JavaProj\Project2_SP22\build\classes
+compile:
+
+NOTE:  2-CHAR MNEMONICS PROVIDED BELOW, STUDENTS MUST PROVIDE THEIR OWN 
+       5-CHAR MNEMONICS IN THEIR OUTPUT!
+
+run:
+0001 
+0002 
+0003 
+0004 
+0005 {Here is Lexical Test file SP2022
+0006    }
+0007 {}
+0008 
+0009 count:=10;
+	ID | 	0050 | 	count
+	AS | 	0037 | 	:=
+	IC | 	0051 | 	10
+	SM | 	0036 | 	;
+0010 b:=a+b-c*21.7/22;
+	ID | 	0050 | 	b
+	AS | 	0037 | 	:=
+	ID | 	0050 | 	a
+	PL | 	0032 | 	+
+	ID | 	0050 | 	b
+	MN | 	0033 | 	-
+	ID | 	0050 | 	c
+	MU | 	0031 | 	*
+	FC | 	0052 | 	21.7
+	DV | 	0030 | 	/
+	IC | 	0051 | 	22
+	SM | 	0036 | 	;
+0011      123456789112345 (*this number is 15 chars, truncate to 6 *)
+Integer length > 6, truncated 123456789112345 to 123456
+	IC | 	0051 | 	123456789112345
+0012      12.34567891134567 (*this number is 17 chars, but should be 
+Float length > 12, truncated 12.34567891134567 to 12.345678911
+	FC | 	0052 | 	12.34567891134567
+0013 	                     truncated to 12 in the symbol table*)
+0014 
+0015 hereisareallylongidentifierthatistoolong := 200;
+Identifier length > 20, truncated hereisareallylongidentifierthatistoolong to hereisareallylongide
+	ID | 	0050 | 	hereisareallylongidentifierthatistoolong
+	AS | 	0037 | 	:=
+	IC | 	0051 | 	200
+	SM | 	0036 | 	;
+0016   hereisareallylongidentifierthatissameasabovetruncated := 76.5E-12;
+Identifier length > 20, truncated hereisareallylongidentifierthatissameasabovetruncated to hereisareallylongide
+	ID | 	0050 | 	hereisareallylongidentifierthatissameasabovetruncated
+	AS | 	0037 | 	:=
+	FC | 	0052 | 	76.5E-12
+	SM | 	0036 | 	;
+0017   109.E+10      12.33E5 
+	FC | 	0052 | 	109.E+10
+	FC | 	0052 | 	12.33E5
+0018   12.4 E-2
+	FC | 	0052 | 	12.4
+	ID | 	0050 | 	E
+	MN | 	0033 | 	-
+	IC | 	0051 | 	2
+0019   
+0020    *) {<-- Orphaned cloed comment is just '*' and ')' returned as separate tokens}
+	MU | 	0031 | 	*
+	RP | 	0035 | 	)
+0021            myString_1 : = "an unfinished string makes an error ;
+	ID | 	0050 | 	myString_1
+	CL | 	0047 | 	:
+	EQ | 	0042 | 	=
+Unterminated String
+0022   (*test single #and two char tokens *)
+	UK | 	0099 | 	an unfinished string makes an error ;
+0023      # /*^&%+-  some more (   ) (**) ;:=><>=<==<>,[]:.
+	UK | 	0099 | 	#
+	DV | 	0030 | 	/
+	MU | 	0031 | 	*
+	UK | 	0099 | 	^
+	UK | 	0099 | 	&
+	UK | 	0099 | 	%
+	PL | 	0032 | 	+
+	MN | 	0033 | 	-
+	ID | 	0050 | 	some
+	ID | 	0050 | 	more
+	LP | 	0034 | 	(
+	RP | 	0035 | 	)
+	SM | 	0036 | 	;
+	AS | 	0037 | 	:=
+	GR | 	0038 | 	>
+	NQ | 	0043 | 	<>
+	EQ | 	0042 | 	=
+	LE | 	0041 | 	<=
+	EQ | 	0042 | 	=
+	NQ | 	0043 | 	<>
+	CO | 	0044 | 	,
+	LB | 	0045 | 	[
+	RB | 	0046 | 	]
+	CL | 	0047 | 	:
+	PD | 	0048 | 	.
+0024 (*reserve words 
+0025 below........................... *)  "but first is a good string"
+	SC | 	0053 | 	but first is a good string
+0026   GO_TO JumpOut;  INTEGER TO DOWHILE
+	GO | 	0000 | 	GO_TO
+	ID | 	0050 | 	JumpOut
+	SM | 	0036 | 	;
+	IN | 	0001 | 	INTEGER
+	TO | 	0002 | 	TO
+	DW | 	0014 | 	DOWHILE
+0027 	begin  if not then that else nothing
+	BG | 	0011 | 	begin
+	IF | 	0004 | 	if
+	ID | 	0050 | 	not
+	TH | 	0005 | 	then
+	ID | 	0050 | 	that
+	EL | 	0006 | 	else
+	ID | 	0050 | 	nothing
+0028 THEN ELSE
+	TH | 	0005 | 	THEN
+	EL | 	0006 | 	ELSE
+0029 For I := 1 to 100.E7 of float do
+	FR | 	0007 | 	For
+	ID | 	0050 | 	I
+	AS | 	0037 | 	:=
+	IC | 	0051 | 	1
+	TO | 	0002 | 	to
+	FC | 	0052 | 	100.E7
+	OF | 	0008 | 	of
+	FL | 	0023 | 	float
+	DX | 	0003 | 	do
+0030     WRITELN
+	ID | 	0050 | 	WRITELN
+0031     BEGIN
+	BG | 	0011 | 	BEGIN
+0032     END
+	EN | 	0012 | 	END
+0033   declare  ARRAY 
+	ID | 	0050 | 	declare
+	AY | 	0025 | 	ARRAY
+0034    VAR WHILE  UNIT LABEL  REPEAT  UNTIL done = TRUE;
+	VR | 	0013 | 	VAR
+	ID | 	0050 | 	WHILE
+	ID | 	0050 | 	UNIT
+	LB | 	0016 | 	LABEL
+	RP | 	0017 | 	REPEAT
+	UN | 	0018 | 	UNTIL
+	ID | 	0050 | 	done
+	EQ | 	0042 | 	=
+	ID | 	0050 | 	TRUE
+	SM | 	0036 | 	;
+0035 PROgram
+	PG | 	0015 | 	PROgram
+0036  PROCEDURE  DOWNTO does READLN   RETURN
+	PC | 	0019 | 	PROCEDURE
+	DN | 	0020 | 	DOWNTO
+	ID | 	0050 | 	does
+	RD | 	0010 | 	READLN
+	RE | 	0022 | 	RETURN
+0037 	FLOAT
+	FL | 	0023 | 	FLOAT
+0038 	STRING
+	SG | 	0024 | 	STRING
+0039 
+0040    !@#$%^&*()_+
+	UK | 	0099 | 	!
+	UK | 	0099 | 	@
+	UK | 	0099 | 	#
+	UK | 	0099 | 	$
+	UK | 	0099 | 	%
+	UK | 	0099 | 	^
+	UK | 	0099 | 	&
+	MU | 	0031 | 	*
+	LP | 	0034 | 	(
+	RP | 	0035 | 	)
+	UK | 	0099 | 	_
+	PL | 	0032 | 	+
+0041 
+0042 sum := sum + 2;
+	ID | 	0050 | 	sum
+	AS | 	0037 | 	:=
+	ID | 	0050 | 	sum
+	PL | 	0032 | 	+
+	IC | 	0051 | 	2
+	SM | 	0036 | 	;
+0043 What if 2. is found?
+	ID | 	0050 | 	What
+	IF | 	0004 | 	if
+	FC | 	0052 | 	2.
+	ID | 	0050 | 	is
+	ID | 	0050 | 	found
+	UK | 	0099 | 	?
+0044 
+0045 (* end of file comes
+0046    before the end of this 
+0047    comment-- Throw an Error!
+0048 
+0049 
+0050                      
+Comment not terminated before End Of File
+Done.
+BUILD SUCCESSFUL (total time: 1 second)

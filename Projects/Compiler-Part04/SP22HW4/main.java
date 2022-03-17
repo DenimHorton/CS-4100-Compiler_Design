@@ -1,4 +1,4 @@
-package FA21HW4;
+package SP22HW4;
 
 //import ADT.SymbolTable;
 //import ADT.Lexical;
@@ -11,7 +11,7 @@ import ADT.*;
 public class main {
 
     public static void main(String[] args) {
-        String fileAndPath = ".\\LexicalTestFA21.txt";
+        String fileAndPath = ".\\SP22HW4\\Inputs\\LexicalTestSP22.txt";
         System.out.println("Lexical for " + fileAndPath);
         boolean traceOn = true;
         // Create a symbol table to store appropriate3 symbols found
@@ -25,7 +25,8 @@ public class main {
                     + " | \t" + currToken.lexeme);
             currToken = myLexer.GetNextToken();
         }
-        symbolList.PrintSymbolTable(".\\symbolTableLex.txt");
+        symbolList.PrintSymbolTable(".\\SP22HW4\\Outputs\\symbolTableLex.txt");
+        
         System.out.println("Done.");
     }
 
