@@ -23,6 +23,7 @@ public class ReserveTable {
     public ReservedWordEntry rsrv_word;
     public ReservedWordEntry[] rsrv_table;
     public int rsrv_table_index = -1;
+    // public static int notFound;
 
     public ReserveTable(int maxSize) {
         /**
@@ -94,8 +95,7 @@ public class ReserveTable {
     public String LookupCode(int code) {
         /**
          * Returns the associated name contained in the list if code is there, else an
-         * empty
-         * string to indicate a failed search for code.
+         * empty string to indicate a failed search for code.
          * 
          * @param code This is the integer value that we will look for in the data
          *             structure
@@ -124,8 +124,9 @@ public class ReserveTable {
          * name, and the code, one row per output text line. Any empty lines must be
          * omitted from the list. (If the list was initialized to a maxSize of 100, but
          * only 5 rows were added, only 5 rows will be printed out).
-         * @param filename The file name of .txt file where the 'ReserveTable' 
-         * 'rsrv_table' will be outputted to.
+         * 
+         * @param filename The file name of .txt file where the 'ReserveTable'
+         *                 'rsrv_table' will be outputted to.
          */
         try {
             // Build a tabulated representation of the reserve table and write it to

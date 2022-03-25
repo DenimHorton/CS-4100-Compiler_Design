@@ -11,7 +11,7 @@ import ADT.*;
 public class main {
 
     public static void main(String[] args) {
-        String fileAndPath = ".\\SP22HW4\\Inputs\\LexicalTestSP22.txt";
+        String fileAndPath = ".\\SP22HW4\\Inputs\\LexicalTestPlayground.txt";
         System.out.println("Lexical for " + fileAndPath);
         boolean traceOn = true;
         // Create a symbol table to store appropriate3 symbols found
@@ -26,7 +26,6 @@ public class main {
             currToken = myLexer.GetNextToken();
         }
         symbolList.PrintSymbolTable(".\\SP22HW4\\Outputs\\symbolTableLex.txt");
-        
         System.out.println("Done.");
     }
 

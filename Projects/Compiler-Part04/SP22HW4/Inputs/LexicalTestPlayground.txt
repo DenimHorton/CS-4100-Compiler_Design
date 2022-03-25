@@ -1,0 +1,50 @@
+
+
+
+
+{Here is Lexical Test file SP2022
+   }
+{}
+
+count:=10;
+b:=a+b-c*21.7/22;
+     123456789112345 (*this number is 15 chars, truncate to 6 *)
+     12.34567891134567 (*this number is 17 chars, but should be 
+	                     truncated to 12 in the symbol table*)
+
+hereisareallylongidentifierthatistoolong := 200;
+  hereisareallylongidentifierthatissameasabovetruncated := 76.5E-12;
+  109.E+10      12.33E5 
+  12.4 E-2
+  
+   *) {<-- Orphaned cloed comment is just '*' and ')' returned as separate tokens}
+           myString_1 : = "an unfinished string makes an error ;
+  (*test single #and two char tokens *)
+     # /*^&%+-  some more (   ) (**) ;:=><>=<==<>,[]:.
+(*reserve words 
+below........................... *)  "but first is a good string"
+  GO_TO JumpOut;  INTEGER TO DOWHILE
+	begin  if not then that else nothing
+THEN ELSE
+For I := 1 to 100.E7 of float do
+    WRITELN
+    BEGIN
+    END
+  declare  ARRAY 
+   VAR WHILE  UNIT LABEL  REPEAT  UNTIL done = TRUE;
+PROgram
+ PROCEDURE  DOWNTO does READLN   RETURN
+	FLOAT
+	STRING
+
+   !@#$%^&*()_+
+
+sum := sum + 2;
+What if 2. is found?
+
+(* end of file comes
+   before the end of this 
+   comment-- Throw an Error!
+
+
+                     
