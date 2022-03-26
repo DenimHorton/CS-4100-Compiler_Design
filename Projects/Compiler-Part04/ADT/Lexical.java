@@ -90,15 +90,15 @@ public class Lexical {
         }
     }
 
-    private token dummyGet() {
-        token result = new token();
-        result.lexeme = "" + currCh; // have the first char
-        currCh = GetNextChar();
-        result.code = 0;
-        result.mnemonic = "DUMMY";
-        return result;
+    // private token dummyGet() {
+    //     token result = new token();
+    //     result.lexeme = "" + currCh; // have the first char
+    //     currCh = GetNextChar();
+    //     result.code = 0;
+    //     result.mnemonic = "DUMMY";
+    //     return result;
 
-    }
+    // }
 
     private final int UNKNOWN_CHAR = 99;
     public final int _GRTR = 38;
@@ -350,7 +350,7 @@ public class Lexical {
                 curr = GetNextChar(); // into comment or end of comment
                 // while comment end is not reached
                 while ((!((curr == comment_startend) && (PeekNextChar() == comment_end2))) && (!EOF)) {
-                    curr = GetNextChar();
+                    curr = GetNextChar(); 
                 }
                 // EOF before comment end
                 if (EOF) {
@@ -394,7 +394,7 @@ public class Lexical {
         result.lexeme = "" + currCh; // have the first char
         currCh = GetNextChar();
         while (isLetter(currCh) || isDigit(currCh) ||
-                (currCh == '|') /*|| (currCh == '_')*/) {
+                (currCh == '|') || (currCh == '_')) {
             result.lexeme = result.lexeme + currCh; // extend lexeme
             currCh = GetNextChar();
         }
@@ -444,18 +444,19 @@ public class Lexical {
         token result = new token();
         currCh = GetNextChar();
 
-        while (!isStringStart(currCh) /*|| (EOF)*/){
+        do {
             // System.out.print(currCh);
-            if (currCh == '\n' /*|| (EOF)*/){
+            if (currCh == '\n'){
                 System.out.println("Unterminated String");
                 badString = true;
-                currCh = GetNextChar();
+                currCh = GetNextChar(); //Maybe commnet out 
                 return result;
             } 
             result.lexeme = result.lexeme + currCh; // extend lexeme
             currCh = GetNextChar();
             // System.out.println(currCh == '"');
-        }
+        }  while (!isStringStart(currCh));
+        currCh = GetNextChar();
 
         if (!badString){
             result.code = 53;
@@ -566,9 +567,8 @@ public class Lexical {
     // Checks to see if a string contains a valid DOUBLE
     public boolean doubleOK(String stin) {
         boolean result;
-        Double x;
         try {
-            x = Double.parseDouble(stin);
+            Double.parseDouble(stin);
             result = true;
         } catch (NumberFormatException ex) {
             result = false;

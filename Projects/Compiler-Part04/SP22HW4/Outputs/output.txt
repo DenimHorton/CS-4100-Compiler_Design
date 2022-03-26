@@ -1,0 +1,192 @@
+0001 
+0002
+0003
+0004
+0005 {Here is Lexical Test file SP2022
+0006    }
+0007 {}
+0008
+0009 count:=10;
+        IDENT |         0050 |  count
+        ASIGN |         0037 |  :=
+        INT__ |         0051 |  10
+        SMICL |         0036 |  ;
+0010 b:=a+b-c*21.7/22;
+        IDENT |         0050 |  b
+        ASIGN |         0037 |  :=
+        IDENT |         0050 |  a
+        PLUS_ |         0032 |  +
+        IDENT |         0050 |  b
+        MINU_ |         0033 |  -
+        IDENT |         0050 |  c
+        MULT_ |         0031 |  *
+        FLT__ |         0052 |  21.7
+        DIVD_ |         0030 |  /
+        INT__ |         0051 |  22
+        SMICL |         0036 |  ;
+0011      123456789112345 (*this number is 15 chars, truncate to 6 *)
+Integer length > 6, truncated 123456789112345 to 123456
+        INT__ |         0051 |  123456789112345
+0012      12.34567891134567 (*this number is 17 chars, but should be
+Float length > 12, truncated 12.34567891134567 to 12.345678911
+        FLT__ |         0052 |  12.34567891134567
+0013                         truncated to 12 in the symbol table*)
+0014
+0015 hereisareallylongidentifierthatistoolong := 200;
+Identifier length > 20, truncated hereisareallylongidentifierthatistoolong to hereisareallylongide
+        IDENT |         0050 |  hereisareallylongidentifierthatistoolong
+        ASIGN |         0037 |  :=
+        INT__ |         0051 |  200
+        SMICL |         0036 |  ;
+0016   hereisareallylongidentifierthatissameasabovetruncated := 76.5E-12;
+Identifier length > 20, truncated hereisareallylongidentifierthatissameasabovetruncated to hereisareallylongide
+        IDENT |         0050 |  hereisareallylongidentifierthatissameasabovetruncated
+        ASIGN |         0037 |  :=
+        FLT__ |         0052 |  76.5E-12
+        SMICL |         0036 |  ;
+0017   109.E+10      12.33E5
+        FLT__ |         0052 |  109.E+10
+        FLT__ |         0052 |  12.33E5
+0018   12.4 E-2
+        FLT__ |         0052 |  12.4
+        IDENT |         0050 |  E
+        MINU_ |         0033 |  -
+        INT__ |         0051 |  2
+0019
+0020    *) {<-- Orphaned cloed comment is just '*' and ')' returned as separate tokens}
+        MULT_ |         0031 |  *
+        RTPAR |         0035 |  )
+0021            myString_1 : = "an unfinished string makes an error ;
+        IDENT |         0050 |  myString_1
+        COLON |         0047 |  :
+        EQUAL |         0042 |  =
+Unterminated String
+0022   (*test single #and two char tokens *)
+         |      0000 |  an unfinished string makes an error ;
+0023      # /*^&%+-  some more (   ) (**) ;:=><>=<==<>,[]:.
+        UNKWN |         0099 |  #
+        DIVD_ |         0030 |  /
+        MULT_ |         0031 |  *
+        UNKWN |         0099 |  ^
+        UNKWN |         0099 |  &
+        UNKWN |         0099 |  %
+        PLUS_ |         0032 |  +
+        MINU_ |         0033 |  -
+        IDENT |         0050 |  some
+        IDENT |         0050 |  more
+        LTPAR |         0034 |  (
+        RTPAR |         0035 |  )
+        SMICL |         0036 |  ;
+        ASIGN |         0037 |  :=
+        GRT__ |         0038 |  >
+        BRCKT |         0043 |  <>
+        EQUAL |         0042 |  =
+        LESEQ |         0041 |  <=
+        EQUAL |         0042 |  =
+        BRCKT |         0043 |  <>
+        COMMA |         0044 |  ,
+        RBRKT |         0045 |  [
+        LBRKT |         0046 |  ]
+        COLON |         0047 |  :
+        PER__ |         0048 |  .
+0024 (*reserve words
+0025 below........................... *)  "but first is a good string"
+        STR__ |         0053 |  but first is a good string
+0026   GO_TO JumpOut;  INTEGER TO DOWHILE
+        GOTO_ |         0000 |  GO_TO
+        IDENT |         0050 |  JumpOut
+        SMICL |         0036 |  ;
+        INTGE |         0001 |  INTEGER
+        TO___ |         0002 |  TO
+        DOWHL |         0014 |  DOWHILE
+0027    begin  if not then that else nothing
+        IDENT |         0050 |  begin
+        IF___ |         0004 |  if
+        IDENT |         0050 |  not
+        THEN_ |         0005 |  then
+        IDENT |         0050 |  that
+        ELSE_ |         0006 |  else
+        IDENT |         0050 |  nothing
+0028 THEN ELSE
+        THEN_ |         0005 |  THEN
+        ELSE_ |         0006 |  ELSE
+0029 For I := 1 to 100.E7 of float do
+        FOR__ |         0007 |  For
+        IDENT |         0050 |  I
+        ASIGN |         0037 |  :=
+        INT__ |         0051 |  1
+        TO___ |         0002 |  to
+        FLT__ |         0052 |  100.E7
+        OF___ |         0008 |  of
+        FLOAT |         0023 |  float
+        DO___ |         0003 |  do
+0030     WRITELN
+        IDENT |         0050 |  WRITELN
+0031     BEGIN
+        IDENT |         0050 |  BEGIN
+0032     END
+        END__ |         0012 |  END
+0033   declare  ARRAY
+        IDENT |         0050 |  declare
+        ARRAY |         0025 |  ARRAY
+0034    VAR WHILE  UNIT LABEL  REPEAT  UNTIL done = TRUE;
+        VAR__ |         0013 |  VAR
+        IDENT |         0050 |  WHILE
+        IDENT |         0050 |  UNIT
+        LABEL |         0016 |  LABEL
+        REPEAT |        0017 |  REPEAT
+        UNTIL |         0018 |  UNTIL
+        IDENT |         0050 |  done
+        EQUAL |         0042 |  =
+        IDENT |         0050 |  TRUE
+        SMICL |         0036 |  ;
+0035 PROgram
+        PRGRM |         0015 |  PROgram
+0036  PROCEDURE  DOWNTO does READLN   RETURN
+        PROCD |         0019 |  PROCEDURE
+        DWNTO |         0020 |  DOWNTO
+        IDENT |         0050 |  does
+        REDLN |         0010 |  READLN
+        RTURN |         0022 |  RETURN
+0037    FLOAT
+        FLOAT |         0023 |  FLOAT
+0038    STRING
+        STRING |        0024 |  STRING
+0039
+0040    !@#$%^&*()_+
+        UNKWN |         0099 |  !
+        UNKWN |         0099 |  @
+        UNKWN |         0099 |  #
+        UNKWN |         0099 |  $
+        UNKWN |         0099 |  %
+        UNKWN |         0099 |  ^
+        UNKWN |         0099 |  &
+        MULT_ |         0031 |  *
+        LTPAR |         0034 |  (
+        RTPAR |         0035 |  )
+        UNKWN |         0099 |  _
+        PLUS_ |         0032 |  +
+0041
+0042 sum := sum + 2;
+        IDENT |         0050 |  sum
+        ASIGN |         0037 |  :=
+        IDENT |         0050 |  sum
+        PLUS_ |         0032 |  +
+        INT__ |         0051 |  2
+        SMICL |         0036 |  ;
+0043 What if 2. is found?
+        IDENT |         0050 |  What
+        IF___ |         0004 |  if
+        FLT__ |         0052 |  2.
+        IDENT |         0050 |  is
+        IDENT |         0050 |  found
+        UNKWN |         0099 |  ?
+0044
+0045 (* end of file comes
+0046    before the end of this
+0047    comment-- Throw an Error!
+0048
+0049
+0050
+Comment not terminated before End Of File
+Done.
