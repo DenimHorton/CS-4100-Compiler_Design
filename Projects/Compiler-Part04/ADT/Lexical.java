@@ -184,7 +184,7 @@ public class Lexical {
         reserveWords.Add("]", 46);
         reserveWords.Add(":", 47);
         reserveWords.Add(".", 48);
-        // reserveWords.Add("UK", UNKNOWN_CHAR);
+        reserveWords.Add("UK", UNKNOWN_CHAR);
     }
 
     /* @@@ */
@@ -394,16 +394,17 @@ public class Lexical {
         result.lexeme = "" + currCh; // have the first char
         currCh = GetNextChar();
         while (isLetter(currCh) || isDigit(currCh) ||
-                (currCh == '|') || (currCh == '_')) {
+                (currCh == '|') /*|| (currCh == '_')*/) {
             result.lexeme = result.lexeme + currCh; // extend lexeme
             currCh = GetNextChar();
         }
         // end of token, lookup or IDENT
+        // System.out.println(result.lexeme.toUpperCase());
         result.code = reserveWords.LookupName(result.lexeme.toUpperCase());
         if (result.code == -1) {
             result.code = IDENT_ID;
-            result.mnemonic = mnemonics.LookupCode(result.code);
         }
+        result.mnemonic = mnemonics.LookupCode(result.code);
         return result;
     }
 
@@ -434,8 +435,9 @@ public class Lexical {
     }
 
     private token getString() {
-        // char lstChr = ' ';
-        token result = new token();
+        // char nxtChr = ' ';
+        // token result = new token();
+        token result = dummyGet();
         // boolean badString = false;
         // result.lexeme = "" + currCh; // have the first char
         // if (currCh == '"') {
@@ -443,7 +445,7 @@ public class Lexical {
         // System.out.println(currCh);
         // while (!(currCh == '"' && (!EOF))) {
         // result.lexeme = result.lexeme + currCh; // extend lexeme
-        // // lstChr = currCh;
+        // // nxtChr = currCh;
         // currCh = GetNextChar();
         // }
         // if (EOF) {
@@ -463,61 +465,51 @@ public class Lexical {
 
     private token getOneTwoChar() {
         token result = new token();
-        result.lexeme = "" + currCh; // have the first char
+        char lstCh = currCh;
         currCh = GetNextChar();
-        while (!(EOF)) {
-            System.out.println("\tCurrent Char:\t" + currCh);
-            System.out.println("\tNext Char:\t" + nxtCh);
-            if (((isPrefix(currCh)) && (nxtCh == '=')) || (((currCh == '<')) && (nxtCh == '>'))) {
-                System.out.println("\t2-Char Op:\t" + currCh + nxtCh);
-                result.lexeme = result.lexeme + currCh + nxtCh;
-                result.code = reserveWords.LookupName(result.lexeme);
-                result.mnemonic = mnemonics.LookupCode(result.code);
-                currCh = GetNextChar();
-                // System.out.println("Next Char:\t" + nxtCh);
-                // getOneTwoChar();
-            }
-            currCh = GetNextChar();
-            System.out.println("Current Char:\t" + currCh);
+        // System.out.println("\t\t\t\tBEGINING CHA:\t"+lstCh);
+        // System.out.println("\t\t\t\tNEXT CHAR:\t"+currCh);
 
+        result.lexeme = "" + lstCh; // have the first char
+
+        // System.out.println("\tCurrent Char:\t" + currCh);
+        // System.out.println("\tNext Char:\t" + nxtCh);
+        if ((currCh == '/')
+         || (currCh == '*')
+         || (currCh == '+')
+         || (currCh == '-')
+         || (currCh == '(')
+         || (currCh == ')')
+         || (currCh == ';')
+         || (currCh == '>')
+         || (currCh == '<')
+         || (currCh == '=')
+         || (currCh == ',')
+         || (currCh == '[')
+         || (currCh == ']')
+         || (currCh == ':')
+         || (currCh == '.')) {
+            // System.out.println(result.lexeme + currCh);
+            if (((isPrefix(lstCh)) && (currCh == '=')) || (((lstCh == '<')) && (currCh == '>'))) {
+                // System.out.println("\t2-Char Op:\t" + lstCh + currCh);
+                result.lexeme = result.lexeme + currCh;
+                System.out.println("\t-Current lexeme:\t\t"+result.lexeme);
+
+                currCh = GetNextChar();
+                // currCh = GetNextChar();
+            }
+            // System.out.println("Looking for :\t"+result.lexeme);
+            result.code = reserveWords.LookupName(result.lexeme);
+        } else {
+            // System.out.println(currCh);
+            result.code = UNKNOWN_CHAR;
+            System.out.println("\t-Current lexeme:\t\t"+result.lexeme);
         }
-        result.code = reserveWords.LookupName(result.lexeme);
+        System.out.println("\t-Code from oneTwoChar():\t"+result.code);
+        System.out.println("\t-Result from look up:\t\t"+mnemonics.LookupCode(result.code));
         result.mnemonic = mnemonics.LookupCode(result.code);
         return result;
     }
-    // token result = new token();
-    // char nxtCh = PeekNextChar();
-    // result.lexeme = "";
-    // while ((currCh == '/')
-    // || (currCh == '*')
-    // || (currCh == '+')
-    // || (currCh == '-')
-    // || (currCh == '(')
-    // || (currCh == ')')
-    // || (currCh == ';')
-    // || (currCh == '>')
-    // || (currCh == '<')
-    // || (currCh == '=')
-    // || (currCh == ',')
-    // || (currCh == '[')
-    // || (currCh == ']')
-    // || (currCh == ':')
-    // || (currCh == '.')) {
-    // result.lexeme = result.lexeme + currCh;
-    // if (((isPrefix(currCh)) && (nxtCh == '=')) || (((currCh == '<')) && (nxtCh ==
-    // '>'))) {
-    // result.lexeme = result.lexeme + nxtCh;
-    // currCh = GetNextChar();
-    // }
-    // result.code = reserveWords.LookupName(result.lexeme);
-    // result.mnemonic = mnemonics.LookupCode(result.code);
-    // currCh = GetNextChar();
-    // }
-
-    // if (result.code == -1)
-    // result.code = IDENT_ID;
-    // currCh = GetNextChar();
-    // return result;
 
     private final int MAX_IDENT_LENGTH = 20;
     private final int MAX_INT_LENGTH = 6;
