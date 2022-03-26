@@ -418,7 +418,7 @@ public class Lexical {
 
         while (isDigit(currCh) || ((currCh == '.') && !isFloat)
                 || (((currCh == 'E') || (currCh == 'e')) && isFloat && !isScientific)
-                || (((currCh == '+') || (currCh == '-')) && isFloat)) {
+                || (((currCh == '+') || (currCh == '-')) && isFloat/*&& isScientific*/)) {
             result.lexeme = result.lexeme + currCh;
 
             if ((currCh == '.')) {
@@ -439,27 +439,28 @@ public class Lexical {
     }
 
     private token getString() {
-        token result = dummyGet();
-        // boolean badString = false;
-        // token result = new token();
-        // currCh = GetNextChar();
+        // token result = dummyGet();
+        boolean badString = false;
+        token result = new token();
+        currCh = GetNextChar();
 
-        // while (!isStringStart(currCh) ) {
-        //     System.out.print(currCh);
-        //     if (currCh == '\n'){
-        //         System.out.println("Unterminated String");
-        //         badString = true;
-        //         break;
-        //     } 
-        //     result.lexeme = result.lexeme + currCh; // extend lexeme
-            // currCh = GetNextChar();
-        //     System.out.println(currCh == '"');
-        // }
+        while (!isStringStart(currCh) /*|| (EOF)*/){
+            // System.out.print(currCh);
+            if (currCh == '\n' /*|| (EOF)*/){
+                System.out.println("Unterminated String");
+                badString = true;
+                currCh = GetNextChar();
+                return result;
+            } 
+            result.lexeme = result.lexeme + currCh; // extend lexeme
+            currCh = GetNextChar();
+            // System.out.println(currCh == '"');
+        }
 
-        // if (!badString){
-        //     result.code = 53;
-        //     result.mnemonic = mnemonics.LookupCode(result.code);
-        // }
+        if (!badString){
+            result.code = 53;
+            result.mnemonic = mnemonics.LookupCode(result.code);
+        }
         return result;
     }
 
