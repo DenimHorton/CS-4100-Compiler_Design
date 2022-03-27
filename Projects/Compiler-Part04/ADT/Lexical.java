@@ -91,12 +91,12 @@ public class Lexical {
     }
 
     // private token dummyGet() {
-    //     token result = new token();
-    //     result.lexeme = "" + currCh; // have the first char
-    //     currCh = GetNextChar();
-    //     result.code = 0;
-    //     result.mnemonic = "DUMMY";
-    //     return result;
+    // token result = new token();
+    // result.lexeme = "" + currCh; // have the first char
+    // currCh = GetNextChar();
+    // result.code = 0;
+    // result.mnemonic = "DUMMY";
+    // return result;
 
     // }
 
@@ -350,7 +350,7 @@ public class Lexical {
                 curr = GetNextChar(); // into comment or end of comment
                 // while comment end is not reached
                 while ((!((curr == comment_startend) && (PeekNextChar() == comment_end2))) && (!EOF)) {
-                    curr = GetNextChar(); 
+                    curr = GetNextChar();
                 }
                 // EOF before comment end
                 if (EOF) {
@@ -418,13 +418,13 @@ public class Lexical {
 
         while (isDigit(currCh) || ((currCh == '.') && !isFloat)
                 || (((currCh == 'E') || (currCh == 'e')) && isFloat && !isScientific)
-                || (((currCh == '+') || (currCh == '-')) && isFloat/*&& isScientific*/)) {
+                || (((currCh == '+') || (currCh == '-')) && isFloat/* && isScientific */)) {
             result.lexeme = result.lexeme + currCh;
 
             if ((currCh == '.')) {
                 isFloat = true;
-            } 
-            if ((currCh == 'E') || (currCh == 'e')){
+            }
+            if ((currCh == 'E') || (currCh == 'e')) {
                 isScientific = true;
             }
             currCh = GetNextChar();
@@ -439,26 +439,23 @@ public class Lexical {
     }
 
     private token getString() {
-        // token result = dummyGet();
         boolean badString = false;
         token result = new token();
         currCh = GetNextChar();
 
         do {
-            // System.out.print(currCh);
-            if (currCh == '\n'){
+            if (currCh == '\n') {
                 System.out.println("Unterminated String");
                 badString = true;
-                currCh = GetNextChar(); //Maybe commnet out 
+                currCh = GetNextChar(); // Maybe commnet out
                 return result;
-            } 
+            }
             result.lexeme = result.lexeme + currCh; // extend lexeme
             currCh = GetNextChar();
-            // System.out.println(currCh == '"');
-        }  while (!isStringStart(currCh));
+        } while (!isStringStart(currCh));
         currCh = GetNextChar();
 
-        if (!badString){
+        if (!badString) {
             result.code = 53;
             result.mnemonic = mnemonics.LookupCode(result.code);
         }
@@ -471,20 +468,20 @@ public class Lexical {
         currCh = GetNextChar();
         result.lexeme = "" + lstCh; // have the first char
         if ((lstCh == '/')
-         || (lstCh == '*')
-         || (lstCh == '+')
-         || (lstCh == '-')
-         || (lstCh == '(')
-         || (lstCh == ')')
-         || (lstCh == ';')
-         || (lstCh == '>')
-         || (lstCh == '<')
-         || (lstCh == '=')
-         || (lstCh == ',')
-         || (lstCh == '[')
-         || (lstCh == ']')
-         || (lstCh == ':')
-         || (lstCh == '.')) {
+                || (lstCh == '*')
+                || (lstCh == '+')
+                || (lstCh == '-')
+                || (lstCh == '(')
+                || (lstCh == ')')
+                || (lstCh == ';')
+                || (lstCh == '>')
+                || (lstCh == '<')
+                || (lstCh == '=')
+                || (lstCh == ',')
+                || (lstCh == '[')
+                || (lstCh == ']')
+                || (lstCh == ':')
+                || (lstCh == '.')) {
             if (((isPrefix(lstCh)) && (currCh == '=')) || (((lstCh == '<')) && (currCh == '>'))) {
                 result.lexeme = result.lexeme + currCh;
                 currCh = GetNextChar();
