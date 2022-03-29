@@ -7,8 +7,9 @@ import java.io.IOException;
 
 /**
  * @author Robert Denim Horton
- * @version 3.0
+ * @version 2.0
  * 
+ *          This File represents . . . TODO: Add in doc for file
  */
 
 public class SymbolTable {

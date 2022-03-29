@@ -1,8 +1,10 @@
 
 package SP22HW4;
+
 // import ADT.SymbolTable;
 // import ADT.Lexical;
 import ADT.*;
+
 /**
  *
  * @author abrouill SPRING 2021
@@ -19,8 +21,8 @@ public class main04 {
         Lexical.token currToken;
         currToken = myLexer.GetNextToken();
         while (currToken != null) {
-            System.out.println("\t" + currToken.mnemonic + " | \t" + 
-String.format("%04d", currToken.code)
+            System.out.println("\t" + currToken.mnemonic + " | \t" +
+                    String.format("%04d", currToken.code)
                     + " | \t" + currToken.lexeme);
             currToken = myLexer.GetNextToken();
         }

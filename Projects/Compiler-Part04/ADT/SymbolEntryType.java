@@ -3,13 +3,13 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 3.0
+ * @version 2.0
  * 
  *          This File represents the data array that will represent the specific
- *          symbols
- *          and their coresponding type and value. Will be represented as a
- *          inherrited
- *          object 'SymbolEntryType' that has three specific values for entry.
+ *          symbols and their corresponding type and value. Will be represented
+ *          as
+ *          a inherited object 'SymbolEntryType' that has three specific values
+ *          for entry.
  */
 
 public class SymbolEntryType<T> {

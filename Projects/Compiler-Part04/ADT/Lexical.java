@@ -1,19 +1,4 @@
-/*
- The following code is provided by the instructor for the completion of PHASE 2 
-of the compiler project for CS4100.
-
-STUDENTS ARE TO PROVIDE THE FOLLOWING CODE FOR THE COMPLETION OF THE ASSIGNMENT:
-
-1) Initialize the 2 reserve tables, which are fields in the Lexical class,
-    named reserveWords and mnemonics.  Create the following functions,
-    whose calls are in the lexical constructor:
-        initReserveWords(reserveWords);
-        initMnemonics(mnemonics);
-
-2) 
-
-
- */
+// Robert Denim Horton CS2022
 package ADT;
 
 import java.io.BufferedWriter;
@@ -22,8 +7,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.NumberFormat.Style;
 /**
- *
- * @author abrouill
+ * @author Robert Denim Horton
+ * @version 2.0
+ * 
+ *          This File represents the lexical analyser of our compiler
  */
 import java.io.*;
 
@@ -390,83 +377,195 @@ public class Lexical {
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // Student supplied methods
     private token getIdent() {
+        /*
+         * This function is called from the GetNextToken() when the character being
+         * evaluated is a upper or lower case alphabetic char. The token is then
+         * parsed and added to the tokens lexeme and then used to check if the
+         * token lexeme is a 'reserve' word of not and return the result as such.
+         * 
+         * 'identifier' tokens can be classified within the set of characters,
+         * - 'A-Z' & 'a-z'
+         * - '_'
+         * - '|'
+         * 
+         * @return token An object with attributes that allow the token to be
+         * associated with a 'code' look up and 'name' look up
+         * related to the tokens set lexeme.
+         */
+        // Instantiate new token, 'result', to return.
         token result = new token();
-        result.lexeme = "" + currCh; // have the first char
+        // Adds the first char to the token's lexeme.
+        result.lexeme = "" + currCh;
+        // Get the next char to evaluate.
         currCh = GetNextChar();
+        // Enter while loop to evaluate chars until a char not in the set is hit.
         while (isLetter(currCh) || isDigit(currCh) ||
                 (currCh == '|') || (currCh == '_')) {
-            result.lexeme = result.lexeme + currCh; // extend lexeme
+            // Add char to token lexeme.
+            result.lexeme = result.lexeme + currCh;
+            // Retrieve next char.
             currCh = GetNextChar();
         }
-        // end of token, lookup or IDENT
-        // System.out.println(result.lexeme.toUpperCase());
+        // Broken out of loop from invalid char, including end of line.
+        // Look up token lexeme to see if word exists (In upper case).
         result.code = reserveWords.LookupName(result.lexeme.toUpperCase());
+        // If result returns '-1' then no reserve word was found and the token
+        // is identified as an 'identifier'
         if (result.code == -1) {
             result.code = IDENT_ID;
         }
+        // Else we know that the toekn lexeme was found in the reserve word
+        // table and set its nemonic to which reserve word it is that.
         result.mnemonic = mnemonics.LookupCode(result.code);
+        // Return token as 'identifier' or a specific 'reserve' word.
         return result;
     }
 
     private token getNumber() {
-        /* a number is: <digit>+[.<digit>*[E[+|-]<digit>+]] */
+        /*
+         * This function is called from the GetNextToken() when the character being
+         * evaluated is a digit. The token is then parsed and added to the tokens
+         * lexeme and then returned.
+         * 
+         * 'identifier' tokens can be classified as the regex example provided below,
+         * 
+         * <digit>+[.<digit>*[E[+|-]<digit>+]]
+         * 
+         * @return token An object with attributes that allow the token to be
+         * associated with a 'code' look up and 'name' look up
+         * related to the tokens set lexeme.
+         */
+        // Instantiate new token, 'result', to return.
         token result = new token();
-        result.lexeme = "" + currCh; // have the first char
+        // Adds the first char to the token's lexeme.
+        result.lexeme = "" + currCh;
+        // Get the next char to evaluate.
         currCh = GetNextChar();
+        // Boolean to keep track of if a 'E', 'e', or a decimal has been parsed for this
+        // token.
         boolean isFloat = false;
         boolean isScientific = false;
-
-        while (isDigit(currCh) || ((currCh == '.') && !isFloat)
+        // Enter while loop to evaluate chars until a condition is hit.
+        while
+        // char is a digit or decimal, and char decimal has not been parsed yet.
+        (isDigit(currCh) || ((currCh == '.') && !isFloat)
+        // char is a 'E' or a 'e', and char 'e' or 'E' has not been parsed yet, and
+        // char decimal has been parsed.
                 || (((currCh == 'E') || (currCh == 'e')) && isFloat && !isScientific)
+                // char is a '+' or '-', and decimal has been parsed. And a 'E' or 'e' has
+                // been parsed.
                 || (((currCh == '+') || (currCh == '-')) && isFloat/* && isScientific */)) {
+            // Add char to token lexeme
             result.lexeme = result.lexeme + currCh;
-
+            // Check and set boolean for if decimal has been parsed yet.
             if ((currCh == '.')) {
                 isFloat = true;
             }
+            // Check and set boolean for if 'E' or 'e' has been parsed yet.
             if ((currCh == 'E') || (currCh == 'e')) {
                 isScientific = true;
             }
+            // Get next char.
             currCh = GetNextChar();
         }
+        // Set token code to be a float.
         if (isFloat) {
             result.code = FLOAT_ID;
+            // Set token code to be a integer.
         } else {
             result.code = INTEGER_ID;
         }
+        // Look up code to set 'mnemonics' for token.
         result.mnemonic = mnemonics.LookupCode(result.code);
+        // Return token as 'integer' or 'float'.
         return result;
     }
 
     private token getString() {
-        boolean badString = false;
+        /*
+         * This function is called from the GetNextToken() when the character being
+         * evaluated is a double quote ("). The token is then parsed and added to the
+         * tokens
+         * lexeme and then returned as long as the har being evaluated is either double
+         * quotation mark ('"') or a end of line terminator, ('\n'). If the new line is
+         * hit we break out of loop and return token result and print out error. else
+         * continue iter through token chars until double quotation mark is hit.
+         * 
+         * @return token An object with attributes that allow the token to be
+         * associated with a 'code' look up and 'name' look up
+         * related to the tokens set lexeme.
+         */
+        // Instantiate new token, 'result', to return.
         token result = new token();
+        // Get nex t char.
         currCh = GetNextChar();
-
+        // Enter Do-While loop to evaluate each char one line or until " is parsed.
         do {
-            if (currCh == '\n') {
+            if (currCh == '\n') { // If currCh is newline string error occurred.
+                // Print String Error.
                 System.out.println("Unterminated String");
-                badString = true;
-                currCh = GetNextChar(); // Maybe commnet out
+                // Move the currCh to the next char on the next line.
+                currCh = GetNextChar();
+                // Return token which is a BAD string token.
                 return result;
             }
-            result.lexeme = result.lexeme + currCh; // extend lexeme
+            // Add char onto the token lexeme.
+            result.lexeme = result.lexeme + currCh;
+            // Get next char.
             currCh = GetNextChar();
-        } while (!isStringStart(currCh));
+        } while (!isStringStart(currCh)); // Check to break loop or repeat.
+        // Get next char to move onto either the next char after string.
         currCh = GetNextChar();
-
-        if (!badString) {
-            result.code = 53;
-            result.mnemonic = mnemonics.LookupCode(result.code);
-        }
+        // Since no return happened string must be good and is set to such with code.
+        result.code = 53;
+        // Code used to find mnemonic for strings.
+        result.mnemonic = mnemonics.LookupCode(result.code);
+        // Return token which is a GOOD string token.
         return result;
     }
 
     private token getOneTwoChar() {
+        /*
+         * This function is called from the GetNextToken() when the character being
+         * evaluated is neither a number, letter, or a double quotation mark ("").
+         * The token is then parsed and added to the tokens lexeme at beginning and
+         * user to set the variable 'lstCh' to keep track of the char that was first
+         * evaluated and resulted in calling this function. The lstCh, which is the
+         * first out of the two chars being evaluated on this function call, if checked
+         * against valid chars in the first If statement.
+         * 
+         * The nested, second if statement then checks to see if the lstCh is a prefix
+         * to one of the double operators ('<>', ':=', '<=', or '>='), if so then the
+         * currCh, second char, is evaluated to see if it is one of the second chars
+         * from
+         * choices above ('<', '>', '='). If so we then return the result, after moving
+         * the curCh to the next char to be evaluated on the next call to
+         * GetNextToken(). If
+         * the first char is not in the valid option in the first statement then the
+         * else
+         * statement for the first If condition is entered and the char is given the
+         * unknown
+         * code and mnemonic and returned. else we assumer that the first char (lstChr)
+         * was
+         * valid but the second char (currCh) was not a valid double char combination
+         * and
+         * return the single char with its matching mnemonic and code with the currCh
+         * already
+         * being iterated for the next GetNextToken() call.
+         * 
+         * @return token An object with attributes that allow the token to be
+         * associated with a 'code' look up and 'name' look up
+         * related to the tokens set lexeme.
+         */
+        // Instantiate new token, 'result', to return.
         token result = new token();
+        // Get current char being evaluated.
         char lstCh = currCh;
+        // Move to next char to evaluate in tandem.
         currCh = GetNextChar();
+        // Add char onto the token lexeme.
         result.lexeme = "" + lstCh; // have the first char
+        // First If to check is first char is even a valid char.
         if ((lstCh == '/')
                 || (lstCh == '*')
                 || (lstCh == '+')
@@ -482,15 +581,26 @@ public class Lexical {
                 || (lstCh == ']')
                 || (lstCh == ':')
                 || (lstCh == '.')) {
-            if (((isPrefix(lstCh)) && (currCh == '=')) || (((lstCh == '<')) && (currCh == '>'))) {
+            // Second, nested If to check if the second char is a valid second
+            // for char combination with the first char.
+            if (((isPrefix(lstCh)) && (currCh == '=')) // Check if 1st char ':', '<', '>' and 2nd is '='.
+                    || (((lstCh == '<')) && (currCh == '>'))) {// Check if 1st char is a '<' and 2nd is '>'
+                // Add on second char
                 result.lexeme = result.lexeme + currCh;
+                // Iterate to next char for next call to GetNextToken()
                 currCh = GetNextChar();
             }
+            // Set token code to the associated char code, Should exist.
             result.code = reserveWords.LookupName(result.lexeme);
+            // Else statement to first If statement
         } else {
+            // Set token code to the Unknown char code
             result.code = UNKNOWN_CHAR;
         }
+        // Retrvie mnemnoic for valid or invalid char or double char.
         result.mnemonic = mnemonics.LookupCode(result.code);
+        // Return token as 'invalid char', 'single char', or 'double char'
+        // operator/chars
         return result;
     }
 
@@ -499,60 +609,91 @@ public class Lexical {
     private final int MAX_FLOAT_LENGTH = 12;
 
     public token checkTruncate(token result) {
-        // truncate if needed
+        /*
+         * This function is called from GetNextToken() which checks for valid lexeme
+         * of certain token types or token's code.
+         */
+        // Int value to see if token is a valid integer token.
         int ival = 0;
+        // Double value to see if token is a valid double token.
         double dval = 0.0;
+        // Integer to get tokens lexeme's length.
         int len = result.lexeme.length();
+        // String of the tokens lexeme to be truncated.
         String lexemetrunc = result.lexeme;
-
+        // Start switch statements.
         switch (result.code) {
-
+            // Token code is set to ident.
             case IDENT_ID:
+                // Checks if lexeme exceeds the length for identifiers.
                 if (len > MAX_IDENT_LENGTH) {
+                    // Slice index lexeme string to get truncated string.
                     lexemetrunc = result.lexeme.substring(0, MAX_IDENT_LENGTH);
+                    // Print out error of token lexeme being to long.
                     System.out.println("Identifier length > " + MAX_IDENT_LENGTH + ", truncated " + result.lexeme
                             + " to " + lexemetrunc);
                 }
+                // Adds identifier to symbol table.
                 saveSymbols.AddSymbol(lexemetrunc, 'v', 0);
+                // Break case statement.
                 break;
-
+            // Token code is set to integer.
             case INTEGER_ID:
+                // Checks if lexeme exceeds the length for integers.
                 if (len > MAX_INT_LENGTH) {
+                    // Slice index lexeme string to get truncated string.
                     lexemetrunc = result.lexeme.substring(0, MAX_INT_LENGTH);
+                    // Print out error of token lexeme being to long.
                     System.out.println("Integer length > " + MAX_INT_LENGTH + ", truncated " + result.lexeme + " to "
                             + lexemetrunc);
+                    // Set integer value set to 0 due to invalid value given.
                     ival = 0;
                 } else {
                     if (integerOK(result.lexeme)) {
+                        // Change string value to integer.
                         ival = Integer.valueOf(lexemetrunc);
                     } else {
+                        // Prints out error message of invalid float value.
                         System.out.println("Invalid integer value");
                     }
                 }
+                // Adds integer to symbol table.
                 saveSymbols.AddSymbol(lexemetrunc, 'c', ival);
+                // Break case statement.
                 break;
-
+            // Token code is set to float.
             case FLOAT_ID:
+                // Checks if lexeme exceeds the length for floats.
                 if (len > MAX_FLOAT_LENGTH) {
+                    // Slice index lexeme string to get truncated string.
                     lexemetrunc = result.lexeme.substring(0, MAX_FLOAT_LENGTH);
+                    // Print out error of token lexeme being to long.
                     System.out.println("Float length > " + MAX_FLOAT_LENGTH + ", truncated " + result.lexeme + " to "
                             + lexemetrunc);
+                    // Set double value set to 0 due to invalid value given.
                     dval = 0;
                 } else {
                     if (doubleOK(result.lexeme)) {
+                        // Changes string to a double value
                         dval = Double.valueOf(lexemetrunc);
                     } else {
+                        // Prints out error message of invalid float value.
                         System.out.println("Invalid float value");
                     }
                 }
-                saveSymbols.AddSymbol(lexemetrunc, 'c', dval);
+                // Adds double to symbol table.
+                // saveSymbols.AddSymbol(lexemetrunc, 'c', dval);
+                // Break case statement.
                 break;
-
+            // Token code is set to string.
             case STRING_ID:
+                // Add string to symbol table.
                 saveSymbols.AddSymbol(result.lexeme, 'c', result.lexeme);
+                // Break case statement.
                 break;
-
+            // Token code is set to nothing.
             default:
+                // Break case statement.
                 break; // don't add
         }
         return result;
