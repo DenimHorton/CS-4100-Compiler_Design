@@ -1,0 +1,16 @@
+private token getIdent(char ch){
+//      int lookup = IDENT;
+      token result = new token();
+      result.lexeme = "" + ch; //have the first char
+      ch = GetNextChar();
+      while (isLetter(ch)||(isDigit(ch)||(ch == '$')||(ch=='_'))) {
+         result.lexeme = result.lexeme + ch; //extend lexeme
+         ch = GetNextChar();
+      }
+// end of token, lookup or IDENT      
+                
+      result.code = reserveWords.LookupName(result.lexeme);
+      if (result.code == ReserveTable.notFound)
+          result.code = IDENT_ID;
+      return result;
+}
