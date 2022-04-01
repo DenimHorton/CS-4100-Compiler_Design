@@ -1,0 +1,5 @@
+MODULE mytest;
+BEGIN
+count := total;  
+a:=b
+END.

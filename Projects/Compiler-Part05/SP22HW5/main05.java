@@ -1,5 +1,5 @@
 
-package SP22HW4;
+package SP22HW5;
 
 // import ADT.SymbolTable;
 // import ADT.Lexical;
@@ -9,9 +9,13 @@ import ADT.*;
  *
  * @author abrouill SPRING 2021
  */
-public class main04 {
+public class main05 {
     public static void main(String[] args) {
-        String fileAndPath = ".\\SP22HW4\\Inputs\\LexicalTestSP22.txt";
+        // String fileAndPath = ".\\SP22HW5\\Inputs\\SyntaxMinimumTestFA21.txt";
+        String fileAndPath = ".\\SP22HW5\\Inputs\\BadSyntax-1-AFA21.txt";
+        // String fileAndPath = ".\\SP22HW5\\Inputs\\BadSyntax-2-AFA21.txt";
+        // String fileAndPath = ".\\SP22HW5\\Inputs\\GoodSyntaxAFA21.txt";
+
         System.out.println("Lexical for " + fileAndPath);
         boolean traceOn = true;
         // Create a symbol table to store appropriate3 symbols found
@@ -26,7 +30,7 @@ public class main04 {
                     + " | \t" + currToken.lexeme);
             currToken = myLexer.GetNextToken();
         }
-        symbolList.PrintSymbolTable(".\\SP22HW4\\Outputs\\symbolTableLex.txt");
+        symbolList.PrintSymbolTable(".\\SP22HW5\\Outputs\\symbolTableLex.txt");
         System.out.println("Done.");
     }
 }

@@ -1,0 +1,16 @@
+
+
+MODULE goodtree;
+
+(* This Part A test file should have NO errors! *)
+
+BEGIN
+{ The only statements for Part A are ASSIGNMENTS with EXPRESSIONS }
+
+total:=(27*first)+ 3.14*radius*radius;
+a :=(a+c)*(b-d)       ;
+
+d1 := -b +(b*b) - 4 * a* c / 2*a;
+finval := this - (that*other)
+end.
+

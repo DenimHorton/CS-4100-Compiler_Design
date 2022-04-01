@@ -1,0 +1,7 @@
+|MODULE|v|i|0|
+|mytest|v|i|0|
+|BEGIN|v|i|0|
+|count|v|i|0|
+|total|v|i|0|
+|a|v|i|0|
+|b|v|i|0|
