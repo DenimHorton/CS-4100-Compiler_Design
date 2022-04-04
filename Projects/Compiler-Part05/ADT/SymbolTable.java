@@ -42,7 +42,7 @@ public class SymbolTable {
         smbol_val_type_entry = new SymbolEntryType<Integer>(symbol, kind, value);
         /**
          * If the symbol is already in the table according to a non-case
-         * -sensitive comparison [“Total” matches “total” as well as “ToTaL”]
+         * -sensitive comparison ['Total' matches total as well as 'ToTaL']
          * with all the existing strings in the table, no change or
          * verification is made, and this methond returns the row index where
          * the symbol was found. This method only FAILS, and return -1, when

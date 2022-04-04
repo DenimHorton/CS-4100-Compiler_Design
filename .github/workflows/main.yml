@@ -34,6 +34,7 @@ jobs:
         run: |
               java -version 
               cd ./Projects/Compiler-Part05/
+              pwd
               javac ./ADT/*.java
               javac ./SP22HW5/main05.java
               java main05 > ./SP22HW5/Outputs/output.txt
