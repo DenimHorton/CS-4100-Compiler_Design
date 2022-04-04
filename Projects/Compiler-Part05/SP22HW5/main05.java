@@ -1,7 +1,5 @@
+package SP22HW5;
 
-
-import ADT.SymbolTable;
-import ADT.Lexical;
 import ADT.*;
 
 /**
