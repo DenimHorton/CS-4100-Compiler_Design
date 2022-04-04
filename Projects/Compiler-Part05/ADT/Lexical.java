@@ -760,4 +760,12 @@ public class Lexical {
 
     }
 
+    public int codeFor(String look_up_Str) {
+        return 0;
+    }
+
+    public String reserveFor(String look_up_Str) {
+        return "";
+    }
+
 }

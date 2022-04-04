@@ -1,4 +1,4 @@
-package project3;
+package SP22HW5;
 
 import ADT.SymbolTable;
 import ADT.Lexical;
@@ -10,7 +10,7 @@ import ADT.*;
  */
 public class main05{
     public static void main(String[] args) {
-        String filePath = "SP22HW5/Outputs/SyntaxTestSP22.txt";
+        String filePath = "./SP22HW5/Inputs/SyntaxMinimumTestFA21.txt";
         boolean traceon = true;
         Syntactic parser = new Syntactic(filePath, traceon);
         parser.parse();

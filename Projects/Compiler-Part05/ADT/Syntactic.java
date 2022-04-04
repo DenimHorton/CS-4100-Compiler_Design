@@ -8,23 +8,6 @@ package ADT;
  * @version 2.0
  * 
  * TODO: This File represents . . . 
- * STUDENTS MUST CHANGE THE 4-CHAR MNEMONICS HERE TO THEIR OWN 5-CHAR MNEMONICS
- * SAMPLE syntactic CODE FOR SP22 Compiler Class.
- * 
- * See TEMPLATE at end of this file for the framework to be used for
- * ALL non-terminal methods created.
- * 
- * Two methods shown below are added to LEXICAL, where reserve and mnemonic
- * tables are accessible:
- * 
- * Returns the integer token code for the given mnemonic 
- * public int codeFor(String mnemonic){
- *     return mnemonics.LookupName(mnemonic);
- * }
- * Returns the Reserve Word for the given mnemonic
- * public String reserveFor(String mnemonic){
- *     return reserveWords.LookupCode(mnemonics.LookupName(mnemonic));
- * }
  * 
  * Allows control of whether tokens are printed within Lexical or not
  * public void setPrintToken(boolean on){
@@ -36,6 +19,7 @@ package ADT;
  *                 System.out.println("\t" + result.mnemonic + " | \t" + String.format("%04d", result.code) + " | \t" + result.lexeme);
  *             }
  */
+
 public class Syntactic {
 
     private String filein;              //The full file path to input file
@@ -145,6 +129,9 @@ public class Syntactic {
         return recur;
     }
 
+    private int Variable(){
+        return 0;
+    }
 //Not a NT, but used to shorten Statement code body   
     //<variable> $COLON-EQUALS <simple expression>
     private int handleAssignment() {
