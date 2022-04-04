@@ -35,14 +35,14 @@ jobs:
               java -version 
               cd ./Projects/Compiler-Part05/
               pwd
-              echo Compiling ADT files
+              echo "Compiling ADT files"
               javac ./ADT/*.java
-              echo Compiling main file
+              echo "Compiling main file"
               javac ./SP22HW5/main05.java
-              echo Execute main file
+              echo "Execute main file"
               cd ./SP22HW5
-              java ./main05 > ./SP22HW5/Outputs/output.txt
-              echo Show saved txt output
+              java main05 > ./SP22HW5/Outputs/output.txt
+              "echo Show saved txt output"
               ls ./SP22HW5/Outputs
 
       # Runs a set of commands using the runners shell
