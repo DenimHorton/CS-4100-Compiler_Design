@@ -36,7 +36,7 @@ jobs:
               cd ./Projects/Compiler-Part05/
               pwd
               javac ./ADT/*.java
-              javac ./SP22HW5/main05.java
+              javac ./SP22HW5/main05.java main05
               java main05 > ./SP22HW5/Outputs/output.txt
               ls ./SP22HW5/Outputs
 
