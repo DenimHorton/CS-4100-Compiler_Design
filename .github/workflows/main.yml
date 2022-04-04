@@ -37,6 +37,8 @@ jobs:
               cd ./Projects/Compiler-Part05/
               ls
               javac ./SP22HW5/main05.java > ./SP22HW5/Outputs/output.txt
+              cat ./SP22HW5/Outputs/output.txt
+              
 
 
       # Runs a set of commands using the runners shell
