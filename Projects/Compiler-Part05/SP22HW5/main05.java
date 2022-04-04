@@ -8,8 +8,7 @@ import ADT.*;
  *
  * @author abrouill SPRING 2022
  */
-public class main {
-
+public class main05{
     public static void main(String[] args) {
         String filePath = "d:\\SyntaxTestSP22.txt";
         boolean traceon = true;
@@ -17,5 +16,4 @@ public class main {
         parser.parse();
         System.out.println("Done.");
     }
-
 }
