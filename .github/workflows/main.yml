@@ -43,7 +43,7 @@ jobs:
               cd ./SP22HW5
               java main05 > ./Outputs/output.txt
               "echo Show saved txt output"
-              ls ./SP22HW5/Outputs
+              ls ./Outputs
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
