@@ -38,13 +38,12 @@ jobs:
               echo "Compiling ADT files"
               javac ./ADT/*.java
               echo "Compiling main file"
-              cd ./SP22HW5
-              javac ./main05.java
+              javac -d ./ ./SP22HW5/main05.java
               echo "Execute main file"
               ls
-              java main05 > ./Outputs/output.txt
+              java main05 > ./SP22HW5/Outputs/output.txt
               echo "Show saved txt output"
-              ls ./Outputs
+              ls ./SP22HW5/Outputs
               
 
       # Runs a set of commands using the runners shell
