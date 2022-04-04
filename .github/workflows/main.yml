@@ -37,7 +37,7 @@ jobs:
               pwd
               javac ./ADT/*.java
               javac ./SP22HW5/main05.java
-              java ./SP22HW5main05 > ./SP22HW5/Outputs/output.txt
+              java ./SP22HW5/main05 > ./SP22HW5/Outputs/output.txt
               ls ./SP22HW5/Outputs
 
       # Runs a set of commands using the runners shell
