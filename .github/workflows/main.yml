@@ -38,7 +38,7 @@ jobs:
               echo "Compiling ADT files"
               javac ./ADT/*.java
               echo "Compiling main file"
-              javac -d ./CompilerPart05 ./SP22HW5/main05.java
+              javac -d /CompilerPart05 ./SP22HW5/main05.java
               echo "Execute main file"
               ls
               java main05 > ./SP22HW5/Outputs/output.txt
