@@ -33,7 +33,7 @@ jobs:
         run: |
               java -version 
               ls
-              cd ./SP22HW5
+              cd ./Projects/Compiler-Part05/SP22HW5
               javac main05.java | ./Outputs/output.txt
 
       # Runs a set of commands using the runners shell
