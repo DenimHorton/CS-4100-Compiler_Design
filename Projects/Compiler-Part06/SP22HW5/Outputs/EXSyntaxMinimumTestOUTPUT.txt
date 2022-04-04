@@ -1,0 +1,61 @@
+ant -f D:\\JavaProj\\Project3 -Dnb.internal.action.name=run run
+init:
+Deleting: D:\JavaProj\Project3\build\built-jar.properties
+deps-jar:
+Updating property file: D:\JavaProj\Project3\build\built-jar.properties
+Compiling 2 source files to D:\JavaProj\Project3\build\classes
+compile:
+run:
+0001 MODULE mytest;
+	MODL | 	0015 | 	MODULE
+--> Entering Program
+	IDNT | 	0050 | 	mytest
+	SEMI | 	0036 | 	;
+0002 BEGIN
+	BGIN | 	0011 | 	BEGIN
+ --> Entering Block
+0003 count := total;  
+	IDNT | 	0050 | 	count
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASGN | 	0037 | 	:=
+    <-- Exiting Variable
+	IDNT | 	0050 | 	total
+    --> Entering SimpleExpression
+     --> Entering Term
+      --> Entering Factor
+       --> Entering Variable
+	SEMI | 	0036 | 	;
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+0004 a:=b
+	IDNT | 	0050 | 	a
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASGN | 	0037 | 	:=
+    <-- Exiting Variable
+	IDNT | 	0050 | 	b
+    --> Entering SimpleExpression
+     --> Entering Term
+      --> Entering Factor
+       --> Entering Variable
+0005 END.
+	END_ | 	0012 | 	END
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+	PERD | 	0048 | 	.
+ <-- Exiting Block
+Success.
+<-- Exiting Program
+Done.
+BUILD SUCCESSFUL (total time: 1 second)
