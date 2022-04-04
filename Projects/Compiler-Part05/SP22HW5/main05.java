@@ -1,36 +1,21 @@
+package project3;
 
-package SP22HW5;
-
-// import ADT.SymbolTable;
-// import ADT.Lexical;
+import ADT.SymbolTable;
+import ADT.Lexical;
 import ADT.*;
 
 /**
  *
- * @author abrouill SPRING 2021
+ * @author abrouill SPRING 2022
  */
-public class main05 {
-    public static void main(String[] args) {
-        // String fileAndPath = ".\\SP22HW5\\Inputs\\SyntaxMinimumTestFA21.txt";
-        String fileAndPath = ".\\SP22HW5\\Inputs\\BadSyntax-1-AFA21.txt";
-        // String fileAndPath = ".\\SP22HW5\\Inputs\\BadSyntax-2-AFA21.txt";
-        // String fileAndPath = ".\\SP22HW5\\Inputs\\GoodSyntaxAFA21.txt";
+public class main {
 
-        System.out.println("Lexical for " + fileAndPath);
-        boolean traceOn = true;
-        // Create a symbol table to store appropriate3 symbols found
-        SymbolTable symbolList;
-        symbolList = new SymbolTable(150);
-        Lexical myLexer = new Lexical(fileAndPath, symbolList, traceOn);
-        Lexical.token currToken;
-        currToken = myLexer.GetNextToken();
-        while (currToken != null) {
-            System.out.println("\t" + currToken.mnemonic + " | \t" +
-                    String.format("%04d", currToken.code)
-                    + " | \t" + currToken.lexeme);
-            currToken = myLexer.GetNextToken();
-        }
-        symbolList.PrintSymbolTable(".\\SP22HW5\\Outputs\\symbolTableLex.txt");
+    public static void main(String[] args) {
+        String filePath = "d:\\SyntaxTestSP22.txt";
+        boolean traceon = true;
+        Syntactic parser = new Syntactic(filePath, traceon);
+        parser.parse();
         System.out.println("Done.");
     }
+
 }

@@ -1,9 +1,3 @@
-ant -f D:\\JavaProj\\Project3 -Dnb.internal.action.name=run run
-init:
-Deleting: D:\JavaProj\Project3\build\built-jar.properties
-deps-jar:
-Updating property file: D:\JavaProj\Project3\build\built-jar.properties
-Compiling 2 source files to D:\JavaProj\Project3\build\classes
 compile:
 run:
 0001 MODULE mytest;
