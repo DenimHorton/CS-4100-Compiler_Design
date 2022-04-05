@@ -64,8 +64,6 @@ public class Syntactic {
         return recur;
     }
 
-    
-        
     /* 
     * Non Terminals
     * 
@@ -121,7 +119,7 @@ public class Syntactic {
         if (token.code == lex.codeFor("BEGIN")) {
             token = lex.GetNextToken();
             recur = Statement();
-            while ((token.code == lex.codeFor("SEMI")) && (!lex.EOF()) && (!anyErrors)) {
+            while ((token.code == lex.codeFor("SMICL")) && (!lex.EOF()) && (!anyErrors)) {
                 token = lex.GetNextToken();
                 recur = Statement();
             }
@@ -147,7 +145,7 @@ public class Syntactic {
     *
     *   <sign>  -->  $PLUS | $MINUS 
     * 
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */ 
     private int Sign() {
         int recur = 0;
@@ -166,7 +164,7 @@ public class Syntactic {
     *
     *   <addop>  -->  $PLUS | $MINUS 
     * 
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */ 
     private int Addop() {
         int recur = 0;
@@ -185,7 +183,7 @@ public class Syntactic {
     *
     *   <mulop>  -->  $MULTIPLY | $DIVIDE
     *
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */
     private int Multop() {
         int recur = 0;
@@ -204,7 +202,7 @@ public class Syntactic {
     *
     *   <unsigned number>  -->  $FLOAT | $INTEGER
     *
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */    
     private int UnsignedNumber() {
         int recur = 0;
@@ -257,7 +255,7 @@ public class Syntactic {
     *
     * NOTE: Needs to be checked.
     */       
-    private void Term() {
+    private int Term() {
         int recur = 0;
         recur = Factor();
         token = lex.GetNextToken();  
@@ -265,7 +263,8 @@ public class Syntactic {
             recur = Multop();
             token = lex.GetNextToken();  
             recur = Factor();
-        } while(!anyErrors);
+        } while(token.code == lex.codeFor("SMICL") && !anyErrors);
+        return recur;
     }
 
     /*
@@ -283,7 +282,7 @@ public class Syntactic {
     }
     
     /*
-    * Not a Non-Terminal
+    * Recursive Terminal
     *
     *   <variable>  -->  <identifier>
     *
@@ -296,11 +295,87 @@ public class Syntactic {
         return recur;
     }
 
+    /*  
+    * Recursive Terminal
+    *  
+    *   <simple expression>  -->  [<sign>] <term> {<addop> || <term>}*
+    *
+    * REVIEW: Needs to be checked.
+    */  
+    private int SimpleExpression() {
+
+        int recur = 0;
+        
+        if (anyErrors) {
+            return -1;
+        }
+
+        trace("SimpleExpression", true);
+
+        if (token.code == Sign()){
+            recur = Sign();
+            token = lex.GetNextToken();
+        } else {
+            token = lex.GetNextToken();
+        }
+        if (token.code == Term()){
+            token = lex.GetNextToken();
+            recur = Term(); 
+            // FIXME: Get Hung up here  
+            if (token.code == Addop()) {
+                token = lex.GetNextToken();
+                recur = Addop();
+                if (token.code == Term()){
+                    token = lex.GetNextToken();
+                    recur = Term();                    
+                }
+            }
+        } 
+        trace("SimpleExpression", false);
+        return recur;
+    }
+
+    /*  
+    * Non Terminal
+    *
+    *   <simple expression>  -->  <variable> $COLON-EQUALS <simple expression>
+    *
+    * TODO: Needs to be checked.
+    */     
+    private int Statement() {
+        
+        int recur = 0;
+        
+        if (anyErrors) {
+            return -1;
+        }
+        
+        trace("Statement", true);
+        
+        if (token.code == Variable()) {  //must be an ASSUGNMENT
+            recur = handleAssignment();
+            token = lex.GetNextToken();
+        } else {
+            if (token.code == SimpleExpression()) {  //must be an ASSUGNMENT
+                // this would handle the rest of the IF statment IN PART B
+                recur = handleAssignment();
+                token = lex.GetNextToken();
+            // if/elses should look for the other possible statement starts...
+            } else {   
+                //  but not until PART B
+                error("Statement start", token.lexeme);
+            }
+        }
+
+        trace("Statement", false);
+        
+        return recur;
+    }
+
     //#################################################################################################
     //                  Student Provided Terminal and Non-Terminal Token Identifiers
     //                                                  END
     //#################################################################################################
-
 
     //Not a NT, but used to shorten Statement code body   
     //<variable> $COLON-EQUALS <simple expression>
@@ -320,54 +395,6 @@ public class Syntactic {
             error(lex.reserveFor("ASIGN"), token.lexeme);
         }
         trace("handleAssignment", false);
-        return recur;
-    }
-
-    /*  
-    *  Not a NT
-    *  <simple expression>  -->  [<sign>] <term> {<addop> || <term>}*
-    */  
-    private int SimpleExpression() {
-        int recur = 0;
-        if (anyErrors) {
-            return -1;
-        }
-        trace("SimpleExpression", true);
-        do {
-            token = lex.GetNextToken();
-        } while ((Sign() != -1) );
-        if(Term() != -1){
-            do{
-                token = lex.GetNextToken();
-            }while(Factor() != -1 || Term() != -1);    
-        }
-        trace("SimpleExpression", false);
-        return recur;
-    }
-
-    //Non Terminal 
-    /*  
-    *  <simple expression>  -->  <variable> $COLON-EQUALS <simple expression>
-    */     
-    private int Statement() {
-        int recur = 0;
-        if (anyErrors) {
-            return -1;
-        }
-        trace("Statement", true);
-        if (token.code == lex.codeFor("PLUS_") || token.code == lex.codeFor("PLUS_")) {  //must be an ASSIGNMENT
-            recur = handleAssignment();
-            token = lex.GetNextToken();
-        } else {
-            if (token.code == lex.codeFor("IF___")) {  //must be an ASSIGNMENT
-                // this would handle the rest of the IF statement IN PART B
-            } else // if/elses should look for the other possible statement starts...  
-            //  but not until PART B
-            {
-                error("Statement start", token.lexeme);
-            }
-        }
-        trace("Statement", false);
         return recur;
     }
 
