@@ -120,6 +120,14 @@ public class Lexical {
         printToken = on;
     }
 
+    public int codeFor(String mnemonic) {
+        return mnemonics.LookupName(mnemonic);
+    }
+
+    public String reserveFor(String mnemonic){
+        return reserveWords.LookupCode(mnemonics.LookupName(mnemonic));
+    }
+
     /* @@@ */
     private void initReserveWords(ReserveTable reserveWords) {
         reserveWords.Add("GO_TO", 0);
@@ -134,7 +142,7 @@ public class Lexical {
         reserveWords.Add("OF", 8);
         reserveWords.Add("PRINTLN", 9);
         reserveWords.Add("READLN", 10);
-        reserveWords.Add("BETGIN", 11);
+        reserveWords.Add("BEGIN", 11);
         reserveWords.Add("END", 12);
         reserveWords.Add("VAR", 13);
         reserveWords.Add("DOWHILE", 14);
@@ -751,20 +759,11 @@ public class Lexical {
             // mnemonics.LookupCode(result.code);
             result = checkTruncate(result);
             if (printToken) {
-                System.out.println("\t" + result.mnemonic + " | \t" + String.format("%04d", result.code) + " | \t"
-                        + result.lexeme);
+                System.out.println("\t" + result.mnemonic + " | \t" + 
+                String.format("%04d", result.code) + " | \t" + result.lexeme);
             }
         }
         return result;
 
     }
-
-    public int codeFor(String look_up_Str) {
-        return 0;
-    }
-
-    public String reserveFor(String look_up_Str) {
-        return "";
-    }
-
 }
