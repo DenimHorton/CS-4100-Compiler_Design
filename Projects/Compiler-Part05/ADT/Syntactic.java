@@ -225,23 +225,27 @@ public class Syntactic {
     * TODO: Needs to be checked.
     */ 
     private int Factor(){
+
         int recur = 0;
+        
         if (anyErrors) {
             return -1;
         }
-        recur = UnsignedConstant();
-        token = lex.GetNextToken();
-      
-        if ((token.code == lex.codeFor("INT__")) || (token.code == lex.codeFor("IDENT"))){ 
+              
+        if (token.code == UnsignedConstant()){ 
+            recur = UnsignedConstant();
             token = lex.GetNextToken();
-            if( token.code == lex.codeFor("LTPAR")){
+        } else if((token.code == Variable())){
+            recur = UnsignedConstant();
+            token = lex.GetNextToken();
+        } 
+        if (token.code == lex.codeFor("LTPAR")){
+            token = lex.GetNextToken();
+            if( token.code == lex.codeFor("IDENT")){
                 token = lex.GetNextToken();
-                if( token.code == lex.codeFor("IDENT")){
+                if( token.code == lex.codeFor("RTPAR")){
+                    recur = handleAssignment();
                     token = lex.GetNextToken();
-                    if( token.code == lex.codeFor("RTPAR")){
-                        recur = handleAssignment();
-                        token = lex.GetNextToken();
-                    }
                 }
             }
         }
@@ -253,17 +257,22 @@ public class Syntactic {
     *
     *   <term>  -->  <factor> {<mulop> || <factor> }*
     *
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */       
     private int Term() {
+
         int recur = 0;
+        
         recur = Factor();
+        
         token = lex.GetNextToken();  
+        
         do {
             recur = Multop();
             token = lex.GetNextToken();  
             recur = Factor();
         } while(token.code == lex.codeFor("SMICL") && !anyErrors);
+        
         return recur;
     }
 
@@ -272,12 +281,15 @@ public class Syntactic {
     *
     *   <unsigned constant>  -->  <unsigned number>
     *
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */ 
     private int UnsignedConstant() {
+        
         int recur = 0;
+        
         recur = UnsignedNumber();
         token = lex.GetNextToken();
+        
         return recur;
     }
     
@@ -286,12 +298,14 @@ public class Syntactic {
     *
     *   <variable>  -->  <identifier>
     *
-    * NOTE: Needs to be checked.
+    * REVIEW: Needs to be checked.
     */ 
     private int Variable(){
         int recur = 0;
+        
         recur = ProgIdentifier();
         token = lex.GetNextToken();
+        
         return recur;
     }
 
