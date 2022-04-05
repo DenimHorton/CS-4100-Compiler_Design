@@ -9,15 +9,6 @@ package ADT;
  * 
  * TODO: This File represents . . . 
  * 
- * Allows control of whether tokens are printed within Lexical or not
- * public void setPrintToken(boolean on){
- *     printToken = on;
- * }
- * 
- * Add 2 lines which prints each token found by GetNextToken:
- *             if (printToken) {
- *                 System.out.println("\t" + result.mnemonic + " | \t" + String.format("%04d", result.code) + " | \t" + result.lexeme);
- *             }
  */
 
 public class Syntactic {
