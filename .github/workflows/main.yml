@@ -36,7 +36,7 @@ jobs:
               cd ./Projects/Compiler-Part05/
               pwd
               echo "Compiling ADT files"
-              javac ./ADT/*.java
+              javac -d ./SP22HW5 ./ADT/*.java
               echo "Compiling main file and Execute main file"
               cd ./SP22HW5 ; ls ; javac main05.java             
 
