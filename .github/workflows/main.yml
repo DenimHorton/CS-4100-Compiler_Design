@@ -40,7 +40,7 @@ jobs:
               echo "Compiling main file"
               javac -d /CompilerPart05 ./SP22HW5/main05.java
               echo "Execute main file"
-              ls
+              ls ./SP22HW5/
               java main05 > ./SP22HW5/Outputs/output.txt
               echo "Show saved txt output"
               ls ./SP22HW5/Outputs
