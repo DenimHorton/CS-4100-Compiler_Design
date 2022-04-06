@@ -1,0 +1,290 @@
+compile:
+run:
+0001 
+0002 PROGRAM goodtree;
+	PROG | 	0015 | 	PROGRAM
+--> Entering Program
+	IDNT | 	0050 | 	goodtree
+	SEMI | 	0036 | 	;
+0003 
+0004 (* This Part A test file should have NO errors! *)
+0005 
+0006 BEGIN
+	BGIN | 	0011 | 	BEGIN
+ --> Entering Block
+0007 { The only statements for Part A are ASSIGNMENTS with EXPRESSIONS }
+0008 
+0009 total:=(27*first)+ 3.14*radius*radius;
+	IDNT | 	0050 | 	total
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASGN | 	0037 | 	:=
+    <-- Exiting Variable
+	LPAR | 	0034 | 	(
+    --> Entering SimpleExpression
+     --> Entering Term
+      --> Entering Factor
+	ICNS | 	0051 | 	27
+       --> Entering SimpleExpression
+        --> Entering Term
+         --> Entering Factor
+          --> Entering UnsignedConstant
+           --> Entering UnsignedNumber
+	MULT | 	0031 | 	*
+           <-- Exiting UnsignedNumber
+          <-- Exiting UnsignedConstant
+         <-- Exiting Factor
+         --> Entering Mulop
+	IDNT | 	0050 | 	first
+         <-- Exiting Mulop
+         --> Entering Factor
+          --> Entering Variable
+	RPAR | 	0035 | 	)
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+       <-- Exiting SimpleExpression
+	PLUS | 	0032 | 	+
+      <-- Exiting Factor
+     <-- Exiting Term
+     --> Entering Addop
+	FCNS | 	0052 | 	3.14
+     <-- Exiting Addop
+     --> Entering Term
+      --> Entering Factor
+       --> Entering UnsignedConstant
+        --> Entering UnsignedNumber
+	MULT | 	0031 | 	*
+        <-- Exiting UnsignedNumber
+       <-- Exiting UnsignedConstant
+      <-- Exiting Factor
+      --> Entering Mulop
+	IDNT | 	0050 | 	radius
+      <-- Exiting Mulop
+      --> Entering Factor
+       --> Entering Variable
+	MULT | 	0031 | 	*
+       <-- Exiting Variable
+      <-- Exiting Factor
+      --> Entering Mulop
+	IDNT | 	0050 | 	radius
+      <-- Exiting Mulop
+      --> Entering Factor
+       --> Entering Variable
+	SEMI | 	0036 | 	;
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+0010 a :=(a+c)*(b-d)       ;
+	IDNT | 	0050 | 	a
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASGN | 	0037 | 	:=
+    <-- Exiting Variable
+	LPAR | 	0034 | 	(
+    --> Entering SimpleExpression
+     --> Entering Term
+      --> Entering Factor
+	IDNT | 	0050 | 	a
+       --> Entering SimpleExpression
+        --> Entering Term
+         --> Entering Factor
+          --> Entering Variable
+	PLUS | 	0032 | 	+
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+        --> Entering Addop
+	IDNT | 	0050 | 	c
+        <-- Exiting Addop
+        --> Entering Term
+         --> Entering Factor
+          --> Entering Variable
+	RPAR | 	0035 | 	)
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+       <-- Exiting SimpleExpression
+	MULT | 	0031 | 	*
+      <-- Exiting Factor
+      --> Entering Mulop
+	LPAR | 	0034 | 	(
+      <-- Exiting Mulop
+      --> Entering Factor
+	IDNT | 	0050 | 	b
+       --> Entering SimpleExpression
+        --> Entering Term
+         --> Entering Factor
+          --> Entering Variable
+	MINS | 	0033 | 	-
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+        --> Entering Addop
+	IDNT | 	0050 | 	d
+        <-- Exiting Addop
+        --> Entering Term
+         --> Entering Factor
+          --> Entering Variable
+	RPAR | 	0035 | 	)
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+       <-- Exiting SimpleExpression
+	SEMI | 	0036 | 	;
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+0011 
+0012 d1 := -b +(b*b) - 4 * a* c / 2.5*a;
+	IDNT | 	0050 | 	d1
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASGN | 	0037 | 	:=
+    <-- Exiting Variable
+	MINS | 	0033 | 	-
+    --> Entering SimpleExpression
+     --> Entering Sign
+	IDNT | 	0050 | 	b
+     <-- Exiting Sign
+     --> Entering Term
+      --> Entering Factor
+       --> Entering Variable
+	PLUS | 	0032 | 	+
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+     --> Entering Addop
+	LPAR | 	0034 | 	(
+     <-- Exiting Addop
+     --> Entering Term
+      --> Entering Factor
+	IDNT | 	0050 | 	b
+       --> Entering SimpleExpression
+        --> Entering Term
+         --> Entering Factor
+          --> Entering Variable
+	MULT | 	0031 | 	*
+          <-- Exiting Variable
+         <-- Exiting Factor
+         --> Entering Mulop
+	IDNT | 	0050 | 	b
+         <-- Exiting Mulop
+         --> Entering Factor
+          --> Entering Variable
+	RPAR | 	0035 | 	)
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+       <-- Exiting SimpleExpression
+	MINS | 	0033 | 	-
+      <-- Exiting Factor
+     <-- Exiting Term
+     --> Entering Addop
+	ICNS | 	0051 | 	4
+     <-- Exiting Addop
+     --> Entering Term
+      --> Entering Factor
+       --> Entering UnsignedConstant
+        --> Entering UnsignedNumber
+	MULT | 	0031 | 	*
+        <-- Exiting UnsignedNumber
+       <-- Exiting UnsignedConstant
+      <-- Exiting Factor
+      --> Entering Mulop
+	IDNT | 	0050 | 	a
+      <-- Exiting Mulop
+      --> Entering Factor
+       --> Entering Variable
+	MULT | 	0031 | 	*
+       <-- Exiting Variable
+      <-- Exiting Factor
+      --> Entering Mulop
+	IDNT | 	0050 | 	c
+      <-- Exiting Mulop
+      --> Entering Factor
+       --> Entering Variable
+	DIVD | 	0030 | 	/
+       <-- Exiting Variable
+      <-- Exiting Factor
+      --> Entering Mulop
+	FCNS | 	0052 | 	2.5
+      <-- Exiting Mulop
+      --> Entering Factor
+       --> Entering UnsignedConstant
+        --> Entering UnsignedNumber
+	MULT | 	0031 | 	*
+        <-- Exiting UnsignedNumber
+       <-- Exiting UnsignedConstant
+      <-- Exiting Factor
+      --> Entering Mulop
+	IDNT | 	0050 | 	a
+      <-- Exiting Mulop
+      --> Entering Factor
+       --> Entering Variable
+	SEMI | 	0036 | 	;
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+0013 finval := this - (that*other)
+	IDNT | 	0050 | 	finval
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASGN | 	0037 | 	:=
+    <-- Exiting Variable
+	IDNT | 	0050 | 	this
+    --> Entering SimpleExpression
+     --> Entering Term
+      --> Entering Factor
+       --> Entering Variable
+	MINS | 	0033 | 	-
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+     --> Entering Addop
+	LPAR | 	0034 | 	(
+     <-- Exiting Addop
+     --> Entering Term
+      --> Entering Factor
+	IDNT | 	0050 | 	that
+       --> Entering SimpleExpression
+        --> Entering Term
+         --> Entering Factor
+          --> Entering Variable
+	MULT | 	0031 | 	*
+          <-- Exiting Variable
+         <-- Exiting Factor
+         --> Entering Mulop
+	IDNT | 	0050 | 	other
+         <-- Exiting Mulop
+         --> Entering Factor
+          --> Entering Variable
+	RPAR | 	0035 | 	)
+          <-- Exiting Variable
+         <-- Exiting Factor
+        <-- Exiting Term
+       <-- Exiting SimpleExpression
+0014 end.
+	END_ | 	0012 | 	end
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+	PERD | 	0048 | 	.
+ <-- Exiting Block
+Success.
+<-- Exiting Program
+Done.

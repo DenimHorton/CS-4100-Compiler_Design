@@ -1,0 +1,43 @@
+0001 
+0002 PROGRAM goodtree;
+	PRGRM | 	0015 | 	PROGRAM
+--> Entering Program
+	IDENT | 	0050 | 	goodtree
+	SMICL | 	0036 | 	;
+0003 
+0004 (* This Part A test file should have NO errors! *)
+0005 
+0006 BEGIN
+	BEGIN | 	0011 | 	BEGIN
+ --> Entering Block
+0007 { The only statements for Part A are ASSIGNMENTS with EXPRESSIONS }
+0008 
+0009 total:=(27*first)+ 3.14*radius*radius;
+	IDENT | 	0050 | 	total
+  --> Entering Statement
+   --> Entering handleAssignment
+    --> Entering Variable
+	ASIGN | 	0037 | 	:=
+    <-- Exiting Variable
+	LTPAR | 	0034 | 	(
+    --> Entering SimpleExpression
+	INT__ | 	0051 | 	27
+     --> Entering Term
+      --> Entering Factor
+       --> Entering UnsignedConst
+        --> Entering UnsignedNumber
+	MULT_ | 	0031 | 	*
+        <-- Exiting UnsignedNumber
+       <-- Exiting UnsignedConst
+       --> Entering Variable
+       <-- Exiting Variable
+      <-- Exiting Factor
+     <-- Exiting Term
+    <-- Exiting SimpleExpression
+   <-- Exiting handleAssignment
+  <-- Exiting Statement
+ERROR: Expected END but found *
+ <-- Exiting Block
+ERROR: Expected . but found *
+<-- Exiting Program
+Done.

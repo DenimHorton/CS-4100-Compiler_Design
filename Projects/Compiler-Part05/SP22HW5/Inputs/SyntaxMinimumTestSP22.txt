@@ -1,4 +1,4 @@
-MODULE mytest;
+Program  mytest;
 BEGIN
 count := total;  
 a:=b

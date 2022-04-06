@@ -124,7 +124,7 @@ public class Lexical {
         return mnemonics.LookupName(mnemonic);
     }
 
-    public String reserveFor(String mnemonic){
+    public String reserveFor(String mnemonic) {
         return reserveWords.LookupCode(mnemonics.LookupName(mnemonic));
     }
 
@@ -759,8 +759,8 @@ public class Lexical {
             // mnemonics.LookupCode(result.code);
             result = checkTruncate(result);
             if (printToken) {
-                System.out.println("\t" + result.mnemonic + " | \t" + 
-                String.format("%04d", result.code) + " | \t" + result.lexeme);
+                System.out.println("\t" + result.mnemonic + " | \t" + String.format("%04d", result.code) + " | \t"
+                        + result.lexeme);
             }
         }
         return result;
