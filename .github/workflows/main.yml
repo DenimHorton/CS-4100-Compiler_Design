@@ -35,8 +35,5 @@ jobs:
               java -version 
               cd ./Projects/Compiler-Part05/
               pwd
-              echo "Compiling ADT files"
-              javac -d ./SP22HW5 ./ADT/*.java
-              echo "Compiling main file and Execute main file"
-              cd ./SP22HW5 ; javac main05.java  > ./Outputs/output.txt ; cd ./Outputs/ 
-              diff --color ./output.txt ./EXSyntaxGoodTestOUTPUT.txt 
+              sh project05Test.sh
+              cat ./SP22HW5/Outputs/compare.txt
