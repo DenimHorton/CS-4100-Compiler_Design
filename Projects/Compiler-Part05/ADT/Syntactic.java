@@ -2,6 +2,8 @@
 
 package ADT;
 
+import ADT.Lexical.token;
+
 /**
  * @author Abrouill & Robert Denim Horton
  * @version 2.0
@@ -137,7 +139,7 @@ public class Syntactic {
     /*
      * Non Terminal
      *
-     * <simple expression> --> <variable> $COLON-EQUALS <simple expression>
+     * <statment> --> <variable> $COLON-EQUALS <simple expression>
      *
      * NOTE: Given with provided Syntactic file.
      */
@@ -175,9 +177,8 @@ public class Syntactic {
             return -1;
         }
         trace("handleAssignment", true);
-        // Have ident already in order to get to here, handle as Variable
-        // Variable moves ahead, next token ready
-        recur = Variable();
+        // have ident already in order to get to here, handle as Variable
+        recur = Variable(); // Variable moves ahead, next token ready
         if (token.code == lex.codeFor("ASIGN")) {
             token = lex.GetNextToken();
             recur = SimpleExpression();
@@ -205,11 +206,11 @@ public class Syntactic {
         if (anyErrors) {
             return -1;
         }
-        // trace("Addop", true);
+        trace("Addop", true);
         if (token.code != lex.codeFor("PLUS_") || token.code != lex.codeFor("MINU_")) {
             token = lex.GetNextToken();
         }
-        // trace("Addop", false);
+        trace("Addop", false);
         return recur;
     }
 
@@ -226,7 +227,8 @@ public class Syntactic {
             return -1;
         }
         trace("Variable", true);
-        recur = ProgIdentifier();
+        if (token.code == lex.codeFor("IDENT"))
+            token = lex.GetNextToken();
         trace("Variable", false);
         return recur;
     }
@@ -244,13 +246,20 @@ public class Syntactic {
             return -1;
         }
         trace("SimpleExpression", true);
-        if (token.code == lex.codeFor("PLUS_") || token.code == lex.codeFor("MINU_"))
+
+        if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
             recur = Sign();
-        if (token.code == Addop())
+        }
+
+        recur = Term();
+
+        while ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
             recur = Addop();
-        if (token.code == Term())
             recur = Term();
+        }
+
         trace("SimpleExpression", false);
+
         return recur;
     }
 
@@ -268,7 +277,7 @@ public class Syntactic {
         }
         trace("Sign", true);
 
-        if (token.code != lex.codeFor("PLUS_") || token.code != lex.codeFor("MINU_")) {
+        if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
             token = lex.GetNextToken();
         }
         trace("Sign", false);
@@ -290,14 +299,14 @@ public class Syntactic {
         }
 
         trace("Term", true);
+        // <factor>
         recur = Factor();
-
-        while (token.code != lex.codeFor("MULT_")) {
+        // {<mulop> <factor> }*
+        while ((token.code == lex.codeFor("MULT_")) || (token.code == lex.codeFor("DIVD_"))) {
             recur = Multop();
             recur = Factor();
         }
         trace("Term", false);
-
         return recur;
     }
 
@@ -314,11 +323,11 @@ public class Syntactic {
         if (anyErrors) {
             return -1;
         }
-        // trace("Multop", true);
-        if (token.code == lex.codeFor("MULT_") || token.code == lex.codeFor("DIVD_")) {
+        trace("Mulop", true);
+        if ((token.code == lex.codeFor("MULT_")) || (token.code == lex.codeFor("DIVD_"))) {
             token = lex.GetNextToken();
         }
-        // trace("Multop", false);
+        trace("Mulop", false);
 
         return recur;
     }
@@ -338,23 +347,16 @@ public class Syntactic {
         }
         trace("Factor", true);
 
-        if (token.code == UnsignedConstant()) {
-            recur = UnsignedConstant();
-
-        } else if ((token.code == Variable())) {
-            recur = Variable();
-
-        } else if (token.code == lex.codeFor("LTPAR")) {
+        if (token.code == lex.codeFor("LTPAR")) {
             token = lex.GetNextToken();
-
-            if (token.code == lex.codeFor("IDENT")) {
-                // token = lex.GetNextToken();
-                recur = Variable();
-
-                if (token.code == lex.codeFor("RTPAR")) {
-                    token = lex.GetNextToken();
-                }
+            recur = SimpleExpression();
+            if (token.code == lex.codeFor("RTPAR")) {
+                token = lex.GetNextToken();
             }
+        } else if (token.code == lex.codeFor("IDENT")) {
+            recur = Variable();
+        } else {
+            recur = UnsignedConstant();
         }
         trace("Factor", false);
         return recur;
@@ -372,9 +374,9 @@ public class Syntactic {
         if (anyErrors) {
             return -1;
         }
-        trace("UnsignedConst", true);
+        trace("UnsignedConstant", true);
         recur = UnsignedNumber();
-        trace("UnsignedConst", false);
+        trace("UnsignedConstant", false);
         return recur;
     }
 
@@ -392,7 +394,7 @@ public class Syntactic {
         }
         trace("UnsignedNumber", true);
         // This non-term is used to uniquely mark the Unsigned identifier
-        if (token.code == lex.codeFor("FLT__") || token.code == lex.codeFor("INT__")) {
+        if ((token.code == lex.codeFor("FLT__")) || (token.code == lex.codeFor("INT__"))) {
             token = lex.GetNextToken();
         }
         trace("UnsignedNumber", false);
