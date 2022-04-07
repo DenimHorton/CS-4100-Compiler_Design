@@ -36,7 +36,6 @@ jobs:
               cd ./Projects/Compiler-Part05/
               pwd
               sh project05Test.sh
-              cat ./SP22HW5/Outputs/compare.txt
               echo "----- Compare file -----"
               cat ./SP22HW5/Outputs/compare.txt
     
