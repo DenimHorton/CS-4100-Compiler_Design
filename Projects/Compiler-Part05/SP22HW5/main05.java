@@ -10,6 +10,8 @@ import ADT.*;
 public class main05 {
 
     public static void main(String[] args) throws InterruptedException {
+
+        System.out.println("Robert Denim Horton, 9803, CS4100, SPRING 2022, Compiler IDE used: VSCode");
         String filePath = "./SP22HW5/Inputs/GoodSyntax-1-ASP22.txt";
 
         boolean traceon = true;

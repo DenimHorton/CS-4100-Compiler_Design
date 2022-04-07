@@ -1,3 +1,4 @@
+Robert Denim Horton, 9803, CS4100, SPRING 2022, Compiler IDE used: VSCode
 0001 Program mytest;
 	PRGRM | 	0015 | 	Program
 --> Entering Program
