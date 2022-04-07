@@ -6,9 +6,9 @@ import ADT.Lexical.token;
 
 /**
  * @author Abrouill & Robert Denim Horton
- * @version 2.0
+ * @version 3.1
  * 
- *          TODO: This File represents . . .
+ *          This File represents the Syntactic part of the compiler.
  * 
  */
 
@@ -36,6 +36,7 @@ public class Syntactic {
     // The interface to the syntax analyzer, initiates parsing
     // Uses variable RECUR to get return values throughout the non-terminal methods
     public void parse() {
+        // Reset recur to 0
         int recur = 0;
         // prime the pump
         token = lex.GetNextToken();
@@ -51,7 +52,9 @@ public class Syntactic {
      * NOTE: Given with provided Syntactic file.
      */
     private int ProgIdentifier() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
@@ -74,10 +77,13 @@ public class Syntactic {
      * NOTE: Given with provided Syntactic file.
      */
     private int Program() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Program", true);
         if (token.code == lex.codeFor("PRGRM")) {
             token = lex.GetNextToken();
@@ -112,10 +118,13 @@ public class Syntactic {
      * NOTE: Given with provided Syntactic file.
      */
     private int Block() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Block", true);
         if (token.code == lex.codeFor("BEGIN")) {
             token = lex.GetNextToken();
@@ -144,10 +153,13 @@ public class Syntactic {
      * NOTE: Given with provided Syntactic file.
      */
     private int Statement() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Statement", true);
         if (token.code == lex.codeFor("IDENT")) { // must be an ASSUGNMENT
             recur = handleAssignment();
@@ -172,10 +184,13 @@ public class Syntactic {
      * NOTE: Given with provided Syntactic file.
      */
     private int handleAssignment() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("handleAssignment", true);
         // have ident already in order to get to here, handle as Variable
         recur = Variable(); // Variable moves ahead, next token ready
@@ -202,12 +217,17 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int Addop() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Addop", true);
+        // Check if the token is a plus or minus operator
         if (token.code != lex.codeFor("PLUS_") || token.code != lex.codeFor("MINU_")) {
+            // If so, move to next token
             token = lex.GetNextToken();
         }
         trace("Addop", false);
@@ -222,13 +242,19 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int Variable() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Variable", true);
-        if (token.code == lex.codeFor("IDENT"))
+        // Check if the token is an identifier
+        if (token.code == lex.codeFor("IDENT")) {
+            // If so, move to next token
             token = lex.GetNextToken();
+        }
         trace("Variable", false);
         return recur;
     }
@@ -241,25 +267,29 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int SimpleExpression() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("SimpleExpression", true);
-
+        // Check if the token is a plus or minus operator
         if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
+            // If so call into Sign to move to next token
             recur = Sign();
         }
 
+        // Call into Term since there must be at least one term recursion
         recur = Term();
 
+        // While the next token after recursion through Term is a plus or minus operator
         while ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
-            recur = Addop();
-            recur = Term();
+            recur = Addop(); // Enter into Addop move to next token
+            recur = Term(); // Enter into Term ton enter into more recursion and move to next token
         }
-
         trace("SimpleExpression", false);
-
         return recur;
     }
 
@@ -271,13 +301,17 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int Sign() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Sign", true);
-
+        // Check if the token is a plus or minus operator
         if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
+            // If so, move to next token
             token = lex.GetNextToken();
         }
         trace("Sign", false);
@@ -292,19 +326,21 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int Term() {
+        // Reset recur to 0
         int recur = 0;
-
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
-
+        // Set Trace to track recursion through console
         trace("Term", true);
-        // <factor>
+        // Call Factor to see if any terminating terminals exists
         recur = Factor();
-        // {<mulop> <factor> }*
+        // While the next operator is a multiply or divide operator keep rcurring and
+        // moving to next token
         while ((token.code == lex.codeFor("MULT_")) || (token.code == lex.codeFor("DIVD_"))) {
-            recur = Multop();
-            recur = Factor();
+            recur = Multop(); // Call Multop to see move to next token
+            recur = Factor(); // Call Factor to see if any terminating terminals exists
         }
         trace("Term", false);
         return recur;
@@ -318,17 +354,20 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int Multop() {
+        // Reset recur to 0
         int recur = 0;
-
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Mulop", true);
+        // Check if the token is a multiply or divide operator
         if ((token.code == lex.codeFor("MULT_")) || (token.code == lex.codeFor("DIVD_"))) {
+            // If so, move to next token
             token = lex.GetNextToken();
         }
         trace("Mulop", false);
-
         return recur;
     }
 
@@ -341,20 +380,30 @@ public class Syntactic {
      * TODO: Needs to be checked.
      */
     private int Factor() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("Factor", true);
-
+        // Check if the token is a " ( "
         if (token.code == lex.codeFor("LTPAR")) {
+            // If so, move to next token
             token = lex.GetNextToken();
+            // Call simple expression for recursion
             recur = SimpleExpression();
+            // Check if the token is a " ) "
             if (token.code == lex.codeFor("RTPAR")) {
+                // If so, move to next token
                 token = lex.GetNextToken();
             }
+            // Else If, not a " ( " then check if token is a identifier
         } else if (token.code == lex.codeFor("IDENT")) {
+            // If so, call Variable for recursion
             recur = Variable();
+            // Else, call Unsigned for recursion
         } else {
             recur = UnsignedConstant();
         }
@@ -370,11 +419,15 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int UnsignedConstant() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("UnsignedConstant", true);
+        // Call Unsigned for recursion
         recur = UnsignedNumber();
         trace("UnsignedConstant", false);
         return recur;
@@ -388,17 +441,20 @@ public class Syntactic {
      * REVIEW: Needs to be checked.
      */
     private int UnsignedNumber() {
+        // Reset recur to 0
         int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        // Set Trace to track recursion through console
         trace("UnsignedNumber", true);
-        // This non-term is used to uniquely mark the Unsigned identifier
+        // If token is a float or integer identifier
         if ((token.code == lex.codeFor("FLT__")) || (token.code == lex.codeFor("INT__"))) {
+            // If so, get next token
             token = lex.GetNextToken();
         }
         trace("UnsignedNumber", false);
-
         return recur;
     }
     // #################################################################################################
@@ -455,6 +511,7 @@ public class Syntactic {
     /*
      * Template for all the non-terminal method bodies
      * private int exampleNonTerminal(){
+     * //Reset recur to 0
      * int recur = 0;
      * if (anyErrors) {
      * return -1;

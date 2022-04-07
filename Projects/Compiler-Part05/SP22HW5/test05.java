@@ -6,7 +6,7 @@ import ADT.*;
 
 /**
  *
- * @author Robert Denim Horton SPRING 2022
+ * @author abrouill & Robert Denim Horton
  */
 public class test05 {
 

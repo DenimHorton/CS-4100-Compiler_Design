@@ -3,10 +3,11 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 2.0
+ * @version 3.1
  * 
- *          This File represents . . . TODO: Add in doc for file
+ *          This File represents the interpreter part our of compiler 
  */
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

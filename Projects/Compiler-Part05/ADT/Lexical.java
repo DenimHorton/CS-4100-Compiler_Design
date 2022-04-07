@@ -7,53 +7,78 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 /**
  * @author Robert Denim Horton
- * @version 2.0
+ * @version 3.1
  * 
- *          This File represents the lexical analyser of our compiler
+ *          This File represents the lexical analyzer of our compiler that 
+ *          works by essentially breaking each line into token and parsing 
+ *          through each token to decide what kind of token it is.  The 
+ *          tokens are evaluted with its starting character and it is
+ *          parsed through until either an error occurs, i.e. non-
+ *          terminating string qutation marks (" " ") or comments (" (* "
+ *          or  " *) ") or untill a space of the end of the line is hit. 
  */
 import java.io.*;
 
 public class Lexical {
-
-    private File file; // File to be read for input
-    private FileReader filereader; // Reader, Java reqd
-    private BufferedReader bufferedreader; // Buffered, Java reqd
-    private String line; // Current line of input from file
-    private int linePos; // Current character position
-    // in the current line
-    private SymbolTable saveSymbols; // SymbolTable used in Lexical
-    // sent as parameter to construct
-    private boolean EOF; // End Of File indicator
-    private boolean echo; // true means echo each input line
-    private boolean printToken; // true to print found tokens here
-    private int lineCount; // line #in file, for echo-ing
-    private boolean needLine; // track when to read a new line
+    // File to be read for input
+    private File file;
+    // Reader, Java reqd
+    private FileReader filereader;
+    // Buffered, Java reqd
+    private BufferedReader bufferedreader;
+    // Current line of input from file
+    private String line;
+    // Current character position in the current line
+    private int linePos;
+    // SymbolTable used in Lexical sent as parameter to construct
+    private SymbolTable saveSymbols;
+    // End Of File indicator
+    private boolean EOF;
+    // true means echo each input line
+    private boolean echo;
+    // true to print found tokens here
+    private boolean printToken;
+    // line #in file, for echo-ing
+    private int lineCount;
+    // track when to read a new line
+    private boolean needLine;
     // Tables to hold the reserve words and the mnemonics for token codes
-    private ReserveTable reserveWords = new ReserveTable(50); // a few more than # reserves
-    private ReserveTable mnemonics = new ReserveTable(50); // a few more than # reserves
+    // a few more than # reserves
+    private ReserveTable reserveWords = new ReserveTable(50);
+    // a few more than # reserve
+    private ReserveTable mnemonics = new ReserveTable(50);s
     // global char
     char currCh;
 
     // constructor
     public Lexical(String filename, SymbolTable symbols, boolean echoOn) {
-        saveSymbols = symbols; // map the initialized parameter to the local ST
-        echo = echoOn; // store echo status
-        lineCount = 0; // start the line number count
-        line = ""; // line starts empty
-        needLine = true; // need to read a line
-        printToken = false; // default OFF, do not print tokesn here
-        // within GetNextToken; call setPrintToken to
-        // change it publicly.
-        linePos = -1; // no chars read yet
+        // map the initialized parameter to the local ST
+        saveSymbols = symbols;
+        // store echo status
+        echo = echoOn;
+        // start the line number count
+        lineCount = 0;
+        // line starts empty
+        line = "";
+        // need to read a line
+        needLine = true;
+        // default OFF, do not print tokesn here
+        printToken = false;
+        // within GetNextToken; call setPrintToken to change it publicly.
+        // no chars read yet
+        linePos = -1;
         // call initializations of tables
         initReserveWords(reserveWords);
         initMnemonics(mnemonics);
 
         // set up the file access, get first character, line retrieved 1st time
         try {
-            file = new File(filename); // creates a new file instance
-            filereader = new FileReader(file); // reads the file
-            bufferedreader = new BufferedReader(filereader); // creates a buffering character input stream
+            // creates a new file instance
+            file = new File(filename);
+            // reads the file
+            filereader = new FileReader(file);
+            // creates a buffering character input stream
+            bufferedreader = new BufferedReader(filereader);
             EOF = false;
             currCh = GetNextChar();
         } catch (IOException e) {
@@ -76,16 +101,6 @@ public class Lexical {
         }
     }
 
-    // private token dummyGet() {
-    // token result = new token();
-    // result.lexeme = "" + currCh; // have the first char
-    // currCh = GetNextChar();
-    // result.code = 0;
-    // result.mnemonic = "DUMMY";
-    // return result;
-
-    // }
-
     private final int UNKNOWN_CHAR = 99;
     public final int _GRTR = 38;
     public final int _LESS = 39;
@@ -99,17 +114,6 @@ public class Lexical {
     private final int FLOAT_ID = 52;
     private final int STRING_ID = 53;
 
-    /*
-     * @@@ These are nice for syntax to call later
-     * // given a mnemonic, find its token code value
-     * public int codeFor(String mnemonic) {
-     * return mnemonics.LookupName(mnemonic);
-     * }
-     * // given a mnemonic, return its reserve word
-     * public String reserveFor(String mnemonic) {
-     * return reserveWords.LookupCode(mnemonics.LookupName(mnemonic));
-     * }
-     */
     // Public access to the current End Of File status
     public boolean EOF() {
         return EOF;
@@ -258,10 +262,12 @@ public class Lexical {
     private char PeekNextChar() {
         char result = ' ';
         if ((needLine) || (EOF)) {
-            result = ' '; // at end of line, so nothing
+            // at end of line, so nothing
+            result = ' ';
         } else //
         {
-            if ((linePos + 1) < line.length()) { // have a char to peek
+            // have a char to peek
+            if ((linePos + 1) < line.length()) {
                 result = line.charAt(linePos + 1);
             }
         }
@@ -272,7 +278,8 @@ public class Lexical {
     // buffer string (line) are used up.
     private void GetNextLine() {
         try {
-            line = bufferedreader.readLine(); // returns a null string when EOF
+            // returns a null string when EOF
+            line = bufferedreader.readLine();
             if ((line != null) && (echo)) {
                 lineCount++;
                 System.out.println(String.format("%04d", lineCount) + " " + line);
@@ -280,11 +287,14 @@ public class Lexical {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (line == null) { // The readLine returns null at EOF, set flag
+        // The readLine returns null at EOF, set flag
+        if (line == null) {
             EOF = true;
         }
-        linePos = -1; // reset vars for new line if we have one
-        needLine = false; // we have one, no need
+        // reset vars for new line if we have one
+        linePos = -1;
+        // we have one, no need
+        needLine = false;
         // the line is ready for the next call to get a char with GetNextChar
     }
 
@@ -292,8 +302,8 @@ public class Lexical {
     // /n newline character at the end of each input line or at EOF
     public char GetNextChar() {
         char result;
-        if (needLine) // ran out last time we got a char, so get a new line
-        {
+        // ran out last time we got a char, so get a new line
+        if (needLine) {
             GetNextLine();
         }
         // try to get char from line buff
@@ -303,13 +313,15 @@ public class Lexical {
             needLine = false;
         } else {
             // if there are more characters left in the input buffer
-            if ((linePos < line.length() - 1)) { // have a character available
+            // have a character available
+            if ((linePos < line.length() - 1)) {
                 linePos++;
                 result = line.charAt(linePos);
             } else {
                 // need a new line, but want to return eoln on this call first
                 result = '\n';
-                needLine = true; // will read a new line on next GetNextChar call
+                // will read a new line on next GetNextChar call
+                needLine = true;
             }
         }
         return result;
@@ -340,8 +352,10 @@ public class Lexical {
         } else {
             // this is for the 2-character comment start, different start/end
             if ((curr == comment_start2) && (PeekNextChar() == comment_startend)) {
-                curr = GetNextChar(); // get the second
-                curr = GetNextChar(); // into comment or end of comment
+                // get the second
+                curr = GetNextChar();
+                // into comment or end of comment
+                curr = GetNextChar();
                 // while comment end is not reached
                 while ((!((curr == comment_startend) && (PeekNextChar() == comment_end2))) && (!EOF)) {
                     curr = GetNextChar();
@@ -350,8 +364,10 @@ public class Lexical {
                 if (EOF) {
                     System.out.println("Comment not terminated before End Of File");
                 } else {
-                    curr = GetNextChar(); // must move past close
-                    curr = GetNextChar(); // must get following
+                    // must move past close
+                    curr = GetNextChar();
+                    // must get following
+                    curr = GetNextChar();
                 }
             }
 
@@ -492,11 +508,10 @@ public class Lexical {
         /*
          * This function is called from the GetNextToken() when the character being
          * evaluated is a double quote ("). The token is then parsed and added to the
-         * tokens
-         * lexeme and then returned as long as the har being evaluated is either double
-         * quotation mark ('"') or a end of line terminator, ('\n'). If the new line is
-         * hit we break out of loop and return token result and print out error. else
-         * continue iter through token chars until double quotation mark is hit.
+         * tokens lexeme and then returned as long as the har being evaluated is either
+         * double quotation mark ('"') or a end of line terminator, ('\n'). If the new
+         * line is hit we break out of loop and return token result and print out error.
+         * else continue iter through token chars until double quotation mark is hit.
          * 
          * @return token An object with attributes that allow the token to be
          * associated with a 'code' look up and 'name' look up
@@ -547,18 +562,12 @@ public class Lexical {
          * from
          * choices above ('<', '>', '='). If so we then return the result, after moving
          * the curCh to the next char to be evaluated on the next call to
-         * GetNextToken(). If
-         * the first char is not in the valid option in the first statement then the
-         * else
-         * statement for the first If condition is entered and the char is given the
-         * unknown
-         * code and mnemonic and returned. else we assumer that the first char (lstChr)
-         * was
-         * valid but the second char (currCh) was not a valid double char combination
-         * and
-         * return the single char with its matching mnemonic and code with the currCh
-         * already
-         * being iterated for the next GetNextToken() call.
+         * GetNextToken(). If the first char is not in the valid option in the first
+         * statement then the else statement for the first If condition is entered and
+         * the char is given the unknown code and mnemonic and returned. else we
+         * assume that the first char (lstChr) was valid but the second char (currCh)
+         * and return the single char with its matching mnemonic and code with the
+         * currCh already being iterated for the next GetNextToken() call.
          * 
          * @return token An object with attributes that allow the token to be
          * associated with a 'code' look up and 'name' look up
