@@ -1,3 +1,14 @@
+Copy and paste below code into a .sh file and run the program with the
+
+
+
+
+
+
+
+
+
+
 echo "Compiling test05.java . . ."
 javac ./SP22HW5/*.java -d ../Compiler-Part05
 javac ./ADT/*.java

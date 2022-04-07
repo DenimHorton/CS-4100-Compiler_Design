@@ -37,5 +37,5 @@ jobs:
               pwd
               sh project05Test.sh
               echo "----- Compare file -----"
-              cat ./SP22HW5/Outputs/compare.txt
+              cat ./SP22HW5/Outputs/GoodSyntax-1-OUTPUT.txt
     

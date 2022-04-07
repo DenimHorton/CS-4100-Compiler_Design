@@ -1,0 +1,9 @@
+*** ./SP22HW5/Expected/GoodSyntax-1-EXPECTED.txt	2022-04-07 12:29:32.319667500 -0600
+--- ./SP22HW5/Outputs/output.txt	2022-04-07 15:03:22.997601100 -0600
+***************
+*** 1,4 ****
+- Robert Denim Horton, 9803, CS4100, SPRING 2022, Compiler IDE used: VSCode
+  0001 
+  0002 PROGRAM goodtree;
+          PRGRM |         0015 |  PROGRAM
+--- 1,3 ----

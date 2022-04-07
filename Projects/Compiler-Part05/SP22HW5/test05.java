@@ -14,7 +14,6 @@ public class test05 {
 
         for (int i = 0; i < args.length; i++) {
             String filePath = args[i];
-
             boolean traceon = true;
             Syntactic parser = new Syntactic(filePath, traceon);
             parser.parse();

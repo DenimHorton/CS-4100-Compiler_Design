@@ -1,0 +1,8 @@
+Robert Denim Horton, 9803, CS4100, SPRING 2022, Compiler IDE used: VSCode
+0001 
+0002 module BadProg2;
+	IDENT | 	0050 | 	module
+--> Entering Program
+ERROR: Expected PROGRAM but found module
+<-- Exiting Program
+Done.

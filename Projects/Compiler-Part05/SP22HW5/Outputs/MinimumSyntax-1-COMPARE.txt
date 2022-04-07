@@ -1,0 +1,9 @@
+*** ./SP22HW5/Expected/MinimumSyntax-1-EXPECTED.txt	2022-04-07 12:29:37.325778900 -0600
+--- ./SP22HW5/Outputs/output.txt	2022-04-07 15:03:21.681397200 -0600
+***************
+*** 1,4 ****
+- Robert Denim Horton, 9803, CS4100, SPRING 2022, Compiler IDE used: VSCode
+  0001 Program mytest;
+  	PRGRM | 	0015 | 	Program
+  --> Entering Program
+--- 1,3 ----
