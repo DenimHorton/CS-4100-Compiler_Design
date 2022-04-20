@@ -3,17 +3,18 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 2.0
+ * @version 4.0
  * 
- * This File represents the data structure that will store the objects 
- * in an array and be what ever data correspondes for each entry via
- * thier list index. This version has a different approach of 
- * simply building the object array inside the ReserveTable in stead 
- * of using a stack.  The table stills keeps track of the last index of 
- * the last entered obj 'ReservedWordEntry'.  For this part we also want to 
- * implement more requirments which is integrate a second table that 
- * holds symbols that have corresponding list values for specific entries.
+ *          This File represents the data structure that will store the objects 
+ *          in an array and be what ever data corresponds for each entry via
+ *          their list index. This version has a different approach of 
+ *          simply building the object array inside the ReserveTable in stead 
+ *          of using a stack.  The table stills keeps track of the last index of 
+ *          the last entered obj 'ReservedWordEntry'.  For this part we also want to 
+ *          implement more requirements which is integrate a second table that 
+ *          holds symbols that have corresponding list values for specific entries.
  */
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -32,7 +33,8 @@ public class ReserveTable {
          * should
          * operate correctly with fewer than maxSize entries; it should not be required
          * to add all the entries to fill the structure.
-         * The stack represents a stack implmented from scrath the stored the different
+         * The stack represents a stack implemented from scratch the stored the
+         * different
          * reserve words along with their names, op values, size of entries along with
          * size of
          * abstract data structure.
@@ -79,8 +81,9 @@ public class ReserveTable {
 
         int name_op_code = -1;
 
-        // Iterate throught the list of entries in the table and use compareToIgnoreCase
-        // method to search for the same exact string ignoring case and jsut letter
+        // Iterate throughout the list of entries in the table and use
+        // compareToIgnoreCase
+        // method to search for the same exact string ignoring case and just letter
         // comparrison. If it is not found exit out of for loop and return -1.
         for (int name_indx_iter = 0; name_indx_iter <= rsrv_table_index; name_indx_iter++) {
             // If name matches an element in the data structure return the op code for name.
@@ -103,7 +106,7 @@ public class ReserveTable {
          */
 
         String str_name = "";
-        // Iterate throught the list of entries in the table and search for the same
+        // Iterate throughout the list of entries in the table and search for the same
         // exact integer value. If it is not found exit out of for loop and return
         // an emtpy string.
         for (int name_indx_iter = 0; name_indx_iter <= rsrv_table_index; name_indx_iter++) {

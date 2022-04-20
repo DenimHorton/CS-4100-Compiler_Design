@@ -3,12 +3,12 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 2.0
+ * @version 4.0
  * 
  *          This File represents the data array that will represent the specific
  *          symbols and their corresponding type and value. Will be represented
- *          as
- *          a inherited object 'SymbolEntryType' that has three specific values
+ *          as a inherited object 'SymbolEntryType' that has three specific
+ *          values
  *          for entry.
  */
 
@@ -32,12 +32,12 @@ public class SymbolEntryType<T> {
          *                     stored into the symbol table.
          * @param char_entry   This parameter holds the char value stored at
          *                     the same corresponding index in the symbol table that
-         *                     represnts
+         *                     represents
          *                     whether the entry is a 'label', 'variable', or
          *                     'constant'.
          * @param type_entry   This parameter holds the char value stored at
          *                     the same corresponding index in the 'quad table' that
-         *                     represnts
+         *                     represents
          *                     whether the entry is a 'label', 'variable', and
          *                     'constant'.
          */

@@ -7,9 +7,9 @@ import java.io.IOException;
 
 /**
  * @author Robert Denim Horton
- * @version 2.0
+ * @version 4.0
  * 
- *          This File represents . . . TODO: Add in doc for file
+ *          This File represents the Symbol Table of the compiler
  */
 
 public class SymbolTable {
@@ -42,7 +42,7 @@ public class SymbolTable {
         smbol_val_type_entry = new SymbolEntryType<Integer>(symbol, kind, value);
         /**
          * If the symbol is already in the table according to a non-case
-         * -sensitive comparison [“Total” matches “total” as well as “ToTaL”]
+         * -sensitive comparison ['Total' matches total as well as 'ToTaL']
          * with all the existing strings in the table, no change or
          * verification is made, and this methond returns the row index where
          * the symbol was found. This method only FAILS, and return -1, when

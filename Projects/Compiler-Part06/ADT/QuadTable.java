@@ -6,10 +6,11 @@ import java.io.IOException;
 
 /**
  * @author Robert Denim Horton
- * @version 2.0
+ * @version 4.0
  * 
- *          This File represents . . . TODO: Add in doc for file
+ *          This File represents the quad table of the compiler
  */
+
 public class QuadTable {
     public int[][] quad_table;
     public int quad_table_index = -1;

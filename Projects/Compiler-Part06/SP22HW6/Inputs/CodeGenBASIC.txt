@@ -1,0 +1,14 @@
+
+{This file includes the basic WRITELN and EXPRESSION tests.
+}
+Program CodegenBASIC;
+begin
+writeln("BASIC TEST File");
+WRITELN("String printout:  Hello World");
+a := 2;
+b := 3;
+a := a *(3+b)+ a + 2*b/2 - 1;  {The result: 16}
+writeln("a is now ");
+writeln(a);
+writeln("All done.")
+end.
