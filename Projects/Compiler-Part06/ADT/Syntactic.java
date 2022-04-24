@@ -159,27 +159,24 @@ public class Syntactic {
         trace("Statement", true);
         if (token.code == lex.codeFor("IDENT")) { // must be an ASSUGNMENT
             recur = handleAssignment();
-        } else {
-            if (token.code == lex.codeFor("WHILE")){
-                // Declare above int saveTop, branchQuad
+        } else if (token.code == lex.codeFor("WHILE")){
+            // Declare above int saveTop, branchQuad
+            token = lex.GetNextToken();
+            // Before generating code, save top of loop
+            // int saveTop = nextQuad; 
+            // Where unconditional branch will jump 
+            // Tells where branchTarget to be set 
+            // int branchQuad = relexpression();
+            if (token.code == lex.codeFor("DO___")){
                 token = lex.GetNextToken();
-                // Before generating code, save top of loop
-                int saveTop = nextQuad; 
-                // Where unconditional branch will jump 
-                // Tells where branchTarget to be set 
-                int branchQuad = relexpression();
-                if (token.code == lex.codeFor("DO___")){
-                    token = lex.GetNextToken();
-                    // The loop body is processed
-                    statement(); 
-                    // Jump to top of loop /backfill the forward branch
-                    AddQuad(Jump_Op, 0, 0, saveTop);
-                    //Quad function for ease- set 3rd op
-                    Quad.setQuadOp3(branchQuad, nextQuad);//conditional jumps nextQuad 
-                }
-            } //end of while structure
-        } else {
-            if (token.code == lex.codeFor("IF___")) { // must be an ASSUGNMENT
+                // The loop body is processed
+                // statement(); 
+                // Jump to top of loop /backfill the forward branch
+                // AddQuad(Jump_Op, 0, 0, saveTop);
+                //Quad function for ease- set 3rd op
+                // Quad.setQuadOp3(branchQuad, nextQuad);//conditional jumps nextQuad 
+            }
+        } else  if (token.code == lex.codeFor("IF___")) { // must be an ASSUGNMENT
                 token = lex.GetNextToken();
                 // int branchQuad = realexpression();
                 if (token.code == lex.codeFor("THEN_")){
