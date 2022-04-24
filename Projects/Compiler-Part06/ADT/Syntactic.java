@@ -160,11 +160,43 @@ public class Syntactic {
         if (token.code == lex.codeFor("IDENT")) { // must be an ASSUGNMENT
             recur = handleAssignment();
         } else {
+            if (token.code == lex.codeFor("WHILE")){
+                // Declare above int saveTop, branchQuad
+                token = lex.GetNextToken();
+                // Before generating code, save top of loop
+                int saveTop = nextQuad; 
+                // Where unconditional branch will jump 
+                // Tells where branchTarget to be set 
+                int branchQuad = relexpression();
+                if (token.code == lex.codeFor("DO___")){
+                    token = lex.GetNextToken();
+                    // The loop body is processed
+                    statement(); 
+                    // Jump to top of loop /backfill the forward branch
+                    AddQuad(Jump_Op, 0, 0, saveTop);
+                    //Quad function for ease- set 3rd op
+                    Quad.setQuadOp3(branchQuad, nextQuad);//conditional jumps nextQuad 
+                }
+            } //end of while structure
+        } else {
             if (token.code == lex.codeFor("IF___")) { // must be an ASSUGNMENT
-                // this would handle the rest of the IF statment IN PART B
-            } else // if/elses should look for the other possible statement starts...
-            // but not until PART B
-            {
+                token = lex.GetNextToken();
+                // int branchQuad = realexpression();
+                if (token.code == lex.codeFor("THEN_")){
+                    token = lex.GetNextToken();
+                    // statement();
+                    if (token.code == lex.codeFor("ELSE_")){
+                        token = lex.GetNextToken();
+                        // int patchElse = nextQuad;
+                        // AddQuad(Jump_op, 0, 0, 0);
+                        // Quad.setQuadOp3(branchQuad,nextQuad);
+                        // statement;
+                        // Quad.setQuadOp3(patchElse, nextQuad);
+                //no ELSE, so fix IF branch, fall thru
+                } else {
+                    // Quad.setQuadOp3(branchQuad, nextQuad);
+                }
+            } else {
                 error("Statement start", token.lexeme);
             }
         }
@@ -172,12 +204,6 @@ public class Syntactic {
         return recur;
     }
 
-    /*
-     * Not a Non-Terminal
-     *
-     * <handle Assignment> -- > <variable> $COLON-EQUALS <simple expression>
-     *
-     */
     private int handleAssignment() {
         // Reset recur to 0
         int recur = 0;
@@ -395,7 +421,7 @@ public class Syntactic {
     }
 
     /*
-     * Not a Non-Terminal
+     * Non-Terminal
      *
      * <unsigned constant> --> <unsigned number>
      *
@@ -416,7 +442,7 @@ public class Syntactic {
     }
 
     /*
-     * Non Terminal
+     * Terminal
      *
      * <unsigned number> --> $FLOAT | $INTEGER
      *
@@ -438,6 +464,42 @@ public class Syntactic {
         trace("UnsignedNumber", false);
         return recur;
     }
+
+    //Template for all the non-terminal method bodies
+    /* Non Terminal
+     *
+     * <non-terminal> --> <NON-TERMINAL>
+     */
+    /*
+    private int exampleNonTerminal(){
+        int recur = 0;
+        if (anyErrors) {
+            return -1;
+        }
+        trace("NameOfThisMethod", true);
+        // unique non-terminal stuff
+        recur = exampleTerminal();
+        trace("NameOfThisMethod", false);
+        return recur;
+    }
+    /*
+
+    //Template for all the terminal method bodies
+    /* Terminal
+     *
+     * <Non-Terminal> --> $TERMINAL 
+     */
+    /*
+    private int exampleTerminal(){
+        int recur = 0;
+        if (anyErrors) {
+            return -1;
+        }
+        trace("NameOfThisMethod", true);
+        token = lex.GetNextToken();
+        trace("NameOfThisMethod", false);
+        return recur;
+    }*/
 
     /* UTILITY FUNCTIONS USED THROUGHOUT THIS CLASS */
     // error provides a simple way to print an error statement to standard output

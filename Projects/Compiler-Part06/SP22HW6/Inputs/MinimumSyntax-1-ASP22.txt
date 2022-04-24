@@ -1,0 +1,5 @@
+Program  mytest;
+BEGIN
+count := total;  
+a:=b
+END.

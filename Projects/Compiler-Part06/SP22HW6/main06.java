@@ -18,5 +18,4 @@ public class main06 {
         parser.parse();
         System.out.println("Done.");
     }
-
 }
