@@ -1,0 +1,19 @@
+{This file includes the basic PRINTLN, READLN, and EXPRESSION tests.
+}
+PROGRAM CodegenBASIC;
+begin
+PRINTLN("BASIC TEST File SP22");
+
+PRINTLN("String printout:  Hello World");
+
+a := 2;
+b := 3;
+a := a *(3+b)+ a + 2*b/2 - 1;  {The result: 16}
+PRINTLN("a is now ");
+PRINTLN(a);
+PRINTLN("Input a value of 25 for a: ");
+READLN(a);
+PRINTLN("After READLN, a is now ");
+PRINTLN(a);
+PRINTLN("All done.")
+end. 

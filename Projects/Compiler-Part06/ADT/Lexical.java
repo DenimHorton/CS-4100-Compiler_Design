@@ -46,7 +46,7 @@ public class Lexical {
     // a few more than # reserves
     private ReserveTable reserveWords = new ReserveTable(50);
     // a few more than # reserve
-    private ReserveTable mnemonics = new ReserveTable(50);
+    ReserveTable mnemonics = new ReserveTable(50);
     // global char
     char currCh;
 

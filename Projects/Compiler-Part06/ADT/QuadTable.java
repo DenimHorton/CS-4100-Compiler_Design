@@ -12,8 +12,8 @@ import java.io.IOException;
  */
 
 public class QuadTable {
-    public int[][] quad_table;
-    public int quad_table_index = -1;
+    public static int[][] quad_table;
+    public static int quad_table_index = -1;
 
     public QuadTable(int maxSize) {
         /**
@@ -26,7 +26,7 @@ public class QuadTable {
         quad_table = new int[maxSize][4];
     }
 
-    public int NextQuad() {
+    public static int NextQuad() {
         /**
          * Returns the int index of the next open slot in the QuadTable.
          * Very important during code generation, this must be implemented
@@ -36,7 +36,7 @@ public class QuadTable {
         return quad_table_index + 1;
     }
 
-    public void AddQuad(int opcode, int op1, int op2, int op3) {
+    public static void AddQuad(int opcode, int op1, int op2, int op3) {
         /**
          * Expands the active length of the quad table by adding a new row
          * at the NextQuad slot, with the parameters sent as the new contents,
@@ -93,5 +93,9 @@ public class QuadTable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setQuadOp3(int branchQuad, int nextQuad) {
+        quad_table[branchQuad][3] = nextQuad;
     }
 }

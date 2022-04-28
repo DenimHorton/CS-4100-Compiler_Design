@@ -20,7 +20,7 @@ public class SymbolEntryType<T> {
      */
     public String entry_name;
     public char entry_kind;
-    public char entry_data_type;
+    public static char entry_data_type;
     public T entry_type;
 
     public SymbolEntryType(String string_entry, char char_entry, T type_entry) {
