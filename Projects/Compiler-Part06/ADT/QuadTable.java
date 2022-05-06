@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * @author Robert Denim Horton
- * @version 4.0
+ * @version 4.1
  * 
  *          This File represents the quad table of the compiler
  */

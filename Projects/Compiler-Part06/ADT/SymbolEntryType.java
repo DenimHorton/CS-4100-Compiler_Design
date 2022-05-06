@@ -3,7 +3,7 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 4.0
+ * @version 4.1
  * 
  *          This File represents the data array that will represent the specific
  *          symbols and their corresponding type and value. Will be represented
@@ -20,7 +20,7 @@ public class SymbolEntryType<T> {
      */
     public String entry_name;
     public char entry_kind;
-    public static char entry_data_type;
+    public char entry_data_type;
     public T entry_type;
 
     public SymbolEntryType(String string_entry, char char_entry, T type_entry) {

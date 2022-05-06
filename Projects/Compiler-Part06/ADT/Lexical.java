@@ -7,14 +7,14 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 /**
  * @author Robert Denim Horton
- * @version 4.0
+ * @version 4.1
  * 
  *          This File represents the lexical analyzer of our compiler that 
  *          works by essentially breaking each line into token and parsing 
  *          through each token to decide what kind of token it is.  The 
- *          tokens are evaluted with its starting character and it is
+ *          tokens are evaluated with its starting character and it is
  *          parsed through until either an error occurs, i.e. non-
- *          terminating string qutation marks (" " ") or comments (" (* "
+ *          terminating string quotation marks (" " ") or comments (" (* "
  *          or  " *) ") or untill a space of the end of the line is hit. 
  */
 import java.io.*;

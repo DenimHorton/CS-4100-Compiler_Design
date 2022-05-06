@@ -3,7 +3,7 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 4.0
+ * @version 4.1
  * 
  *          This File represents the interpreter part our of compiler 
  */

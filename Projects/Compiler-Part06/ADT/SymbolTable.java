@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @author Robert Denim Horton
- * @version 4.0
+ * @version 4.1
  * 
  *          This File represents the Symbol Table of the compiler
  */
@@ -23,10 +23,10 @@ public class SymbolTable {
         /**
          * Initializes the 'SymbolTable' obj array to hold maxSize rows of
          * data which will be one of three different sub-classes of the
-         * parent class 'SymbolEntryType' storing the symbol name, smybol
+         * parent class 'SymbolEntryType' storing the symbol name, symbol
          * kind, symbol value (int, double, or string).
          * 
-         * @param maxSize The sepcified size for the symbol table.
+         * @param maxSize The specified size for the symbol table.
          */
         smbol_table = new SymbolEntryType[maxSize];
     }
@@ -36,7 +36,7 @@ public class SymbolTable {
         /**
          * Assign entry type object 'SymbolEntryType' symbol with given char
          * kind and string value to the end of the symbol table. We also use
-         * a generic type to be able to intialize the object with what ever
+         * a generic type to be able to initialize the object with what ever
          * data type the value ends up being.
          */
         smbol_val_type_entry = new SymbolEntryType<Integer>(symbol, kind, value);
@@ -44,7 +44,7 @@ public class SymbolTable {
          * If the symbol is already in the table according to a non-case
          * -sensitive comparison ['Total' matches total as well as 'ToTaL']
          * with all the existing strings in the table, no change or
-         * verification is made, and this methond returns the row index where
+         * verification is made, and this method returns the row index where
          * the symbol was found. This method only FAILS, and return -1, when
          * the table already contains maxSize rows, and adding a new row would
          * exceed this size limit. This should not happen.
@@ -55,7 +55,7 @@ public class SymbolTable {
          */
 
         // If we look the symbol in the table and get a -1 then we know the symbol
-        // does not yet exsist in the table and as long at the next index is under
+        // does not yet exist in the table and as long at the next index is under
         // the length of the table.
         if (LookupSymbol(symbol) == -1 && smbol_table_index < smbol_table.length - 1) {
             // Iterate to next open space.
