@@ -27,6 +27,8 @@ public class Syntactic {
     private final int quadSize = 1500;
     private int Minus1Index;
     private int Plus1Index;
+    
+    public int genCount = 0;
 
     public Syntactic(String filename, boolean traceOn) {
         filein = filename;
@@ -76,6 +78,13 @@ public class Syntactic {
     //     }
     //     symbolList.PrintSymbolTable(filenameBase + "ST-after.txt");
     // }
+
+    private int GenSymbol() {
+        String temp = "@" + Integer.toString(genCount);
+        genCount++;
+        symbolList.AddSymbol(temp, 'v', 0);
+        return symbolList.LookupSymbol(temp);
+    } 
 
     private void error(String wanted, String got) {
         // error provides a simple way to print an error statement to standard output
@@ -165,18 +174,7 @@ public class Syntactic {
             return -1;
         }
         // Set Trace to track recursion through console
-        // trace("handleAssignment", true);
-        // if (token.code == lex.codeFor("REDLN")){
-        //     // interp.InterpretQuads(quads, symbolList, true, "./SP22HW6/Outputs/CodeGenBASICQUADS-OUTPUT.txt");
-        //     System.out.print("");
-        //     token = lex.GetNextToken();
-        //     recur = SimpleExpression();
-        // } else {
-        //     error(lex.reserveFor("REDLN"), token.lexeme);
-        // }
-        // trace("handleAssignment", false);
-        // return recur;  
-        
+        trace("handleAssignment", true);        
         int toRead;
         token = lex.GetNextToken();
         //look for ( stringconst, ident, simpleexp )
@@ -223,10 +221,12 @@ public class Syntactic {
         // Set Trace to track recursion through console
         trace("handleAssignment", true);
         // have ident already in order to get to here, handle as Variable
-        recur = Variable(); // Variable moves ahead, next token ready
+;        int left, right;
+        left = Variable(); // Variable moves ahead, next token ready
         if (token.code == lex.codeFor("ASIGN")) {
             token = lex.GetNextToken();
-            recur = SimpleExpression();
+            right = SimpleExpression();
+            quads.AddQuad(interp.optable.LookupName("MOV"), right, 0, left);
         } else {
             error(lex.reserveFor("ASIGN"), token.lexeme);
         }
@@ -263,7 +263,7 @@ public class Syntactic {
             } else {
                 toprint = SimpleExpression();
             }
-            quads.AddQuad(interp.optable.LookupName("PRTLN"), toprint, 0, 0);
+            quads.AddQuad(interp.optable.LookupName("PRINT"), toprint, 0, 0);
             //now need right ")"
             if (token.code == lex.codeFor("RTPAR")) {
                 //move on
@@ -417,6 +417,31 @@ public class Syntactic {
      * <addop> --> $PLUS | $MINUS
      * 
      */
+    private int Relexpression(){
+        //Reset recur to 0
+        int recur = 0;
+        if (anyErrors) {
+            return -1;
+        }
+
+        int left, right, saveRelop, result, temp;
+        trace("Relexpression", true);
+        left =  SimpleExpression();
+        saveRelop = relopToOpcode(lex.codeFor(token.lexeme);
+        right = SimpleExpression(); 
+        temp = GenSymbol();
+        quads.AddQuad(interp.opcode.LookupName(""), op1, op2, op3);
+        trace("Relexpression", false);
+        return recur;
+
+    }
+
+    /*
+     * Non Terminal
+     *
+     * <addop> --> $PLUS | $MINUS
+     * 
+     */
     private int Addop() {
         // Reset recur to 0
         int recur = 0;
@@ -435,6 +460,7 @@ public class Syntactic {
         return recur;
     }
 
+
     /*
      * Recursive Terminal
      *
@@ -444,22 +470,45 @@ public class Syntactic {
     private int Variable() {
         // Reset recur to 0
         int recur = 0;
+        
         // If anyErrors is not equal to 0 then return -1
         if (anyErrors) {
             return -1;
         }
+        
         // Set Trace to track recursion through console
         trace("Variable", true);
-        // recur = Identifier();
-        // Check if the token is an identifier
-        if (token.code == lex.codeFor("IDENT")) {
-            // If so, move to next token
+        
+        recur = Identifier();
+        
+        if (token.code == lex.codeFor("IDENT")){
+            //doTypeCheck();
             token = lex.GetNextToken();
         }
+        // Set Trace to track recursion through console
+        // trace("Variable", true);
+        // recur = Identifier();
         trace("Variable", false);
         return recur;
     }
 
+
+    // Template for all the non-terminal method bodies
+    private int Identifier(){
+        //Reset recur to 0
+        int recur = 0;
+        if (anyErrors) {
+            return -1;
+        }
+    
+        trace("Identifier", true);
+        if (token.code == lex.codeFor("IDENT")) {
+            token = lex.GetNextToken();
+        }
+        trace("Identifier", false);
+        return recur;
+    }
+ 
     /*
      * Recursive Terminal
      * 
@@ -473,24 +522,48 @@ public class Syntactic {
         if (anyErrors) {
             return -1;
         }
+
+        int left, right, signval, temp, opcode;
+
         // Set Trace to track recursion through console
         trace("SimpleExpression", true);
         // Check if the token is a plus or minus operator
-        if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
-            // If so call into Sign to move to next token
-            recur = Sign();
+        signval = Sign();
+        left = Term();
+        if (signval == -1){
+            quads.AddQuad(interp.optable.LookupName("MUL"), left, Minus1Index, left);
         }
-
-        // Call into Term since there must be at least one term recursion
-        recur = Term();
-
-        // While the next token after recursion through Term is a plus or minus operator
-        while ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
-            recur = Addop(); // Enter into Addop move to next token
-            recur = Term(); // Enter into Term ton enter into more recursion and move to next token
+        while (((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_")))){
+            if (token.code == lex.codeFor("PLUS_")){
+                opcode = interp.optable.LookupName("ADD");
+            } else {
+                opcode = interp.optable.LookupName("SUB");
+            } 
+            token = lex.GetNextToken();
+            right = Term();
+            temp = GenSymbol();
+            // temp= 0;
+            quads.AddQuad(opcode, left, right, temp);
         }
-        trace("SimpleExpression", false);
-        return recur;
+        return (left);
+        // // Set Trace to track recursion through console
+        // trace("SimpleExpression", true);
+        // // Check if the token is a plus or minus operator
+        // if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
+        //     // If so call into Sign to move to next token
+        //     recur = Sign();
+        // }
+
+        // // Call into Term since there must be at least one term recursion
+        // recur = Term();
+
+        // // While the next token after recursion through Term is a plus or minus operator
+        // while ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
+        //     recur = Addop(); // Enter into Addop move to next token
+        //     recur = Term(); // Enter into Term ton enter into more recursion and move to next token
+        // }
+        // trace("SimpleExpression", false);
+        // return recur;
     }
 
     /*
@@ -509,8 +582,11 @@ public class Syntactic {
         // Set Trace to track recursion through console
         trace("Sign", true);
         // Check if the token is a plus or minus operator
-        if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
+        if ((token.code == lex.codeFor("MINU_"))) {
             // If so, move to next token
+            recur = -1;
+            token = lex.GetNextToken();
+        } else if (token.code == lex.codeFor("PLUS_")){
             token = lex.GetNextToken();
         }
         trace("Sign", false);
@@ -560,8 +636,13 @@ public class Syntactic {
         // Set Trace to track recursion through console
         trace("Mulop", true);
         // Check if the token is a multiply or divide operator
-        if ((token.code == lex.codeFor("MULT_")) || (token.code == lex.codeFor("DIVD_"))) {
+        if ((token.code == lex.codeFor("MULT_"))){
             // If so, move to next token
+            // quads.AddQuad(opcode, op1, op2, op3);
+            token = lex.GetNextToken();
+        } else if (token.code == lex.codeFor("DIVD_")) {
+            // If so, move to next token
+            // quads.AddQuad(opcode, op1, op2, op3);    
             token = lex.GetNextToken();
         }
         trace("Mulop", false);
@@ -652,25 +733,6 @@ public class Syntactic {
         return recur;
     }
 
-    // Template for all the non-terminal method bodies
-    private int Identifier(){
-        //Reset recur to 0
-        int recur = 0;
-        if (anyErrors) {
-            return -1;
-        }
-    
-        trace("Identifier", true);
-        if (token.code == lex.codeFor("IDENT")) {
-            token = lex.GetNextToken();
-            while (token.lexeme) {
-                // If so, move to next token
-                token = lex.GetNextToken();
-            }
-        }
-        trace("Identifier", false);
-        return recur;
-    }
     //#################################################################################################
     //                                  Terminals and Non-Terminals
     //                                            END
