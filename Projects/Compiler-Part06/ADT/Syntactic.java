@@ -148,12 +148,61 @@ public class Syntactic {
     //                                  Terminals and Non-Terminals
     //                                            Start
     //#################################################################################################
+
+    /*
+     * Not a Non-Terminal
+     *
+     * <handle Readln> -- > 
+     *
+     */
+    private int handleReadln(){
+        // Reset recur to 0
+        int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
+        if (anyErrors) {
+            return -1;
+        }
+        // Set Trace to track recursion through console
+        // trace("handleAssignment", true);
+        // if (token.code == lex.codeFor("REDLN")){
+        //     // interp.InterpretQuads(quads, symbolList, true, "./SP22HW6/Outputs/CodeGenBASICQUADS-OUTPUT.txt");
+        //     System.out.print("");
+        //     token = lex.GetNextToken();
+        //     recur = SimpleExpression();
+        // } else {
+        //     error(lex.reserveFor("REDLN"), token.lexeme);
+        // }
+        // trace("handleAssignment", false);
+        // return recur;  
+        
+        // token = lex.GetNextToken();
+        trace("handleAssignment", true);
+        if (token.code == lex.codeFor("LTPAR")){
+            token = lex.GetNextToken();
+            if (token.code == lex.codeFor("REDLN")){
+                recur = Variable();        
+                if (token.code == lex.codeFor("RTPAR")){
+                    token = lex.GetNextToken();
+                } else {
+                    error(lex.reserveFor("RTPAR"), token.lexeme);
+                }                    
+            } else {
+                error(lex.reserveFor("REDLN"), token.lexeme);
+            }
+        } else {
+            error(lex.reserveFor("LTPAR"), token.lexeme);
+        }
+        trace("handleAssignment", false);
+        return recur;   
+
+    }
+
+
     /*
      * Not a Non-Terminal
      *
      * <handle Assignment> -- > <variable> $COLON-EQUALS <simple expression>
      *
-     * NOTE: Given with provided Syntactic file.
      */
     private int handleAssignment() {
         // Reset recur to 0
@@ -176,6 +225,12 @@ public class Syntactic {
         return recur;
     }
 
+    /*
+     * Not a Non-Terminal
+     *
+     * <handle Println> -- > 
+     *
+     */
     private int handlePrintln() {
         int recur = 0;
         int toprint = 0;
@@ -191,7 +246,7 @@ public class Syntactic {
         if (token.code == lex.codeFor("LTPAR")) {
             //move on
             token = lex.GetNextToken();
-            if ((token.code == lex.codeFor("STRING"))) { //|| (token.code == lex.codeFor("IDNT"))) {
+            if ((token.code == lex.codeFor("STR__"))) { //|| (token.code == lex.codeFor("IDNT"))) {
                 // save index for string literal or identifier
                 toprint = symbolList.LookupSymbol(token.lexeme);
                 //move on
@@ -220,7 +275,6 @@ public class Syntactic {
      *
      * <prog-identifier> --> <identifier>
      *
-     * NOTE: Given with provided Syntactic file.
      */
     private int ProgIdentifier() {
         // Reset recur to 0
@@ -245,7 +299,6 @@ public class Syntactic {
      * 
      * <program> --> $PROGRAM <prog-identifier> $SEMICOLON <block> $PERIOD
      * 
-     * NOTE: Given with provided Syntactic file.s
      */
     private int Program() {
         // Reset recur to 0
@@ -286,7 +339,6 @@ public class Syntactic {
      * 
      * <block> --> BEGIN <statement> {$SEMICOLON <statement>} * $END
      * 
-     * NOTE: Given with provided Syntactic file.
      */
     private int Block() {
         // Reset recur to 0
@@ -321,7 +373,6 @@ public class Syntactic {
      *
      * <statment> --> <variable> $COLON-EQUALS <simple expression>
      *
-     * NOTE: Given with provided Syntactic file.
      */
     private int Statement() {
         // Reset recur to 0
@@ -332,17 +383,21 @@ public class Syntactic {
         }
         // Set Trace to track recursion through console
         trace("Statement", true);
-        if (token.code == lex.codeFor("IDENT")) { // must be an ASSUGNMENT
+        if (token.code == lex.codeFor("PRGRM")) { // must be an ASSUGNMENT
+            // this would handle the rest of the IF statment IN PART B
+        } else if (token.code == lex.codeFor("IDENT")) { // must be an ASSUGNMENT
             recur = handleAssignment();
-        } else {
-            if (token.code == lex.codeFor("IF___")) { // must be an ASSUGNMENT
-                // this would handle the rest of the IF statment IN PART B
-            } else // if/elses should look for the other possible statement starts...
-            // but not until PART B
-            {
-                error("Statement start", token.lexeme);
-            }
-        }
+        } else if (token.code == lex.codeFor("IF___")) { // must be an ASSUGNMENT
+            // this would handle the rest of the IF statment IN PART B
+        } else if (token.code == lex.codeFor("UNTIL")) { // must be an ASSUGNMENT
+            // this would handle the rest of the IF statment IN PART B
+        } else if (token.code == lex.codeFor("PRTLN")) { // must be an String Constant
+            recur = handlePrintln();
+        } else if (token.code == lex.codeFor("REDLN")) { // must be an String Constant
+            recur = handleReadln();
+        }  else {
+                error("Statement", token.lexeme);
+        } 
         trace("Statement", false);
         return recur;
     }
@@ -352,7 +407,6 @@ public class Syntactic {
      *
      * <addop> --> $PLUS | $MINUS
      * 
-     * REVIEW: Needs to be checked.
      */
     private int Addop() {
         // Reset recur to 0
@@ -377,7 +431,6 @@ public class Syntactic {
      *
      * <variable> --> <identifier>
      *
-     * REVIEW: Needs to be checked.
      */
     private int Variable() {
         // Reset recur to 0
@@ -402,7 +455,6 @@ public class Syntactic {
      * 
      * <simple expression> --> [<sign>] <term> {<addop> || <term>}*
      *
-     * REVIEW: Needs to be checked.
      */
     private int SimpleExpression() {
         // Reset recur to 0
@@ -436,7 +488,6 @@ public class Syntactic {
      *
      * <sign> --> $PLUS | $MINUS
      * 
-     * REVIEW: Needs to be checked.
      */
     private int Sign() {
         // Reset recur to 0
@@ -461,7 +512,6 @@ public class Syntactic {
      *
      * <term> --> <factor> {<mulop> || <factor> }*
      *
-     * REVIEW: Needs to be checked.
      */
     private int Term() {
         // Reset recur to 0
@@ -489,7 +539,6 @@ public class Syntactic {
      *
      * <mulop> --> $MULTIPLY | $DIVIDE
      *
-     * REVIEW: Needs to be checked.
      */
     private int Multop() {
         // Reset recur to 0
@@ -515,7 +564,6 @@ public class Syntactic {
      * <factor> --> <unsigned constant> | <variable> | $LPAR <simple expression>
      * $RPAR
      *
-     * TODO: Needs to be checked.
      */
     private int Factor() {
         // Reset recur to 0
@@ -554,7 +602,6 @@ public class Syntactic {
      *
      * <unsigned constant> --> <unsigned number>
      *
-     * REVIEW: Needs to be checked.
      */
     private int UnsignedConstant() {
         // Reset recur to 0
@@ -576,7 +623,6 @@ public class Syntactic {
      *
      * <unsigned number> --> $FLOAT | $INTEGER
      *
-     * REVIEW: Needs to be checked.
      */
     private int UnsignedNumber() {
         // Reset recur to 0

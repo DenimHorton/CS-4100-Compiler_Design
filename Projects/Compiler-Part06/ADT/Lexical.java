@@ -251,26 +251,26 @@ public class Lexical {
         mnemonics.Add("UNKWN", 99);
     }
 
-    // Character category for alphabetic chars, upper and lower case
     private boolean isLetter(char ch) {
+        // Character category for alphabetic chars, upper and lower case
         return (((ch >= 'A') && (ch <= 'Z')) || ((ch >= 'a') && (ch <= 'z')));
     }
 
-    // Character category for 0..9
     private boolean isDigit(char ch) {
+        // Character category for 0..9
         return ((ch >= '0') && (ch <= '9'));
     }
 
-    // Category for any whitespace to be skipped over
-    // space, tab, and newline
     private boolean isWhitespace(char ch) {
+        // Category for any whitespace to be skipped over
+        // space, tab, and newline        
         return ((ch == ' ') || (ch == '\t') || (ch == '\n'));
     }
 
-    // Returns the VALUE of the next character without removing it from the
-    // input line. Useful for checking 2-character tokens that start with
-    // a 1-character token.
     private char PeekNextChar() {
+        // Returns the VALUE of the next character without removing it from the
+        // input line. Useful for checking 2-character tokens that start with
+        // a 1-character token.        
         char result = ' ';
         if ((needLine) || (EOF)) {
             // at end of line, so nothing
@@ -285,9 +285,9 @@ public class Lexical {
         return result;
     }
 
-    // Called by GetNextChar when the characters in the current line
-    // buffer string (line) are used up.
     private void GetNextLine() {
+        // Called by GetNextChar when the characters in the current line
+        // buffer string (line) are used up.
         try {
             // returns a null string when EOF
             line = bufferedreader.readLine();
@@ -309,9 +309,9 @@ public class Lexical {
         // the line is ready for the next call to get a char with GetNextChar
     }
 
-    // Returns the next character in the input file, returning a
-    // /n newline character at the end of each input line or at EOF
     public char GetNextChar() {
+        // Returns the next character in the input file, returning a
+        // /n newline character at the end of each input line or at EOF        
         char result;
         // ran out last time we got a char, so get a new line
         if (needLine) {
@@ -338,8 +338,8 @@ public class Lexical {
         return result;
     }
 
-    // skips over any comment as if it were whitespace, so it is ignored
     public char skipComment(char curr) {
+        // skips over any comment as if it were whitespace, so it is ignored
         // if this is the start of a comment...
         if (curr == comment_start1) {
             curr = GetNextChar();
@@ -380,9 +380,8 @@ public class Lexical {
         return (curr);
     }
 
-    // reads past any white space, blank lines, comments
     public char skipWhiteSpace() {
-
+        // reads past any white space, blank lines, comments
         do {
             while ((isWhitespace(currCh)) && (!EOF)) {
                 currCh = GetNextChar();
@@ -392,18 +391,17 @@ public class Lexical {
         return currCh;
     }
 
-    // returns TRUE if ch is a prefix to a 2-character token like := or <=
     private boolean isPrefix(char ch) {
+        // returns TRUE if ch is a prefix to a 2-character token like := or <=
+
         return ((ch == ':') || (ch == '<') || (ch == '>'));
     }
 
-    // returns TRUE if ch is the string delmiter
     private boolean isStringStart(char ch) {
+        // returns TRUE if ch is the string delmiter        
         return ch == '"';
     }
 
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    // Student supplied methods
     private token getIdent() {
         /*
          * This function is called from the GetNextToken() when the character being
@@ -716,9 +714,8 @@ public class Lexical {
         return result;
     }
 
-    // numberic validation freebie code!
-    // Checks to see if a string contains a valid DOUBLE
     public boolean doubleOK(String stin) {
+        // Checks to see if a string contains a valid DOUBLE
         boolean result;
         try {
             Double.parseDouble(stin);
@@ -729,8 +726,8 @@ public class Lexical {
         return result;
     }
 
-    // Checks the input string for a valid INTEGER
     public boolean integerOK(String stin) {
+        // Checks the input string for a valid INTEGER
         boolean result;
         int x;
         try {
@@ -742,8 +739,9 @@ public class Lexical {
         return result;
     }
 
-    // Main method of Lexical
     public token GetNextToken() {
+        // Main method of Lexical
+
         token result = new token();
 
         currCh = skipWhiteSpace();

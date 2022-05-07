@@ -361,6 +361,19 @@ public class Interpreter {
                 // (0-15) any thing that is not in the opcode will through
                 // the console printout. We will also double check this for
                 // sake of using the method built to do this.
+            } else if (retrived_symbol == 7){
+                // Make a scanner to read from CONSOLE
+                Scanner sc = new Scanner(System.in);
+                // Put out a prompt to the user
+                System.out.print('>');
+                // Read one integer only
+                int readval = sc.nextInt();
+                // Op3 has the ST index we need, update it
+                S.UpdateSymbol(retrived_op3,'i',readval);
+                // Deallocate the scanner
+                sc = null;
+                program_counter++;
+                break;
             } else if (optable.LookupCode(retrived_symbol) != "") {
                 System.out.println("Not a valid 'Reserved Symbol'."
                         + " Reffer to intialized 'Reserve Table' list 'optable'.");

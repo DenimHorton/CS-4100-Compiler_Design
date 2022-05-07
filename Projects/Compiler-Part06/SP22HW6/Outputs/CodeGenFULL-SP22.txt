@@ -1,28 +1,30 @@
 PROGRAM Codegen;
 begin
 println("FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME HERE>");
+
 factorial := 1;
 println("Enter the value 5 for n:");
 readln(n);  {should be same as n := 5;}
 count := 1;
 dowhile count <= n
-begin
-factorial := factorial*count;
-count := count + 1
-end;
+    begin
+    factorial := factorial*count;
+    count := count + 1
+    end;
 println("The calculation of 5! is:");
 println(factorial);
 println(" "); {blank line}
+
 {count should be 6 at this point}
 dowhile count > 1
-begin
-println(count);
-if count - 2 > 2 then
-println("Count - 2 is greater than 2")
-else
-println("Count - 2 is less than or equal to 2");
-count := count -1
-end;
+    begin
+    println(count);
+    if count - 2 > 2 then
+        println("Count - 2 is greater than 2")
+    else
+        println("Count - 2 is less than or equal to 2");
+    count := count -1
+    end;    
 println("Count is: ");
 println(count);
 println("All done.")

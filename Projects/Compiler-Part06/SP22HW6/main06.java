@@ -12,11 +12,12 @@ public class main06 {
 
     public static void main(String[] args) {
         // String filePath = ".\\SP22HW6\\Inputs\\CodeGenBASIC.txt";
-        String filePath = ".\\SP22HW6\\Inputs\\CodeGenBASIC.txt";
+        String filePath = ".\\SP22HW6\\Inputs\\CodeGenBASIC-BSP22.txt";
         System.out.println("Parsing "+filePath);
-        boolean traceon = true; //true; //false;
+        boolean traceon = false; //true; //false;
         Syntactic parser = new Syntactic(filePath, traceon);
         parser.parse();
+
         System.out.println("Done.");
     }
 }
