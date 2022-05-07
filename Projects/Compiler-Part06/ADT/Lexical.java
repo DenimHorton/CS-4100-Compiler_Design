@@ -251,7 +251,7 @@ public class Lexical {
         mnemonics.Add("UNKWN", 99);
     }
 
-    private boolean isLetter(char ch) {
+    public boolean isLetter(char ch) {
         // Character category for alphabetic chars, upper and lower case
         return (((ch >= 'A') && (ch <= 'Z')) || ((ch >= 'a') && (ch <= 'z')));
     }

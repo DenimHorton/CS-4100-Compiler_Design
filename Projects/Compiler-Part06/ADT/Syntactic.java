@@ -50,6 +50,8 @@ public class Syntactic {
         token = lex.GetNextToken();
         // call PROGRAM
         recur = Program();
+        //
+        quads.PrintQuadTable("./SP22HW6/Outputs/CodeGenBASICQUADS-OUTPUT.txt");
     }
     // public void parse() {
     //     // make filename pattern for symbol table and quad table output later
@@ -175,26 +177,33 @@ public class Syntactic {
         // trace("handleAssignment", false);
         // return recur;  
         
-        // token = lex.GetNextToken();
-        trace("handleAssignment", true);
-        if (token.code == lex.codeFor("LTPAR")){
+        int toRead;
+        token = lex.GetNextToken();
+        //look for ( stringconst, ident, simpleexp )
+        if (token.code == lex.codeFor("LTPAR")) {
+            //move on
             token = lex.GetNextToken();
-            if (token.code == lex.codeFor("REDLN")){
-                recur = Variable();        
-                if (token.code == lex.codeFor("RTPAR")){
-                    token = lex.GetNextToken();
-                } else {
-                    error(lex.reserveFor("RTPAR"), token.lexeme);
-                }                    
+            if (token.code == lex.codeFor("IDENT")) {
+                toRead = Variable();
+                // for (int i = 0; i < interp.optable.rsrv_table.length; i++){
+                //     System.out.println(interp.optable.rsrv_table[i].reserved_word);
+                // }
+                quads.AddQuad(interp.optable.LookupName("REDLN"), toRead, 0, 0);
             } else {
-                error(lex.reserveFor("REDLN"), token.lexeme);
+                error(lex.reserveFor("IDENT"), token.lexeme);
+            }
+            //now need right ")"
+            if (token.code == lex.codeFor("RTPAR")) {
+                //move on
+                token = lex.GetNextToken();
+            } else {
+                error(lex.reserveFor("RTPAR"), token.lexeme);
             }
         } else {
             error(lex.reserveFor("LTPAR"), token.lexeme);
         }
         trace("handleAssignment", false);
         return recur;   
-
     }
 
 
@@ -441,6 +450,7 @@ public class Syntactic {
         }
         // Set Trace to track recursion through console
         trace("Variable", true);
+        // recur = Identifier();
         // Check if the token is an identifier
         if (token.code == lex.codeFor("IDENT")) {
             // If so, move to next token
@@ -639,6 +649,26 @@ public class Syntactic {
             token = lex.GetNextToken();
         }
         trace("UnsignedNumber", false);
+        return recur;
+    }
+
+    // Template for all the non-terminal method bodies
+    private int Identifier(){
+        //Reset recur to 0
+        int recur = 0;
+        if (anyErrors) {
+            return -1;
+        }
+    
+        trace("Identifier", true);
+        if (token.code == lex.codeFor("IDENT")) {
+            token = lex.GetNextToken();
+            while (token.lexeme) {
+                // If so, move to next token
+                token = lex.GetNextToken();
+            }
+        }
+        trace("Identifier", false);
         return recur;
     }
     //#################################################################################################
