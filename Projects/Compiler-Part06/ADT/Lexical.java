@@ -114,6 +114,17 @@ public class Lexical {
     private final int FLOAT_ID = 52;
     private final int STRING_ID = 53;
 
+    final char comment_start1 = '{';
+    final char comment_end1 = '}';
+    final char comment_start2 = '(';
+    final char comment_startend = '*';
+    final char comment_end2 = ')';
+
+    private final int MAX_IDENT_LENGTH = 20;
+    private final int MAX_INT_LENGTH = 6;
+    private final int MAX_FLOAT_LENGTH = 12;
+        
+
     // Public access to the current End Of File status
     public boolean EOF() {
         return EOF;
@@ -326,12 +337,6 @@ public class Lexical {
         }
         return result;
     }
-
-    final char comment_start1 = '{';
-    final char comment_end1 = '}';
-    final char comment_start2 = '(';
-    final char comment_startend = '*';
-    final char comment_end2 = ')';
 
     // skips over any comment as if it were whitespace, so it is ignored
     public char skipComment(char curr) {
@@ -620,10 +625,6 @@ public class Lexical {
         return result;
     }
 
-    private final int MAX_IDENT_LENGTH = 20;
-    private final int MAX_INT_LENGTH = 6;
-    private final int MAX_FLOAT_LENGTH = 12;
-
     public token checkTruncate(token result) {
         /*
          * This function is called from GetNextToken() which checks for valid lexeme
@@ -715,8 +716,6 @@ public class Lexical {
         return result;
     }
 
-    // End of student supplied methods
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // numberic validation freebie code!
     // Checks to see if a string contains a valid DOUBLE
     public boolean doubleOK(String stin) {

@@ -191,7 +191,7 @@ public class Syntactic {
         if (token.code == lex.codeFor("LTPAR")) {
             //move on
             token = lex.GetNextToken();
-            if ((token.code == lex.codeFor("SCNS"))) { //|| (token.code == lex.codeFor("IDNT"))) {
+            if ((token.code == lex.codeFor("STRING"))) { //|| (token.code == lex.codeFor("IDNT"))) {
                 // save index for string literal or identifier
                 toprint = symbolList.LookupSymbol(token.lexeme);
                 //move on

@@ -3,7 +3,7 @@ package ADT;
 
 /**
  * @author Robert Denim Horton
- * @version 4.0
+ * @version 4.1
  * 
  *          This File represents the data structure that will store the objects 
  *          in an array and be what ever data corresponds for each entry via

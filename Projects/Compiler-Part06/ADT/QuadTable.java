@@ -84,8 +84,9 @@ public class QuadTable {
                 if (quad_table[i] == null) {
                     break;
                 } else {
-                    String entry = String.format("%s|%s|%s|%s|%n", quad_table[i][0], quad_table[i][1], quad_table[i][2],
-                            quad_table[i][3]);
+                    String entry = String.format("%s|%s|%s|%s|%n", quad_table[i][0], 
+                                                 quad_table[i][1], quad_table[i][2],
+                    quad_table[i][3]);
                     quad_tbl_writer.write(entry);
                 }
             }
@@ -96,6 +97,10 @@ public class QuadTable {
     }
 
     public static void setQuadOp3(int branchQuad, int nextQuad) {
+        /**
+         * Works similar to UpdateQuad except only updates the indexed
+         * quads op3 value with the next quad to execute.
+         */
         quad_table[branchQuad][3] = nextQuad;
     }
 }
