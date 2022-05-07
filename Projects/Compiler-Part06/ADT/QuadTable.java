@@ -36,7 +36,7 @@ public class QuadTable {
         return quad_table_index + 1;
     }
 
-    public static void AddQuad(int opcode, int op1, int op2, int op3) {
+    public void AddQuad(int opcode, int op1, int op2, int op3) {
         /**
          * Expands the active length of the quad table by adding a new row
          * at the NextQuad slot, with the parameters sent as the new contents,

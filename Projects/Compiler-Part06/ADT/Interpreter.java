@@ -165,7 +165,7 @@ public class Interpreter {
     }
 
     public void InterpretQuads(QuadTable Q, SymbolTable S,
-            boolean TraceOn, String filename) {
+                               boolean TraceOn, String filename) {
         /*
          * This function interpets values that are stored in side both
          * tables passed into the method along iwth using correspong
@@ -223,10 +223,10 @@ public class Interpreter {
             if (TraceOn) {
                 // Builds trace string.
                 trace_string = makeTraceString(program_counter,
-                        retrived_symbol,
-                        retrived_op1,
-                        retrived_op2,
-                        retrived_op3);
+                                               retrived_symbol,
+                                               retrived_op1,
+                                               retrived_op2,
+                                               retrived_op3);
                 // Logs built information trace string, 'trace_string'.
                 this.logger(trace_string, filename);
             }
