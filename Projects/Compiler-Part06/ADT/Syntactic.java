@@ -188,7 +188,7 @@ public class Syntactic {
                 // for (int i = 0; i < interp.optable.rsrv_table.length; i++){
                 //     System.out.println(interp.optable.rsrv_table[i].reserved_word);
                 // }
-                quads.AddQuad(interp.optable.LookupName("REDLN"), toRead, 0, 0);
+                quads.AddQuad(interp.optable.LookupName("READ"), toRead, 0, 0);
             } else {
                 error(lex.reserveFor("IDENT"), token.lexeme);
             }
