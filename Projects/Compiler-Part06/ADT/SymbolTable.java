@@ -18,7 +18,7 @@ public class SymbolTable {
     public SymbolEntryType[] smbol_table;
     public SymbolEntryType smbol_val_type_entry;
     public int smbol_table_index = -1;
-
+    
     public SymbolTable(int maxSize) {
         /**
          * Initializes the 'SymbolTable' obj array to hold maxSize rows of
@@ -254,5 +254,11 @@ public class SymbolTable {
             e.printStackTrace();
         }
     }
+
+    public char constantkind(){
+        
+        return 'v';
+    }
+
 
 }

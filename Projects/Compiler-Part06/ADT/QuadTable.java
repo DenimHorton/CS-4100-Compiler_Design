@@ -26,7 +26,7 @@ public class QuadTable {
         quad_table = new int[maxSize][4];
     }
 
-    public static int NextQuad() {
+    public int NextQuad() {
         /**
          * Returns the int index of the next open slot in the QuadTable.
          * Very important during code generation, this must be implemented

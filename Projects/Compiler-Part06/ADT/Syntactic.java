@@ -27,15 +27,17 @@ public class Syntactic {
     private final int quadSize = 1500;
     private int Minus1Index;
     private int Plus1Index;
+    private Lexical.token lastToken;
     
+
     public int genCount = 0;
 
     public Syntactic(String filename, boolean traceOn) {
         filein = filename;
         traceon = traceOn;
         symbolList = new SymbolTable(symbolSize);
-        // Minus1Index = symbolList.AddSymbol("-1", symbolList.constantkind, -1);
-        // Plus1Index = symbolList.AddSymbol("1", symbolList.constantkind, 1);
+        Minus1Index = symbolList.AddSymbol("-1", symbolList.constantkind(), -1);
+        Plus1Index = symbolList.AddSymbol("1", symbolList.constantkind(), 1);
         quads = new QuadTable(quadSize);
         interp = new Interpreter();
         lex = new Lexical(filein, symbolList, true);
@@ -221,7 +223,7 @@ public class Syntactic {
         // Set Trace to track recursion through console
         trace("handleAssignment", true);
         // have ident already in order to get to here, handle as Variable
-;        int left, right;
+;       int left, right;
         left = Variable(); // Variable moves ahead, next token ready
         if (token.code == lex.codeFor("ASIGN")) {
             token = lex.GetNextToken();
@@ -424,16 +426,18 @@ public class Syntactic {
             return -1;
         }
 
-        int left, right, saveRelop, result, temp;
+        int left, right, saveRelop, temp;
         trace("Relexpression", true);
         left =  SimpleExpression();
-        saveRelop = relopToOpcode(lex.codeFor(token.lexeme);
+        saveRelop = relopToOpcode(lex.codeFor(token.lexeme));
         right = SimpleExpression(); 
         temp = GenSymbol();
-        quads.AddQuad(interp.opcode.LookupName(""), op1, op2, op3);
+        quads.AddQuad(interp.optable.LookupName("SUB"), left, right, temp);
+        token = lex.GetNextToken();
+        recur = quads.NextQuad();
+        quads.AddQuad(relopToOpcode(saveRelop), temp, 0, 0);
         trace("Relexpression", false);
         return recur;
-
     }
 
     /*
@@ -483,15 +487,18 @@ public class Syntactic {
         
         if (token.code == lex.codeFor("IDENT")){
             //doTypeCheck();
+            recur = Location();
             token = lex.GetNextToken();
         }
         // Set Trace to track recursion through console
-        // trace("Variable", true);
-        // recur = Identifier();
         trace("Variable", false);
         return recur;
     }
 
+    private int Location(){
+        
+        return 0;
+    }
 
     // Template for all the non-terminal method bodies
     private int Identifier(){
@@ -542,28 +549,10 @@ public class Syntactic {
             token = lex.GetNextToken();
             right = Term();
             temp = GenSymbol();
-            // temp= 0;
             quads.AddQuad(opcode, left, right, temp);
+            left = temp;
         }
         return (left);
-        // // Set Trace to track recursion through console
-        // trace("SimpleExpression", true);
-        // // Check if the token is a plus or minus operator
-        // if ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
-        //     // If so call into Sign to move to next token
-        //     recur = Sign();
-        // }
-
-        // // Call into Term since there must be at least one term recursion
-        // recur = Term();
-
-        // // While the next token after recursion through Term is a plus or minus operator
-        // while ((token.code == lex.codeFor("PLUS_")) || (token.code == lex.codeFor("MINU_"))) {
-        //     recur = Addop(); // Enter into Addop move to next token
-        //     recur = Term(); // Enter into Term ton enter into more recursion and move to next token
-        // }
-        // trace("SimpleExpression", false);
-        // return recur;
     }
 
     /*
