@@ -101,6 +101,6 @@ public class QuadTable {
          * Works similar to UpdateQuad except only updates the indexed
          * quads op3 value with the next quad to execute.
          */
-        quad_table[branchQuad][3] = nextQuad;
+        quad_table[3][branchQuad] = nextQuad;
     }
 }

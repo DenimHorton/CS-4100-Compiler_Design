@@ -36,8 +36,8 @@ public class Syntactic {
         filein = filename;
         traceon = traceOn;
         symbolList = new SymbolTable(symbolSize);
-        Minus1Index = symbolList.AddSymbol("-1", symbolList.constantkind(), -1);
-        Plus1Index = symbolList.AddSymbol("1", symbolList.constantkind(), 1);
+        Minus1Index = symbolList.AddSymbol("-1", symbolList.constantkind, -1);
+        Plus1Index = symbolList.AddSymbol("1", symbolList.constantkind, 1);
         quads = new QuadTable(quadSize);
         interp = new Interpreter();
         lex = new Lexical(filein, symbolList, true);
