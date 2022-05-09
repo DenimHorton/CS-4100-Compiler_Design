@@ -12,8 +12,8 @@ import java.io.IOException;
  */
 
 public class QuadTable {
-    public static int[][] quad_table;
-    public static int quad_table_index = -1;
+    public int[][] quad_table;
+    public int quad_table_index = -1;
 
     public QuadTable(int maxSize) {
         /**
@@ -23,7 +23,7 @@ public class QuadTable {
          * along with a private int nextAvailable counter to keep track
          * of which rows have been used so far.
          */
-        quad_table = new int[maxSize][4];
+        this.quad_table = new int[maxSize][4];
     }
 
     public int NextQuad() {
@@ -45,6 +45,12 @@ public class QuadTable {
          */
         if (quad_table_index < quad_table.length) {
             quad_table_index++;
+            // System.out.println("\t\tADDING TO QUADS");
+            // System.out.println("\t\t\tOpcode:\t" + opcode);
+            // System.out.println("\t\t\tOp1:\t" + op1);
+            // System.out.println("\t\t\tOp2:\t" + op2);
+            // System.out.println("\t\t\tOp3:\t" + op3);
+
             quad_table[quad_table_index][0] = opcode;
             quad_table[quad_table_index][1] = op1;
             quad_table[quad_table_index][2] = op2;
@@ -84,9 +90,9 @@ public class QuadTable {
                 if (quad_table[i] == null) {
                     break;
                 } else {
-                    String entry = String.format("%s|%s|%s|%s|%n", quad_table[i][0], 
-                                                 quad_table[i][1], quad_table[i][2],
-                    quad_table[i][3]);
+                    String entry = String.format("%s|%s|%s|%s|%n", quad_table[i][0],
+                            quad_table[i][1], quad_table[i][2],
+                            quad_table[i][3]);
                     quad_tbl_writer.write(entry);
                 }
             }
@@ -96,11 +102,11 @@ public class QuadTable {
         }
     }
 
-    public static void setQuadOp3(int branchQuad, int nextQuad) {
+    public void setQuadOp3(int branchQuad, int nextQuad) {
         /**
          * Works similar to UpdateQuad except only updates the indexed
          * quads op3 value with the next quad to execute.
          */
-        quad_table[3][branchQuad] = nextQuad;
+        quad_table[branchQuad][3] = nextQuad;
     }
 }

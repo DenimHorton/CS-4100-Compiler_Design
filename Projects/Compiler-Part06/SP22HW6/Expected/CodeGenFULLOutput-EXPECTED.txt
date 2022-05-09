@@ -1,0 +1,57 @@
+compile:
+run:
+Parsing d:\CodeGenFULL-SP22.txt
+0001 PROGRAM Codegen;
+d:\CodeGenFULL-SP22
+0002 begin
+0003 println("FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME 
+HERE>");
+0004
+0005 factorial := 1;
+0006 println("Enter the value 5 for n:");
+0007 readln(n);  {should be same as n := 5;}
+0008 count := 1;
+0009 dowhile count <= n
+0010   begin
+0011   factorial := factorial*count;
+0012   count := count + 1
+0013   end;
+0014 println("The calculation of 5! is:");
+0015 println(factorial);
+0016 println(" "); {blank line}
+0017
+0018 {count should be 6 at this point}
+0019 dowhile count > 1
+0020   begin
+0021   println(count);
+0022   if count - 2 > 2 then
+0023     println("Count - 2 is greater than 2")
+0024   else
+0025     println("Count - 2 is less than or equal to 2");
+0026   count := count -1
+0027   end;
+0028 println("Count is: ");
+0029 println(count);
+0030 println("All done.")
+0031 end.
+Success.
+FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME HERE>
+Enter the value 5 for n:
+>5
+The calculation of 5! is:
+120
+6
+Count - 2 is greater than 2
+5
+Count - 2 is greater than 2
+4
+Count - 2 is less than or equal to 2
+3
+Count - 2 is less than or equal to 2
+2
+Count - 2 is less than or equal to 2
+Count is:
+1
+All done.
+Execution terminated by program STOP.
+Done.

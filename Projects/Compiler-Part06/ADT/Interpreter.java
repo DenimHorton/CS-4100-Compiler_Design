@@ -165,7 +165,7 @@ public class Interpreter {
     }
 
     public void InterpretQuads(QuadTable Q, SymbolTable S,
-                               boolean TraceOn, String filename) {
+            boolean TraceOn, String filename) {
         /*
          * This function interpets values that are stored in side both
          * tables passed into the method along iwth using correspong
@@ -217,16 +217,33 @@ public class Interpreter {
             retrived_op3 = Q.GetQuad(program_counter, 3);
             retrived_symbol = Q.GetQuad(program_counter, 0);
 
+            // System.out.println("Retreived:\t" + retrived_symbol);
+            // System.out.println("Op1:\t\t" + retrived_op1);
+            // System.out.println("\tOp1 str:\t" + S.GetString(retrived_op1));
+            // System.out.println("\tOp1 smbl:\t" + S.GetSymbol(retrived_op1));
+            // System.out.println("\tOp1 data:\t" + S.GetDataType(retrived_op1));
+            // System.out.println("\tOp1 kind:" + S.GetKind(retrived_op1));
+            // System.out.println("Op2:\t\t" + retrived_op2);
+            // System.out.println("\tOp2 str:\t" + S.GetString(retrived_op2));
+            // System.out.println("\tOp2 smbl:\t" + S.GetSymbol(retrived_op2));
+            // System.out.println("\tOp2 data:\t" + S.GetDataType(retrived_op2));
+            // System.out.println("\tOp2 kind:" + S.GetKind(retrived_op2));
+            // System.out.println("Op3:\t\t" + retrived_op3);
+            // System.out.println("\tOp3 str:\t" + S.GetString(retrived_op3));
+            // System.out.println("\tOp3 smbl:\t" + S.GetSymbol(retrived_op3));
+            // System.out.println("\tOp3 data:\t" + S.GetDataType(retrived_op3));
+            // System.out.println("\tOp3 kind:\t" + S.GetKind(retrived_op3));
+
             // If trace is true then we log all the information to a
             // .txt file named what ever file name was passed to it,
             // 'filename'.
             if (TraceOn) {
                 // Builds trace string.
                 trace_string = makeTraceString(program_counter,
-                                               retrived_symbol,
-                                               retrived_op1,
-                                               retrived_op2,
-                                               retrived_op3);
+                        retrived_symbol,
+                        retrived_op1,
+                        retrived_op2,
+                        retrived_op3);
                 // Logs built information trace string, 'trace_string'.
                 this.logger(trace_string, filename);
             }
@@ -275,29 +292,29 @@ public class Interpreter {
                 // Write symbol table name and value of op3 to
                 // StandardOutput (console).
             } else if (retrived_symbol == 6) {
-                logger(S.GetSymbol(retrived_op1) + " = "
-                        + S.GetInteger(retrived_op1), filename);
-                if (S.GetDataType(retrived_op1) == 's') {
-                    System.out.println(S.GetSymbol(retrived_op1) + " = "
-                            + S.GetInteger(retrived_op1));
+                logger(S.GetSymbol(retrived_op3) + " = "
+                        + S.GetString(retrived_op3), filename);
+                if (S.GetDataType(retrived_op3) == 's') {
+                    System.out.println(S.GetString(retrived_op3));
+                } else if (S.GetDataType(retrived_op3) == 'c') {
+                    System.out.println(S.GetString(retrived_op3));
                 } else {
-                    System.out.println(S.GetInteger(retrived_op1));
+                    System.out.println(S.GetString(retrived_op3));
                 }
                 program_counter++;
-                // Symbol Table Insturction READ.
-                // Read the next integer from StandardInput (keyboard)
-                // as value of op3.
             } else if (retrived_symbol == 7) {
+                // Make a scanner to read from CONSOLE
+
                 Scanner keyboard = new Scanner(System.in);
                 do {
-                    System.out.println("Enter an integer:");
+                    System.out.print('>');
+                    // Read one integer only
                     input_value = keyboard.nextInt();
                 } while (input_value < 0 && input_value > this.optable.rsrv_table_index);
                 keyboard.close();
-                program_counter = input_value;
-                // Symbol Table Insturction JMP.
-                // Branch (unconditional); set program counter to op3
-                // (QuadTable index, not S.T.).
+                S.UpdateSymbol(retrived_op1, 'i', input_value);
+                keyboard = null;
+                program_counter++;
             } else if (retrived_symbol == 8) {
                 program_counter = retrived_op3;
                 // Symbol Table Insturction JZ.
@@ -361,19 +378,6 @@ public class Interpreter {
                 // (0-15) any thing that is not in the opcode will through
                 // the console printout. We will also double check this for
                 // sake of using the method built to do this.
-            } else if (retrived_symbol == 7){
-                // Make a scanner to read from CONSOLE
-                Scanner sc = new Scanner(System.in);
-                // Put out a prompt to the user
-                System.out.print('>');
-                // Read one integer only
-                int readval = sc.nextInt();
-                // Op3 has the ST index we need, update it
-                S.UpdateSymbol(retrived_op3,'i',readval);
-                // Deallocate the scanner
-                sc = null;
-                program_counter++;
-                break;
             } else if (optable.LookupCode(retrived_symbol) != "") {
                 System.out.println("Not a valid 'Reserved Symbol'."
                         + " Reffer to intialized 'Reserve Table' list 'optable'.");

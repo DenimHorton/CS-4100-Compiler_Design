@@ -1,0 +1,10 @@
+run:
+BASIC TEST File SP22 = BASIC TEST File SP22
+String printout:  Hello World = String printout:  Hello World
+a is now  = a is now 
+a = 16
+Input a value of 25 for a:  = Input a value of 25 for a: 
+After READLN, a is now  = After READLN, a is now 
+a = 25
+All done. = All done.
+Execution terminated by program STOP.

@@ -1,0 +1,20 @@
+|-1|c|i|-1|
+|1|c|i|1|
+|CodegenBASIC|p|i|0|
+|BASIC TEST File SP22|c|s|BASIC TEST File SP22|
+|String printout:  Hello World|c|s|String printout:  Hello World|
+|a|v|i|0|
+|2|c|i|2|
+|b|v|i|0|
+|3|c|i|3|
+|@0|v|i|0|
+|@1|v|i|0|
+|@2|v|i|0|
+|@3|v|i|0|
+|@4|v|i|0|
+|@5|v|i|0|
+|@6|v|i|0|
+|a is now |c|s|a is now |
+|Input a value of 25 for a: |c|s|Input a value of 25 for a: |
+|After READLN, a is now |c|s|After READLN, a is now |
+|All done.|c|s|All done.|
