@@ -1,10 +1,4 @@
 run:
-BASIC TEST File SP22 = BASIC TEST File SP22
-String printout:  Hello World = String printout:  Hello World
-a is now  = a is now 
-a = 16
-Input a value of 25 for a:  = Input a value of 25 for a: 
-After READLN, a is now  = After READLN, a is now 
-a = 25
-All done. = All done.
+FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME HERE> = FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME HERE>
+Enter the value 5 for n: = Enter the value 5 for n:
 Execution terminated by program STOP.

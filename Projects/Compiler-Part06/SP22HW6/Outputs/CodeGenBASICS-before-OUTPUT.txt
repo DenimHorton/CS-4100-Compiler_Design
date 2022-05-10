@@ -1,20 +1,22 @@
 |-1|c|i|-1|
 |1|c|i|1|
-|CodegenBASIC|p|i|0|
-|BASIC TEST File SP22|c|s|BASIC TEST File SP22|
-|String printout:  Hello World|c|s|String printout:  Hello World|
-|a|v|i|0|
-|2|c|i|2|
-|b|v|i|0|
-|3|c|i|3|
+|Codegen|p|i|0|
+|FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME HERE>|c|s|FULL SP22 TEST File for <ENTER YOUR STUDENT FULL NAME HERE>|
+|factorial|v|i|0|
+|Enter the value 5 for n:|c|s|Enter the value 5 for n:|
+|n|v|i|0|
+|count|v|i|0|
 |@0|v|i|0|
 |@1|v|i|0|
 |@2|v|i|0|
+|The calculation of 5! is:|c|s|The calculation of 5! is:|
+| |c|s| |
 |@3|v|i|0|
+|2|c|i|2|
 |@4|v|i|0|
 |@5|v|i|0|
+|Count - 2 is greater than 2|c|s|Count - 2 is greater than 2|
+|Count - 2 is less than or equal to 2|c|s|Count - 2 is less than or equal to 2|
 |@6|v|i|0|
-|a is now |c|s|a is now |
-|Input a value of 25 for a: |c|s|Input a value of 25 for a: |
-|After READLN, a is now |c|s|After READLN, a is now |
+|Count is: |c|s|Count is: |
 |All done.|c|s|All done.|

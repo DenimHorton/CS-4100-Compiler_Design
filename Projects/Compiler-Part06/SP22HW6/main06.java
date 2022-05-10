@@ -11,8 +11,8 @@ import ADT.*;
 public class main06 {
 
     public static void main(String[] args) {
-        // String filePath = ".\\SP22HW6\\Inputs\\CodeGenFULL-CSP22.txt";
-        String filePath = ".\\SP22HW6\\Inputs\\CodeGenBASIC-BSP22.txt";
+        String filePath = ".\\SP22HW6\\Inputs\\CodeGenFULL-CSP22.txt";
+        // String filePath = ".\\SP22HW6\\Inputs\\CodeGenBASIC-BSP22.txt";
         System.out.println("Parsing " + filePath);
         boolean traceon = false; // true; //false;
         Syntactic parser = new Syntactic(filePath, traceon);

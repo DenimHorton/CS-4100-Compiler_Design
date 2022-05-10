@@ -65,7 +65,7 @@ public class Syntactic {
         } else {
             System.out.println("Errors, unable to run program.");
         }
-        symbolList.PrintSymbolTable(".\\SP22HW6\\Outputs\\CodeGenBASICS-after-OUTPUT");
+        symbolList.PrintSymbolTable(".\\SP22HW6\\Outputs\\CodeGenBASICS-after-OUTPUT.txt");
     }
 
     private int GenSymbol() {
@@ -144,17 +144,53 @@ public class Syntactic {
         return result;
     }
 
+    private int doTypeCheck() {
+        return 0;
+    }
+
     // #################################################################################################
-    // Terminals and Non-Terminals
+    // Terminals, handlers, and Non-Terminals
     // Start
     // #################################################################################################
 
-    /*
-     * Not a Non-Terminal
-     *
-     * <handle Readln> -- >
-     *
-     */
+    private int handleIf() {
+        // Reset recur to 0
+        int recur = 0;
+        // If anyErrors is not equal to 0 then return -1
+        if (anyErrors) {
+            return -1;
+        }
+
+        int patchElse, branchQuad;
+        // Set Trace to track recursion through console
+        trace("handleIf", true);
+        if (token.code == lex.codeFor("IF___")) {
+            // move on
+            token = lex.GetNextToken();
+            branchQuad = Relexpression();
+            if (token.code == lex.codeFor("THEN_")) {
+                token = lex.GetNextToken();
+                recur = Statement();
+                if (token.code == lex.codeFor("ELSE_")) {
+                    token = lex.GetNextToken();
+                    patchElse = quads.NextQuad();
+                    quads.AddQuad(interp.optable.LookupName("JMP"), 0, 0, 0);
+                    quads.setQuadOp3(branchQuad, quads.NextQuad());
+                    recur = Statement();
+                    quads.setQuadOp3(patchElse, quads.NextQuad());
+                } else {
+                    quads.setQuadOp3(branchQuad, quads.NextQuad());
+                }
+            } else {
+                error(lex.reserveFor("THEN_"), token.lexeme);
+            }
+        } else {
+            error(lex.reserveFor("IF___"), token.lexeme);
+        }
+        trace("handleIf", false);
+        return recur;
+    }
+
     private int handleDoWhile() {
         // Reset recur to 0
         int recur = 0;
@@ -163,38 +199,24 @@ public class Syntactic {
             return -1;
         }
 
-        int branchTarget, branchQuad, saveTop;
+        int branchQuad, saveTop;
         // Set Trace to track recursion through console
         trace("handleDoWhile", true);
-        token = lex.GetNextToken();
-        branchTarget = quads.NextQuad();
-        Statement();
-        if (token.code == lex.codeFor("DOWHILE")) {
+        if (token.code == lex.codeFor("DOWHL")) {
             // move on
             token = lex.GetNextToken();
             saveTop = quads.NextQuad();
             branchQuad = Relexpression();
-            if (token.code == lex.codeFor("DO")) {
-                token = lex.GetNextToken();
-                Statement();
-                quads.AddQuad(interp.optable.LookupName("JMP"), 0, 0, saveTop);
-                quads.setQuadOp3(branchQuad, saveTop);
-            } else {
-                error(lex.reserveFor("DO"), token.lexeme);
-            }
+            recur = Statement();
+            quads.AddQuad(interp.optable.LookupName("JMP"), 0, 0, saveTop);
+            quads.setQuadOp3(branchQuad, quads.NextQuad());
         } else {
-            error(lex.reserveFor("DOWHILE"), token.lexeme);
+            error(lex.reserveFor("DOWHL"), token.lexeme);
         }
         trace("handleDoWhile", false);
         return recur;
     }
 
-    /*
-     * Not a Non-Terminal
-     *
-     * <handle Readln> -- >
-     *
-     */
     private int handleRepeat() {
         // Reset recur to 0
         int recur = 0;
@@ -208,7 +230,7 @@ public class Syntactic {
         trace("handleRepeat", true);
         token = lex.GetNextToken();
         branchTarget = quads.NextQuad();
-        Statement();
+        recur = Statement();
         if (token.code == lex.codeFor("UNTIL")) {
             // move on
             branchQuad = Relexpression();
@@ -220,12 +242,6 @@ public class Syntactic {
         return recur;
     }
 
-    /*
-     * Not a Non-Terminal
-     *
-     * <handle Readln> -- >
-     *
-     */
     private int handleReadln() {
         // Reset recur to 0
         int recur = 0;
@@ -261,12 +277,6 @@ public class Syntactic {
         return recur;
     }
 
-    /*
-     * Not a Non-Terminal
-     *
-     * <handle Assignment> -- > <variable> $COLON-EQUALS <simple expression>
-     *
-     */
     private int handleAssignment() {
         // Reset recur to 0
         int recur = 0;
@@ -284,18 +294,12 @@ public class Syntactic {
             left = SimpleExpression();
             quads.AddQuad(interp.optable.LookupName("MOV"), left, 0, right);
         } else {
-            error(lex.reserveFor("ASIGN"), token.lexeme);
+            token = lex.GetNextToken();
         }
         trace("handleAssignment", false);
         return recur;
     }
 
-    /*
-     * Not a Non-Terminal
-     *
-     * <handle Println> -- >
-     *
-     */
     private int handlePrintln() {
         int recur = 0;
         int toprint = 0;
@@ -449,23 +453,58 @@ public class Syntactic {
         // Set Trace to track recursion through console
         trace("Statement", true);
         if (token.code == lex.codeFor("PRGRM")) { // must be an ASSUGNMENT
-            // this would handle the rest of the IF statment IN PART B
+            token = lex.GetNextToken();
         } else if (token.code == lex.codeFor("IDENT")) { // must be an ASSUGNMENT
             recur = handleAssignment();
-        } else if (token.code == lex.codeFor("IF___")) { // must be an ASSUGNMENT
-            // this would handle the rest of the IF statment IN PART B
-        } else if (token.code == lex.codeFor("DOWHL")) { // must be an String Constant
+        } else if (token.code == lex.codeFor("IF___")) { // must be an
+            recur = handleIf();
+        } else if (token.code == lex.codeFor("BEGIN")) { // must be an
+            recur = Block();
+        } else if (token.code == lex.codeFor("DOWHL")) { // must be an
             recur = handleDoWhile();
-        } else if (token.code == lex.codeFor("REPEAT")) { // must be an ASSUGNMENT
+        } else if (token.code == lex.codeFor("REPEAT")) { // must be an
             recur = handleRepeat();
-        } else if (token.code == lex.codeFor("PRTLN")) { // must be an String Constant
+        } else if (token.code == lex.codeFor("PRTLN")) { // must be an
             recur = handlePrintln();
-        } else if (token.code == lex.codeFor("REDLN")) { // must be an String Constant
+        } else if (token.code == lex.codeFor("REDLN")) { // must be an
             recur = handleReadln();
         } else {
             error("Statement", token.lexeme);
         }
         trace("Statement", false);
+        return recur;
+    }
+
+    /*
+     * Non Terminal
+     *
+     * <addop> --> $PLUS | $MINUS
+     * 
+     */
+    private int relop() {
+        // Reset recur to 0
+        int recur = 0;
+        if (anyErrors) {
+            return -1;
+        }
+
+        trace("Relop", true);
+        if (token.code == lex.codeFor("BRCKT")) {
+            recur = relopToOpcode(token.code);
+        } else if (token.code == lex.codeFor("GRT__")) {
+            recur = relopToOpcode(token.code);
+        } else if (token.code == lex.codeFor("LES__")) {
+            recur = relopToOpcode(token.code);
+        } else if (token.code == lex.codeFor("GRTEQ")) {
+            recur = relopToOpcode(token.code);
+        } else if (token.code == lex.codeFor("LESEQ")) {
+            recur = relopToOpcode(token.code);
+        } else if (token.code == lex.codeFor("EQUAL")) {
+            recur = relopToOpcode(token.code);
+        }
+        token = lex.GetNextToken();
+        trace("Relop", false);
+
         return recur;
     }
 
@@ -485,11 +524,10 @@ public class Syntactic {
         int left, right, saveRelop, temp;
         trace("Relexpression", true);
         left = SimpleExpression();
-        saveRelop = relopToOpcode(token.code);
+        saveRelop = relop();
         right = SimpleExpression();
         temp = GenSymbol();
         quads.AddQuad(interp.optable.LookupName("SUB"), left, right, temp);
-        token = lex.GetNextToken();
         recur = quads.NextQuad();
         quads.AddQuad(relopToOpcode(saveRelop), temp, 0, 0);
         trace("Relexpression", false);
@@ -559,9 +597,13 @@ public class Syntactic {
         }
 
         trace("Identifier", true);
-        // doTypeCheck();
-        recur = symbolList.LookupSymbol(token.lexeme);
-        token = lex.GetNextToken();
+        if (token.code == lex.codeFor("IDENT")) {
+            recur = symbolList.LookupSymbol(token.lexeme);
+            token = lex.GetNextToken();
+        }
+        doTypeCheck();
+        // System.out.println("SymbolList Look up for \'"+token.lexeme+"\'':\t "+recur);
+
         trace("Identifier", false);
         return recur;
     }
