@@ -298,6 +298,8 @@ public class Interpreter {
                     System.out.println(S.GetString(retrived_op3));
                 } else if (S.GetDataType(retrived_op3) == 'c') {
                     System.out.println(S.GetString(retrived_op3));
+                } else if (S.GetDataType(retrived_op3) == 'v') {
+                    System.out.println(S.GetString(retrived_op3));
                 } else {
                     System.out.println(S.GetString(retrived_op3));
                 }
